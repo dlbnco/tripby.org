@@ -4,7 +4,7 @@ const Home = React.createClass({
   render () {
     return (
       <div>
-        <h1>Meu appzino</h1>
+        <h1>Homezinea</h1>
       </div>
     )
   }

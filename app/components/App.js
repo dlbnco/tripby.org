@@ -6,7 +6,7 @@ const App = React.createClass({
     return (
       <div>
         <header>
-
+          <h1>Headerzino</h1>
         </header>
         {this.props.children}
       </div>

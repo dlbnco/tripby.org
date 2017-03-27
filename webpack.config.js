@@ -15,7 +15,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js|jsx$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' }
+      { test: /\.js|jsx$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
+      { test: /\.scss$/, exclude: /node_modules/, loaders: ['style-loader', 'css-loader', 'sass-loader'] }
     ]
   },
   plugins: [HTMLWebpackPluginConfig]

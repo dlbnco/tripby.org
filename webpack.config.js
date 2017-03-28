@@ -4,6 +4,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   filename: 'index.html',
   inject: 'body'
 });
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: './app/index.js',
@@ -16,8 +17,15 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js|jsx$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
-      { test: /\.scss$/, exclude: /node_modules/, loaders: ['style-loader', 'css-loader', 'sass-loader'] }
+      { test: /\.svg|jpg|png$/, exclude: /node_modules/, loader: 'file-loader' },
+      { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract({fallback: 'style-loader', use:['css-loader', 'sass-loader']}) }
     ]
   },
-  plugins: [HTMLWebpackPluginConfig]
+  plugins: [
+    HTMLWebpackPluginConfig,
+    new ExtractTextPlugin({
+      filename: 'dist/style.css',
+      allChunks: true
+    })
+  ]
 };

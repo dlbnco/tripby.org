@@ -14,7 +14,7 @@ module.exports = {
     filename: "index_bundle.js",
     publicPath: '/'
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   module: {
     loaders: [
       { test: /\.js|jsx$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },

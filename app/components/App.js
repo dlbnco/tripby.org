@@ -1,17 +1,16 @@
 import React, { PropTypes } from 'react'
 import Home from './Home'
+import Header from './Header'
 
-const App = React.createClass({
+class App extends React.Component{
   render () {
     return (
       <div>
-        <header>
-          <h1>Headerzino</h1>
-        </header>
+        <Header />
         {this.props.children}
       </div>
     )
   }
-})
+}
 
 export default App

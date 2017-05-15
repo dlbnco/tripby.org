@@ -1,0 +1,32 @@
+@import "~hamburgers/dist/hamburgers";
+
+.hamburger:focus {
+  outline: 0;
+}
+.hamburger, .hamburger-box {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+.hamburger-box {
+}
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+  background: $grey;
+  width: 20px;
+  height: 2px;
+}
+.hamburger-inner {
+  margin-top: -1px;
+}
+.hamburger-inner::before {
+  top: -9px;
+}
+
+.hamburger-inner::after {
+  bottom: -9px;
+  width: 14px;
+}
+
+.is-active .hamburger-inner::after {
+  width: 20px;
+}

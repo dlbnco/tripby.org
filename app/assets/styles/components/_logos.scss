@@ -1,0 +1,14 @@
+.logo {
+	height: 28px;
+  max-width: 100%;
+	display: block;
+	//transition: all 0.2s ease;
+	margin: 0 auto;
+	position: relative;
+}
+
+@include media-breakpoint-up(md) {
+  .logo {
+    margin:0;
+  }
+}

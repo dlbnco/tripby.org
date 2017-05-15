@@ -1,13 +1,27 @@
 import React, { PropTypes } from 'react'
+import {Helmet} from 'react-helmet'
+import FeaturedContent from './FeaturedContent'
+import ImageWithCaption from './ImageWithCaption'
+import LinkButton from './LinkButton'
+import ListDrugs from './ListDrugs'
 
-const Home = React.createClass({
+class Home extends React.Component{
   render () {
     return (
       <div>
-        <h1>Homezinea</h1>
+        <section>
+          <FeaturedContent tagline="Faça uma doação e ganhe um pack de adesivos">
+            <LinkButton text="DOAR" link="/experimente" campaign arrow/>
+          </FeaturedContent>
+        </section>
+        <section className="section--tight">
+          <div className="container">
+            <ListDrugs />
+          </div>
+        </section>
       </div>
     )
   }
-})
+}
 
 export default Home

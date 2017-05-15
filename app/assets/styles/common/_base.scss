@@ -1,0 +1,17 @@
+/* base */
+html {
+	max-width:100%;
+	overflow-x:hidden;
+}
+body {
+	background-color: #fff;
+  font-size: 14px;
+}
+
+::selection {
+	background: $tbBlue--accent; /* WebKit/Blink Browsers */
+	color: #fff;
+}
+::-moz-selection {
+	background: $tbBlue--accent; /* Gecko Browsers */
+}

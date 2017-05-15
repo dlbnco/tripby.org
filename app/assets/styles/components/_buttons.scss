@@ -1,0 +1,21 @@
+.btn {
+  border-radius: 2px;
+  background-color: $tbBlue--accent;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'Aller', sans-serif;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: .2s;
+  font-size: 15px;
+  line-height: 1rem;
+}
+.btn:hover {
+  background-color: $tbBlue--light;
+  color: #fff;
+}
+
+.btn--campaign {
+  background-color: $campaignYellow;
+  color: #424242;
+}

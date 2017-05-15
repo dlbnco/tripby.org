@@ -1,0 +1,74 @@
+.map {
+	position: relative;
+	margin: 0 auto;
+	display: block;
+	width: 80%;
+	top: -8em;
+}
+@media (min-width: 767px) {
+	.map {
+		width: 30em;
+		left: -2em;
+	}
+}
+// map pulse
+@-webkit-keyframes pulse
+{
+	0% {-webkit-transform: scale(0); opacity: 0;}
+	8% {-webkit-transform: scale(0); opacity: 0;}
+	15% {-webkit-transform: scale(0.1); opacity: 1;}
+	30% {-webkit-transform: scale(0.8); opacity: 1;}
+	100% {opacity: 0; -webkit-transform: scale(4);}
+}
+
+@-moz-keyframes pulse
+{
+	0% {-moz-transform: scale(0); opacity: 0;}
+	8% {-moz-transform: scale(0); opacity: 0;}
+	15% {-moz-transform: scale(0.1); opacity: 1;}
+	30% {-moz-transform: scale(0.8); opacity: 1;}
+	100% {opacity: 0; -moz-transform: scale(4);}
+}
+
+.pulse_holder
+{
+	display: block;
+	position: absolute;
+	bottom: 19%;
+	left: 54.75%;
+}
+
+.pulse_holder .pulse_marker
+{
+	width: 16px;
+	height: 16px;
+	background: white;
+	border:2px solid $tbBlue--accent;
+	border-radius: 50%;
+}
+
+.pulse_holder .pulse_rays
+{
+	margin: 0 auto;
+	border-radius: 50%;
+	position: absolute;
+	z-index: 10;
+	background-color: transparent;
+	opacity: 0.1;
+	width: 64px;
+	height: 64px;
+	left: 50%;
+	margin-left: -32px;
+	top: 50%;
+	margin-top: -32px;
+	border: 2px solid rgba(255, 255, 255, 1);
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-o-border-radius: 50%;
+	-ms-border-radius: 50%;
+	border-radius: 50%;
+	/* Giving Animation Function */
+	-webkit-animation: pulse 2s linear infinite;
+	-moz-animation: pulse 2s linear infinite;
+	border-image: initial;
+}

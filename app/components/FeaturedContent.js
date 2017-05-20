@@ -14,8 +14,8 @@ const FeaturedContent = (props) => {
       <div className="d-flex" style={{position: 'relative'}}>
       <div className="container">
         <div className="row">
-          <div className="col-12 col-md-5 d-flex flex-column justify-content-center align-items-baseline section--tight">
-            <h3 className="text-uppercase"><strong style={textStyle}>{props.tagline}</strong></h3>
+          <div className="section col-12 col-md-5 d-flex flex-column justify-content-center align-items-baseline">
+            <h2 className="text-uppercase"><strong style={textStyle}>{props.tagline}</strong></h2>
             <p style={textStyle}>{props.subtagline}</p>
             {props.children}
           </div>

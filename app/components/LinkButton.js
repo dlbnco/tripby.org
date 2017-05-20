@@ -7,10 +7,10 @@ const LinkButton = (props) => {
     arrow = <i className="material-icons" style={{marginLeft: '0.5rem'}} aria-hidden="true">trending_flat</i>;
   } else arrow = '';
   return (
-    <Link to={props.link} className={'btn d-flex align-items-center' + ' ' + (props.campaign ? 'btn--campaign' : '') + ' ' + (props.centered ? 'mx-auto' : '')}>
+    <div className="d-inline-block"><Link to={props.link} className={'btn d-flex align-items-center' + ' ' + (props.campaign ? 'btn--campaign' : '') + ' ' + (props.centered ? 'mx-auto' : '')}>
       {props.text}
       {arrow}
-    </Link>
+    </Link></div>
   )
 }
 

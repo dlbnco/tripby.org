@@ -16,7 +16,7 @@ class Home extends React.Component{
         </section>
         <section className="section--tight">
           <div className="container">
-            <ListDrugs />
+            <ListDrugs perPage={4}/>
           </div>
         </section>
       </div>

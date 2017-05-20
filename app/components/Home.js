@@ -17,6 +17,7 @@ class Home extends React.Component{
         <section className="section--tight">
           <div className="container">
             <ListDrugs perPage={4}/>
+            <LinkButton text="Mais" link="/psicoativos" arrow/>
           </div>
         </section>
       </div>

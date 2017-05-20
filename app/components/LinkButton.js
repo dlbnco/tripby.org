@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 
 const LinkButton = (props) => {
   let arrow = null;
@@ -6,10 +7,10 @@ const LinkButton = (props) => {
     arrow = <i className="material-icons" style={{marginLeft: '0.5rem'}} aria-hidden="true">trending_flat</i>;
   } else arrow = '';
   return (
-    <a href={props.link} className={'btn d-flex align-items-center' + ' ' + (props.campaign ? 'btn--campaign' : '') + ' ' + (props.centered ? 'mx-auto' : '')}>
+    <Link to={props.link} className={'btn d-flex align-items-center' + ' ' + (props.campaign ? 'btn--campaign' : '') + ' ' + (props.centered ? 'mx-auto' : '')}>
       {props.text}
       {arrow}
-    </a>
+    </Link>
   )
 }
 

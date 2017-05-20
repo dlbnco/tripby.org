@@ -1,10 +1,13 @@
 .section {
-  padding-top: 3em;
-  padding-bottom: 3em;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .section--tight {
-  padding-top: 7.5%;
-  padding-bottom: 7.5%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.section--grey {
+  background: #fafafa;
 }
 .section--pattern {
   background-color: #fff;

@@ -1,21 +1,40 @@
+html {
+  font-size: 14px;
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 20px;
+  }
+}
+
 html, body {
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  font-size: 1rem;
+  font-weight: normal;
+  font-size: 14px;
   color: #757575;
 }
 
 p, ul, li, a {
   line-height: 1.8;
 }
-@media (min-width:601px) {
-	p, ul, li, a {
-		font-size: 1rem;
-	}
+p small {
+  font-size: 14px;
+}
+@include media-breakpoint-up(md) {
+  p, ul, li, a {
+    font-size: 1rem;
+  }
   p, p > em {
     font-size: 1rem;
   }
-}
+};
 
 
 //materialize override
@@ -32,8 +51,12 @@ strong {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Gilroy' !important;
 	font-weight: 300;
-  letter-spacing: 4px;
   line-height: 1.25;
+  letter-spacing: 1px;
+}
+
+h1 strong, h2 strong, h3 strong, h4 strong, h5 strong, h6 strong {
+  letter-spacing: 4px;
 }
 
 // h1 {

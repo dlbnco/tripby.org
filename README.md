@@ -2,4 +2,7 @@
 Project for the next client-side layer of [tripby.org]()
 
 ## Installation
-`npm install`
+1. `npm install`
+- `npm start`
+
+Project will be available at `http://localhost:8000`

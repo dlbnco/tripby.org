@@ -8,6 +8,12 @@
   transition: .2s;
   font-size: 15px;
   line-height: 1rem;
+  margin-right: 0.5rem;
+}
+.btn-secondary {
+  background: none;
+  border: 1px solid $tbBlue--accent;
+  color: $tbBlue--accent;
 }
 .btn:hover {
   background-color: $tbBlue--light;

@@ -4,9 +4,14 @@ const Footer = (props) => {
   return (
     <div>
       <section className="section--tight">
-        <ul>
-          <li><a href="https://www.facebook.com/tripby"></a></li>
-        </ul>
+        <div className="container">
+          <ul>
+            <li><a href="https://www.facebook.com/tripby">Facebook</a></li>
+            <li><a href="https://www.facebook.com/tripby">Twitter</a></li>
+            <li><a href="https://www.facebook.com/tripby">Instagram</a></li>
+            <li><a href="https://www.facebook.com/tripby">GitHub</a></li>
+          </ul>
+        </div>
       </section>
     </div>
   )

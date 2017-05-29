@@ -10,7 +10,7 @@ class Home extends React.Component{
     return (
       <div>
           <FeaturedContent tagline="Faça uma doação e ganhe um pack de adesivos">
-            <LinkButton text="DOAR" link="/experimente" campaign arrow/>
+            <LinkButton text="DOAR" link="/experimente" campaign icon="trending_flat"/>
           </FeaturedContent>
         <section className="section section--grey">
           <div className="container">

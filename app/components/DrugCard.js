@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 
 class DrugCard extends React.Component{
   render () {
@@ -9,7 +10,7 @@ class DrugCard extends React.Component{
       backgroundPosition: 'center'
     }
     return (
-      <div className="card" style={{marginBottom: '1rem'}}>
+      <Link to={'/psicoativos/' + this.props.slug} className="card" style={{marginBottom: '1rem'}}>
         <div className="card-block">
           <div className="row">
             <div className="col-8">
@@ -24,7 +25,7 @@ class DrugCard extends React.Component{
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     )
   }
 }

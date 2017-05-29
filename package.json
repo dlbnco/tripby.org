@@ -20,6 +20,7 @@
     "express": "^4.15.2",
     "hamburgers": "^0.8.1",
     "html-webpack-plugin": "^2.28.0",
+    "json-loader": "^0.5.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-helmet": "^5.0.3",

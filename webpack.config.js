@@ -19,7 +19,8 @@ module.exports = {
     loaders: [
       { test: /\.js|jsx$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
       { test: /\.svg|jpg|png|woff|woff2$/, exclude: /node_modules/, loader: 'url-loader' },
-      { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract({fallback: 'style-loader', use:[{loader: 'css-loader', options: {sourceMap: true}}, {loader: 'sass-loader', options: {sourceMap: true}}]}) }
+      { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract({fallback: 'style-loader', use:[{loader: 'css-loader', options: {sourceMap: true}}, {loader: 'sass-loader', options: {sourceMap: true}}]}) },
+      { test: /\.json$/, use: 'json-loader' }
     ]
   },
   plugins: [

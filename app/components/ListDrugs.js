@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import DrugCard from './DrugCard'
 import axios from 'axios'
 import Spinner from './Spinner'
@@ -17,7 +17,7 @@ class ListDrugs extends React.Component{
 
   theDrugs() {
     const drugs = this.state.drugObject.map( ( drug, index ) => (
-      <div className="col-12 col-md-6" key={index}>
+      <div className="col-12 col-md-6 col-lg-4" key={index}>
         <DrugCard slug={drug.slug} drugName={drug.title.rendered} drugClass={drug.acf.drug_type} drugMolecule={drug.acf.drug_molecule_grey} drugDosage={drug.acf.drug_dose} drugDuration={drug.acf.drug_duration}/>
       </div>
     ))
@@ -60,7 +60,6 @@ class ListDrugs extends React.Component{
     })
     .then(function (response) {
       // set state with info from response
-      console.log(response.data)
       that.setState({drugObject: response.data, loading: false})
     })
     .catch(function (error) {

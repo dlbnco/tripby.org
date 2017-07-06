@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Router from 'react-router'
 
 class Page extends React.Component{

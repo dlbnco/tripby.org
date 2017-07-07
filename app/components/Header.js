@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import logo from '../assets/img/logos/logo.svg'
 import classNames from 'classnames'
 import Hamburger from './Hamburger'
 import Navigation from './Navigation'
+import {Link} from 'react-router'
 
 class Header extends React.Component{
   constructor() {
@@ -26,7 +27,7 @@ class Header extends React.Component{
               <Hamburger onClick={this.handleNav} navOpened={this.state.navOpened} />
             </div>
             <div className="col-4 col-sm-4 col-md-2">
-              <img src={logo} className="logo" />
+              <Link to="/"><img src={logo} className="logo" /></Link>
             </div>
             <div className={"col-12 col-sm-12 col-md-10 d-flex justify-content-end " + (this.state.navOpened ? '' : 'hidden-md-down') }>
               <Navigation navOpened={this.state.navOpened} />

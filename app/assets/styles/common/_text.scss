@@ -4,23 +4,17 @@ html {
 
 @include media-breakpoint-up(md) {
   html {
-    font-size: 16px;
-  }
-}
-
-@include media-breakpoint-up(md) {
-  html {
-    font-size: 20px;
+    font-size: 15px;
   }
 }
 
 html, body {
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
-  font-size: 14px;
+}
+html, body, p {
   color: #757575;
 }
-
 p, ul, li, a {
   line-height: 1.8;
 }

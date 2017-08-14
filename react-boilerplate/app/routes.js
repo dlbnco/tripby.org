@@ -34,7 +34,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading)
       },
     }, {
-      path: '/psicoativos/:drug',
+      path: '/drugs/:drug',
       name: 'drugPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -50,6 +50,14 @@ export default function createRoutes(store) {
         })
 
         importModules.catch(errorLoading)
+      },
+    }, {
+      path: '/articles/:article',
+      name: 'articlePage',
+      getComponent(location, cb) {
+        import('containers/ArticlePage')
+          .then(loadModule(cb))
+          .catch(errorLoading)
       },
     }, {
       path: '*',

@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React from 'react'
 // import styled from 'styled-components';
 
 
@@ -13,12 +13,12 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     return (
       <div>
       </div>
-    );
+    )
   }
 }
 
 Header.propTypes = {
 
-};
+}
 
-export default Header;
+export default Header

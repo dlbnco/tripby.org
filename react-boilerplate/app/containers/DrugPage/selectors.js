@@ -1,9 +1,9 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect'
 
 /**
  * Direct selector to the drugPage state domain
  */
-const selectDrugPageDomain = () => (state) => state.get('drugPage');
+const selectDrugPageDomain = () => (state) => state.get('drugPage')
 
 /**
  * Other specific selectors
@@ -17,9 +17,9 @@ const selectDrugPageDomain = () => (state) => state.get('drugPage');
 const makeSelectDrugPage = () => createSelector(
   selectDrugPageDomain(),
   (substate) => substate.toJS()
-);
+)
 
-export default makeSelectDrugPage;
+export default makeSelectDrugPage
 export {
   selectDrugPageDomain,
-};
+}

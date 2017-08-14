@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React from 'react'
 // import styled from 'styled-components';
 
 
@@ -12,11 +12,11 @@ function Molecule() {
   return (
     <div>
     </div>
-  );
+  )
 }
 
 Molecule.propTypes = {
 
-};
+}
 
-export default Molecule;
+export default Molecule

@@ -226,6 +226,7 @@
     "invariant": "2.2.2",
     "ip": "1.1.4",
     "lodash": "4.17.2",
+    "material-tabs": "0.0.8",
     "minimist": "1.2.0",
     "node-sass": "^4.5.3",
     "prop-types": "^15.5.10",

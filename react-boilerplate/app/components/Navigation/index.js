@@ -4,19 +4,27 @@
 *
 */
 
-import React from 'react';
-// import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 
-
-function Navigation() {
+function Navigation(props) {
   return (
-    <div>
-    </div>
-  );
+    <nav className={`nav ${(props.navOpened ? 'nav--visible' : '')}`}>
+      <ul>
+        <li>
+          <Link to="/psicoativos">Psicoativos</Link>
+        </li>
+        <li>
+          <Link to="/reducao-de-danos">Redução de danos</Link>
+        </li>
+      </ul>
+    </nav>
+  )
 }
 
 Navigation.propTypes = {
+  navOpened: PropTypes.bool,
+}
 
-};
-
-export default Navigation;
+export default Navigation

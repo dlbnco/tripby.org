@@ -11,7 +11,9 @@
  * the linting exception.
  */
 
-import React from 'react';
+import React from 'react'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -21,9 +23,13 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div>
-        {React.Children.toArray(this.props.children)}
+      <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
+        <Header />
+        <div style={{ flex: 1 }}>
+          {React.Children.toArray(this.props.children)}
+        </div>
+        <Footer />
       </div>
-    );
+    )
   }
 }

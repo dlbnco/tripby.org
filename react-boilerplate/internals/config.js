@@ -1,6 +1,6 @@
-const resolve = require('path').resolve;
-const pullAll = require('lodash/pullAll');
-const uniq = require('lodash/uniq');
+const resolve = require('path').resolve
+const pullAll = require('lodash/pullAll')
+const uniq = require('lodash/uniq')
 
 const ReactBoilerplate = {
   // This refers to the react-boilerplate version this project is based on.
@@ -41,16 +41,16 @@ const ReactBoilerplate = {
     },
 
     entry(pkg) {
-      const dependencyNames = Object.keys(pkg.dependencies);
-      const exclude = pkg.dllPlugin.exclude || ReactBoilerplate.dllPlugin.defaults.exclude;
-      const include = pkg.dllPlugin.include || ReactBoilerplate.dllPlugin.defaults.include;
-      const includeDependencies = uniq(dependencyNames.concat(include));
+      const dependencyNames = Object.keys(pkg.dependencies)
+      const exclude = pkg.dllPlugin.exclude || ReactBoilerplate.dllPlugin.defaults.exclude
+      const include = pkg.dllPlugin.include || ReactBoilerplate.dllPlugin.defaults.include
+      const includeDependencies = uniq(dependencyNames.concat(include))
 
       return {
         reactBoilerplateDeps: pullAll(includeDependencies, exclude),
-      };
+      }
     },
   },
-};
+}
 
-module.exports = ReactBoilerplate;
+module.exports = ReactBoilerplate

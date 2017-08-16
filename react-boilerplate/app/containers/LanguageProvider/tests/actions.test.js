@@ -1,10 +1,10 @@
 import {
   changeLocale,
-} from '../actions';
+} from '../actions'
 
 import {
   CHANGE_LOCALE,
-} from '../constants';
+} from '../constants'
 
 describe('LanguageProvider actions', () => {
   describe('Change Local Action', () => {
@@ -12,8 +12,8 @@ describe('LanguageProvider actions', () => {
       const expected = {
         type: CHANGE_LOCALE,
         locale: 'de',
-      };
-      expect(changeLocale('de')).toEqual(expected);
-    });
-  });
-});
+      }
+      expect(changeLocale('de')).toEqual(expected)
+    })
+  })
+})

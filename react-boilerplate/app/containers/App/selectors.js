@@ -1,20 +1,20 @@
 // makeSelectLocationState expects a plain JS object for the routing state
 const makeSelectLocationState = () => {
-  let prevRoutingState;
-  let prevRoutingStateJS;
+  let prevRoutingState
+  let prevRoutingStateJS
 
   return (state) => {
-    const routingState = state.get('route'); // or state.route
+    const routingState = state.get('route') // or state.route
 
     if (!routingState.equals(prevRoutingState)) {
-      prevRoutingState = routingState;
-      prevRoutingStateJS = routingState.toJS();
+      prevRoutingState = routingState
+      prevRoutingStateJS = routingState.toJS()
     }
 
-    return prevRoutingStateJS;
-  };
-};
+    return prevRoutingStateJS
+  }
+}
 
 export {
   makeSelectLocationState,
-};
+}

@@ -12,10 +12,9 @@
 import React from 'react'
 import {Helmet} from 'react-helmet'
 import FeaturedContent from '../../components/FeaturedContent'
-import ImageWithCaption from './ImageWithCaption'
 import LinkButton from '../../components/LinkButton'
-import ListDrugs from '../../components/ListDrugs'
-import ListArticles from '../../components/ListArticles'
+import ListDrugs from '../ListDrugs'
+import ListArticles from '../ListArticles'
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

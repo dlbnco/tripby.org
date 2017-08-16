@@ -38,7 +38,6 @@ class ArticleCard extends React.Component{
         include: this.props.thumbId
       }
     }).then(function (response) {
-      console.log(response)
       that.setState({
         thumbnailUrl: response.data[0].media_details.sizes.large.source_url
       })

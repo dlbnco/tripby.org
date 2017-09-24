@@ -42,7 +42,7 @@ class ArticleCard extends React.Component { // eslint-disable-line react/prefer-
     return (
       <Link to={`/artigos/${this.props.slug}`} className="card" style={{ marginBottom: '1rem' }}>
         <div className="card-img-top" style={thumbStyle} />
-        <div className="card-block">
+        <div className="card-body">
           <div className="row">
             <div className="col">
               <h4 className="tbBlue-text">{this.props.title}</h4>

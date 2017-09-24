@@ -18,7 +18,7 @@ function DrugCard(props) {
   }
   return (
     <Link to={`/psicoativos/${props.slug}`} className="card" style={{ marginBottom: '1rem' }}>
-      <div className="card-block">
+      <div className="card-body">
         <div className="row">
           <div className="col-8">
             <h3 className="tbBlue-text">{props.drugName}</h3>

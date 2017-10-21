@@ -25,7 +25,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     return (
       <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
         <Header />
-        <div style={{ flex: 1 }}>
+        <div style={{ backgroundColor: 'rgb(224, 247, 250)', flex: 1 }} className="d-flex flex-column">
           {React.Children.toArray(this.props.children)}
         </div>
         <Footer />

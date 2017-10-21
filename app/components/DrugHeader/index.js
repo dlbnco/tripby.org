@@ -33,30 +33,6 @@ function DrugHeader(props) {
             </div>
           </div>
         </div>
-        <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
-          <div style={{ minWidth: 480, margin: '0 auto' }} className="container">
-            <TabGroup style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={props.handleTabs}>
-              <Tab style={tabStyle}>
-                Básico
-              </Tab>
-              <Tab style={tabStyle}>
-                Efeitos
-              </Tab>
-              <Tab style={tabStyle}>
-                Dosagem
-              </Tab>
-              <Tab style={tabStyle}>
-                Saúde
-              </Tab>
-              <Tab style={tabStyle}>
-                Lei
-              </Tab>
-              <Tab style={tabStyle}>
-                + Info
-              </Tab>
-            </TabGroup>
-          </div>
-        </div>
       </section>
     </div>
   )

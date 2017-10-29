@@ -81,7 +81,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
               <DrugHeader
                 handleTabs={this.handleTabs}
                 drugName={this.state.drug.name}
-                drugNicknames={this.state.drug.aliases}
+                drugAliases={this.state.drug.aliases}
                 drugClass={this.state.drug.class.title}
                 drugRoutes={this.state.drug.routes}
                 drugMolecule={this.state.drug.molecule}

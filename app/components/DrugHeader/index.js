@@ -21,7 +21,7 @@ function DrugHeader(props) {
             <div className="col">
               <h1 className="text-uppercase"><strong>{props.drugName}</strong></h1>
               ou
-              <p><em>{props.drugNicknames}</em></p>
+              <p><em><small>{props.drugAliases.join(', ')}</small></em></p>
               <div className="badge badge-pill mb-3">
                 <span className="text-uppercase"><strong>{props.drugClass}</strong></span>
               </div>
@@ -41,7 +41,7 @@ function DrugHeader(props) {
 DrugHeader.propTypes = {
   drugName: PropTypes.string,
   drugClass: PropTypes.string,
-  drugNicknames: PropTypes.string,
+  drugAliases: PropTypes.array,
   drugRoutes: PropTypes.string,
   drugMolecule: PropTypes.string,
   handleTabs: PropTypes.func,

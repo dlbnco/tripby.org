@@ -7,7 +7,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import Helmet from 'react-helmet'
 import { TabGroup, Tab } from 'material-tabs'
 import { createStructuredSelector } from 'reselect'

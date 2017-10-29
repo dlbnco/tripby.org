@@ -6,13 +6,8 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TabGroup, Tab } from 'material-tabs'
 
 function DrugHeader(props) {
-  const tabStyle = {
-    color: '#ee6e73',
-    fontWeight: 500,
-  }
   return (
     <div>
       <section className="section pb-0" style={{ backgroundColor: '#E0F7FA', color: '#424242' }}>
@@ -44,7 +39,6 @@ DrugHeader.propTypes = {
   drugAliases: PropTypes.array,
   drugRoutes: PropTypes.string,
   drugMolecule: PropTypes.string,
-  handleTabs: PropTypes.func,
 }
 
 export default DrugHeader

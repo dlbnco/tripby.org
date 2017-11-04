@@ -49,6 +49,9 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
           routes {
             name
           }
+          molecules {
+            url
+          }
           summary
           effectsExcerpt
         }
@@ -83,7 +86,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                 drugAliases={this.state.drug.aliases}
                 drugClass={this.state.drug.class.title}
                 drugRoutes={this.state.drug.routes}
-                drugMolecule={this.state.drug.molecule}
+                drugMolecules={this.state.drug.molecules}
               />
             </div>
             <div className="col-12 col-lg-8 card mt-3" style={{ borderRadius: '4px' }}>

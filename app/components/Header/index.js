@@ -27,14 +27,14 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     return (
       <header className="header">
         <div className="container">
-          <div className="row flex-wrap align-items-center">
-            <div className="col-4 col-sm-4 hidden-md-up d-flex align-items-center">
+          <div className="d-flex flex-wrap align-items-center">
+            <div className="hidden-md-up d-flex align-items-center">
               <Hamburger onClick={this.handleNav} navOpened={this.state.navOpened} />
             </div>
-            <div className="col-4 col-sm-4 col-md-2">
+            <div className="ml-3">
               <Link to="/"><img role="presentation" src={logo} className="logo" /></Link>
             </div>
-            <div className={`"col-12 col-sm-12 col-md-10 d-flex justify-content-end ${(this.state.navOpened ? '' : 'hidden-md-down')}`}>
+            <div className={`d-flex justify-content-end ${(this.state.navOpened ? '' : 'hidden-md-down')}`}>
               <Navigation navOpened={this.state.navOpened} />
             </div>
           </div>

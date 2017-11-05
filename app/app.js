@@ -17,6 +17,12 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
 import 'sanitize.css/sanitize.css'
 
+// Import Apollo stuff
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloProvider } from 'react-apollo'
+
 // Import root app
 import App from 'containers/App'
 
@@ -64,19 +70,27 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 }
 
+// Setup Apollo
+const client = new ApolloClient({
+  link: new HttpLink({ uri: 'https://api.graph.cool/simple/v1/tripby' }),
+  cache: new InMemoryCache(),
+})
+
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <Router
-          history={history}
-          routes={rootRoute}
-          render={
+        <ApolloProvider client={client}>
+          <Router
+            history={history}
+            routes={rootRoute}
+            render={
             // Scroll to top when going to a new page, imitating default browser
             // behaviour
             applyRouterMiddleware(useScroll())
           }
-        />
+          />
+        </ApolloProvider>
       </LanguageProvider>
     </Provider>,
     document.getElementById('app')

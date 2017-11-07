@@ -15,8 +15,6 @@ import { createStructuredSelector } from 'reselect'
 import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
 import DrugHeader from '../../components/DrugHeader'
-import client from '../../client'
-
 
 const tabStyle = {
   color: '#ee6e73',
@@ -150,7 +148,6 @@ const Drug = gql`
 `
 
 DrugPage.propTypes = {
-  params: PropTypes.object,
   data: PropTypes.object,
 }
 

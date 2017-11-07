@@ -12,6 +12,7 @@
  */
 
 import React from 'react'
+import Helmet from 'react-helmet'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 
@@ -23,12 +24,15 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-        <Header />
-        <div style={{ backgroundColor: 'rgb(224, 247, 250)', flex: 1 }} className="d-flex flex-column">
-          {React.Children.toArray(this.props.children)}
+      <div>
+        <Helmet title="TRIPBY" />
+        <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
+          <Header />
+          <div style={{ backgroundColor: 'rgb(224, 247, 250)', flex: 1 }} className="d-flex flex-column">
+            {React.Children.toArray(this.props.children)}
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
     )
   }

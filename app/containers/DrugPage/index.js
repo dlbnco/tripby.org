@@ -8,12 +8,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 import { TabGroup, Tab } from 'material-tabs'
 import { createStructuredSelector } from 'reselect'
 import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
 import DrugHeader from '../../components/DrugHeader'
 import client from '../../client'
+
 
 const tabStyle = {
   color: '#ee6e73',
@@ -36,36 +39,8 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
       error: null,
     }
   }
-  componentDidMount() {
-    const name = this.props.params.drug
-    client.query(`
-      {
-        Drug (name: "${name}") {
-          name
-          aliases
-          class {
-            title
-          }
-          routes {
-            name
-          }
-          molecules {
-            url
-          }
-          summary
-          effectsExcerpt
-        }
-      }
-      `).then((response) => {
-        const drug = response.Drug
-        this.setState({
-          drug,
-          loading: false,
-        })
-      })
-  }
   theDrug() {
-    if (this.state.loading && this.state.error == null) {
+    if (this.props.data.loading && this.state.error == null) {
       return (
         <Spinner className="mx-auto" />
       )
@@ -82,11 +57,11 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
             <div className="col-12 col-lg-4">
               <DrugHeader
                 handleTabs={this.handleTabs}
-                drugName={this.state.drug.name}
-                drugAliases={this.state.drug.aliases}
-                drugClass={this.state.drug.class.title}
-                drugRoutes={this.state.drug.routes}
-                drugMolecules={this.state.drug.molecules}
+                drugName={this.props.data.Drug.name}
+                drugAliases={this.props.data.Drug.aliases}
+                drugClass={this.props.data.Drug.class.title}
+                drugRoutes={this.props.data.Drug.routes}
+                drugMolecules={this.props.data.Drug.molecules}
               />
             </div>
             <div className="col-12 col-lg-8 card mt-3" style={{ borderRadius: '4px' }}>
@@ -115,13 +90,13 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                 </div>
               </div>
               <div className="card-body">
-                <p>{this.state.drug.summary}</p>
+                <p>{this.props.data.Drug.summary}</p>
                 <div className="row">
                   <div className="col-12 col-md-6 col-xl-4">
                     <div className="card">
                       <div className="card-body">
                         <h4 className="text-uppercase">Efeitos</h4>
-                        {this.state.drug.effectsExcerpt}
+                        {this.props.data.Drug.effectsExcerpt}
                       </div>
                       <div className="card-footer">
                         Mais
@@ -145,7 +120,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
     return (
       <div style={{ flex: 1 }}>
         <Helmet>
-          <title>{this.state.loading ? 'TRIPBY' : `${this.state.drug.name} – efeitos, duração, dose, saúde e lei`}</title>
+          <title>{this.state.loading ? 'TRIPBY' : `${this.props.data.Drug.name} – efeitos, duração, dose, saúde e lei`}</title>
         </Helmet>
         {this.theDrug()}
       </div>
@@ -154,8 +129,29 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
 
 }
 
+const Drug = gql`
+  query($id: ID!) {
+    Drug(id: $id) {
+      name
+      aliases
+      class {
+        title
+      }
+      routes {
+        name
+      }
+      molecules {
+        url
+      }
+      summary
+      effectsExcerpt
+    }
+  }
+`
+
 DrugPage.propTypes = {
   params: PropTypes.object,
+  data: PropTypes.object,
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -168,4 +164,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrugPage)
+export default graphql(Drug, { options: ({ params }) => ({ variables: { id: params.drug } }) })(connect(mapStateToProps, mapDispatchToProps)(DrugPage))

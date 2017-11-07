@@ -17,11 +17,13 @@ function DrugHeader(props) {
               <h1 className="text-uppercase mb-0"><strong>{props.drugName}</strong></h1>
             </div>
             <div className="col-6 d-flex justify-content-end">
-              <img src={props.drugMolecules[0].url} role="presentation" style={{ maxWidth: 96 }} />
+              {props.drugMolecules.length > 0 ? <img src={props.drugMolecules[0].url} role="presentation" style={{ maxWidth: 96 }} /> : null}
             </div>
             <div className="col-12">
-                ou
-                <p><em><small>{props.drugAliases.join(', ')}</small></em></p>
+              {props.drugAliases ? <span>
+                  ou
+                  <p><em><small>{props.drugAliases.join(', ')}</small></em></p>
+              </span> : null}
               <div className="badge badge-pill mb-3">
                 <span className="text-uppercase"><strong>{props.drugClass}</strong></span>
               </div>
@@ -39,8 +41,8 @@ DrugHeader.propTypes = {
   drugName: PropTypes.string,
   drugClass: PropTypes.string,
   drugAliases: PropTypes.array,
-  drugRoutes: PropTypes.string,
-  drugMolecules: PropTypes.string,
+  drugRoutes: PropTypes.array,
+  drugMolecules: PropTypes.array,
 }
 
 export default DrugHeader

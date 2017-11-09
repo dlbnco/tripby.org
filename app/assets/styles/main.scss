@@ -3,13 +3,11 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 @import "common/colors";
-:export { tbPink: $tbPink; }
 
 @import "common/base";
 @import "common/text";
 
 @import "components/nav";
-@import "components/map";
 @import "components/cards";
 @import "components/icons";
 @import "components/logos";
@@ -18,5 +16,3 @@
 @import "components/spinner";
 @import "components/buttons";
 @import "components/hamburgers";
-
-@import "layouts/sections";

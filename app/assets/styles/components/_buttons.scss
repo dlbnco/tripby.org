@@ -1,6 +1,6 @@
 .btn {
   border-radius: 2px;
-  background-color: $tbBlue--accent;
+  background-color: map-get($colors, blueLight);
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
@@ -9,18 +9,26 @@
   font-size: 15px;
   line-height: 1rem;
   margin-right: 0.5rem;
+  &:hover {
+    opacity: 0.8;
+    color: #fff;
+  }
 }
 .btn-secondary {
   background: none;
-  border: 1px solid $tbBlue--accent;
-  color: $tbBlue--accent;
-}
-.btn:hover {
-  background-color: $tbBlue--light;
-  color: #fff;
+  border: 1px solid map-get($colors, blueAccent);
+  color: map-get($colors, blueAccent);
+  &:hover {
+    background-color: map-get($colors, blueLight);
+    border: 1px solid map-get($colors, blueLight)
+  }
 }
 
 .btn--campaign {
-  background-color: $campaignYellow;
-  color: #424242;
+  background-color: map-get($colors, green);
+  color: rgba(0,0,0,0.75);
+  &:hover {
+    opacity: 0.8;
+    color: rgba(0,0,0,0.55);
+  }
 }

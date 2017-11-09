@@ -11,7 +11,7 @@
 .hamburger-box {
 }
 .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
-  background: $grey;
+  background: map-get($colors, grey);
   width: 20px;
   height: 2px;
 }

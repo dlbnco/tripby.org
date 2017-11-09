@@ -9,9 +9,10 @@ body {
 }
 
 ::selection {
-	background: $tbBlue--accent; /* WebKit/Blink Browsers */
+	background: map-get($colors, blueAccent); /* WebKit/Blink Browsers */
 	color: #fff;
 }
-::-moz-selection {
-	background: $tbBlue--accent; /* Gecko Browsers */
+::moz-selection {
+  background: map-get($colors, blueAccent); /* WebKit/Blink Browsers */
+	color: #fff;
 }

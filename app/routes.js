@@ -60,6 +60,24 @@ export default function createRoutes(store) {
           .catch(errorLoading)
       },
     }, {
+      path: '/drugs',
+      name: 'allDrugs',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/AllDrugs/reducer'),
+          import('containers/AllDrugs'),
+        ])
+
+        const renderRoute = loadModule(cb)
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('allDrugs', reducer.default)
+          renderRoute(component)
+        })
+
+        importModules.catch(errorLoading)
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

@@ -11,7 +11,7 @@
 
 import React from 'react'
 import FeaturedContent from '../../components/FeaturedContent'
-import LinkButton from '../../components/LinkButton'
+import Button from '../../components/Button'
 import ListDrugs from '../../components/ListDrugs'
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -19,7 +19,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <div>
         <FeaturedContent tagline="Leia a bula." subtagline="Saiba como contribuir com o TRIPBY">
-          <LinkButton text="Contribuir" link="/contribuir" campaign icon="trending_flat" />
+          <Button campaign icon="trending_flat">Contribuir</Button>
         </FeaturedContent>
         <section className="py-4 grey--lighter">
           <div className="container">

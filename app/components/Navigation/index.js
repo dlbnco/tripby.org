@@ -13,7 +13,7 @@ function Navigation(props) {
     <nav className={`nav ${(props.navOpened ? 'nav--visible' : '')}`}>
       <ul>
         <li>
-          <Link to="/psicoativos">Psicoativos</Link>
+          <Link to="/drugs">Psicoativos</Link>
         </li>
         <li>
           <Link to="/reducao-de-danos">Redução de danos</Link>

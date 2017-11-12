@@ -12,7 +12,7 @@
 import React from 'react'
 import FeaturedContent from '../../components/FeaturedContent'
 import LinkButton from '../../components/LinkButton'
-import ListDrugs from '../ListDrugs'
+import ListDrugs from '../../components/ListDrugs'
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

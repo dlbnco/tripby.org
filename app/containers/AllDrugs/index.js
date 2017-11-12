@@ -10,7 +10,7 @@ import Helmet from 'react-helmet'
 import { FormattedMessage } from 'react-intl'
 import { createStructuredSelector } from 'reselect'
 import makeSelectAllDrugs from './selectors'
-import ListDrugs from '../ListDrugs'
+import ListDrugs from '../../components/ListDrugs'
 import messages from './messages'
 import PageHeader from '../../components/PageHeader'
 

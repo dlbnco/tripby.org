@@ -5,7 +5,6 @@
 */
 
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import DrugCard from '../../components/DrugCard'
@@ -67,10 +66,4 @@ ListDrugs.propTypes = {
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  }
-}
-
-export default graphql(Drugs, { options: ({ limit }) => ({ variables: { limit } }) })(connect(null, mapDispatchToProps)(ListDrugs))
+export default graphql(Drugs, { options: ({ limit }) => ({ variables: { limit } }) })(ListDrugs)

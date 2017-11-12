@@ -7,15 +7,15 @@
 import React, { PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import { FormattedMessage } from 'react-intl'
 import DrugCard from '../../components/DrugCard'
 import Spinner from '../../components/Spinner'
-import LinkButton from '../../components/LinkButton'
+import messages from './messages'
 
 export class ListDrugs extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super()
     this.state = {
-      drugObject: [],
       loading: true,
       error: null,
     }
@@ -27,26 +27,43 @@ export class ListDrugs extends React.Component { // eslint-disable-line react/pr
         <DrugCard id={drug.id} name={drug.name} class={drug.class.length > 0 ? drug.class[0].title : null} molecule={drug.molecules.length > 0 ? drug.molecules[0].url : null} />
       </div>)
     )
-    return drugs
+    return (
+      <div className="row">{drugs}</div>
+    )
   }
   render() {
     const loading = this.props.data.loading
     return (
       <div>
-        <div className="mb-3">Mostrando {this.props.limit} psicoativos</div>
-        <div className="row">
-          {loading ? <Spinner /> : this.theDrugs()}
-        </div>
-        {loading ? null : <LinkButton text="Mais" link="/drugs" icon="trending_flat" />}
-        {loading ? null : <LinkButton text="Adicionar novo" link="/psicoativos" icon="add" secondary />}
+        {loading ?
+          <Spinner />
+            : (
+              <div>
+                <div className="mb-3">
+                  <FormattedMessage
+                    {...messages.countInfo}
+                    values={{
+                      limit: this.props.limit,
+                      count: this.props.data._allDrugsMeta.count,
+                    }}
+                  />
+                </div>
+                {this.theDrugs()}
+              </div>
+            )}
       </div>
     )
   }
 }
 
+ListDrugs.propTypes = {
+  limit: PropTypes.number,
+  data: PropTypes.object,
+}
+
 const Drugs = gql`
-  query($limit: Int) {
-    allDrugs(last: $limit) {
+  query($limit: Int, $orderBy: DrugOrderBy, $skip: Int) {
+    allDrugs(first: $limit, orderBy: $orderBy, skip: $skip) {
       id
       name
       aliases
@@ -57,13 +74,11 @@ const Drugs = gql`
         url
       }
     }
+    _allDrugsMeta {
+      count
+    }
   }
 `
 
-ListDrugs.propTypes = {
-  limit: PropTypes.number,
-  data: PropTypes.object,
-}
 
-
-export default graphql(Drugs, { options: ({ limit }) => ({ variables: { limit } }) })(ListDrugs)
+export default graphql(Drugs, { options: ({ limit, orderBy, skip }) => ({ variables: { limit, orderBy, skip } }) })(ListDrugs)

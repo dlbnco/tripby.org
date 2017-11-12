@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'app.containers.ListDrugs.header',
     defaultMessage: 'This is ListDrugs container !',
   },
+  countInfo: {
+    id: 'app.container.ListDrugs.countInfo',
+    defaultMessage: 'Mostrando {limit} psicoativos de {count}',
+  },
 })

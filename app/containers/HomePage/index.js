@@ -10,37 +10,35 @@
 */
 
 import React from 'react'
-import {Helmet} from 'react-helmet'
 import FeaturedContent from '../../components/FeaturedContent'
 import LinkButton from '../../components/LinkButton'
 import ListDrugs from '../ListDrugs'
-import ListArticles from '../ListArticles'
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
         <FeaturedContent tagline="Leia a bula." subtagline="Saiba como contribuir com o TRIPBY">
-          <LinkButton text="Contribuir" link="/contribuir" campaign icon="trending_flat"/>
+          <LinkButton text="Contribuir" link="/contribuir" campaign icon="trending_flat" />
         </FeaturedContent>
-        <section className="section grey--lighter">
+        <section className="py-4 grey--lighter">
           <div className="container">
             <h3 className="pb-3">Psicoativos</h3>
-            <ListDrugs perPage={6}/>
+            <ListDrugs limit={6} />
           </div>
         </section>
-        <section className="section grey--lighter">
+        {/** <section className="section grey--lighter">
           <div className="container">
             <h3 className="pb-3">Redução de danos</h3>
-            <ListArticles perPage={6} categories={[35]}/>
+            <ListArticles perPage={6} categories={[35]} />
           </div>
         </section>
         <section className="section grey--lighter">
           <div className="container">
             <h3 className="pb-3">DIY</h3>
-            <ListArticles perPage={6} categories={[167]}/>
+            <ListArticles perPage={6} categories={[167]} />
           </div>
-        </section>
+        </section>**/}
       </div>
     )
   }

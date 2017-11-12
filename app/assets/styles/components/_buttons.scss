@@ -1,9 +1,12 @@
+button, .btn {
+  cursor: pointer;
+}
+
 .btn {
   border-radius: 2px;
   background-color: map-get($colors, blueLight);
   color: #fff;
   text-transform: uppercase;
-  cursor: pointer;
   padding: 14px 16px;
   transition: .2s;
   font-size: 15px;

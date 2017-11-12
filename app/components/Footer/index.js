@@ -11,7 +11,7 @@ import React from 'react'
 function Footer() {
   return (
     <div>
-      <section className="section--tight" style={{ background: '#f5f5f5' }}>
+      <section className="py-5" style={{ background: '#f5f5f5' }}>
         <div className="container">
           <div className="row align-items-center">
             <ul className="col-12 col-md-6 d-flex mb-0 flex-column flex-md-row">

@@ -10,8 +10,8 @@ import { Link } from 'react-router'
 
 function Navigation(props) {
   return (
-    <nav className={`nav ${(props.navOpened ? 'nav--visible' : '')}`}>
-      <ul>
+    <nav className={`nav text-uppercase ${(props.navOpened ? 'nav--visible' : '')}`}>
+      <ul className="d-flex align-items-center">
         <li>
           <Link to="/drugs">Psicoativos</Link>
         </li>

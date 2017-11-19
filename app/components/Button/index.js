@@ -6,12 +6,19 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import classnames from 'classnames'
 
 function Button(props) {
+  const btnClass = classnames({
+    btn: true,
+    'd-inline-block': true,
+    'btn--campaign': props.campaign,
+    'btn-secondary': props.secondary,
+    'mx-auto': props.centered,
+  })
   return (
-    <button className="btn d-inline-block" onClick={props.onClick}>
-      <div className={`d-flex align-items-center ${props.campaign ? 'btn--campaign' : ''} ${props.centered ? 'mx-auto' : ''} ${(props.secondary ? 'btn-secondary' : '')}`}>
+    <button className={btnClass} onClick={props.onClick}>
+      <div className={'d-flex align-items-center'}>
         {props.children}
         {props.icon ? <i className="material-icons" style={{ marginLeft: '0.5rem' }} aria-hidden="true">{props.icon}</i> : null}
       </div>

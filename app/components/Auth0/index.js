@@ -54,6 +54,8 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
     }).then((response) => {
       if (!response.data.User) {
         this.createUser(this.state.authResult.idToken)
+      } else {
+        this.props.data.updateQuery({ variables: { userId } })
       }
     })
   }

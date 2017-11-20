@@ -23,7 +23,7 @@ function DrugCard(props) {
       <div className="card-body">
         <div className="row">
           <div className="col-8">
-            <h3 className="tbBlue-text">{props.name}</h3>
+            <h3 className="text-blue">{props.name}</h3>
             <p className="mb-0">
               <span className="text-uppercase" style={{ color: '#f06292' }}>{props.class}</span><br />
               {props.duration ? (

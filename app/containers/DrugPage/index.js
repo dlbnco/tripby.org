@@ -49,7 +49,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
         </div>
       )
     } return (
-      <div style={{ backgroundColor: 'rgb(224, 247, 250)' }}>
+      <div className="py-4">
         <div className="container">
           <div className="row">
             <div className="col-12 col-lg-4">
@@ -57,50 +57,41 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                 handleTabs={this.handleTabs}
                 drugName={this.props.data.Drug.name}
                 drugAliases={this.props.data.Drug.aliases}
-                drugClass={this.props.data.Drug.class.title}
+                drugClass={this.props.data.Drug.class[0].title}
                 drugRoutes={this.props.data.Drug.routes}
                 drugMolecules={this.props.data.Drug.molecules}
               />
             </div>
-            <div className="col-12 col-lg-8 card mt-3" style={{ borderRadius: '4px' }}>
-              <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
-                <div style={{ minWidth: 480, margin: '0 auto' }}>
-                  <TabGroup style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
-                    <Tab style={tabStyle}>
-                      Básico
-                    </Tab>
-                    <Tab style={tabStyle}>
-                      Efeitos
-                    </Tab>
-                    <Tab style={tabStyle}>
-                      Dosagem
-                    </Tab>
-                    <Tab style={tabStyle}>
-                      Saúde
-                    </Tab>
-                    <Tab style={tabStyle}>
-                      Lei
-                    </Tab>
-                    <Tab style={tabStyle}>
-                      + Info
-                    </Tab>
-                  </TabGroup>
-                </div>
-              </div>
-              <div className="card-body">
-                <p>{this.props.data.Drug.summary}</p>
-                <div className="row">
-                  <div className="col-12 col-md-6 col-xl-4">
-                    <div className="card">
-                      <div className="card-body">
-                        <h4 className="text-uppercase">Efeitos</h4>
-                        {this.props.data.Drug.effectsExcerpt}
-                      </div>
-                      <div className="card-footer">
-                        Mais
-                      </div>
-                    </div>
+            <div className="col-12 col-lg-8 mt-3">
+              <div className="card" style={{ borderRadius: '4px' }}>
+                <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
+                  <div style={{ minWidth: 480, margin: '0 auto' }}>
+                    <TabGroup style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
+                      <Tab style={tabStyle}>
+                        Sumário
+                      </Tab>
+                      <Tab style={tabStyle}>
+                        Efeitos
+                      </Tab>
+                      <Tab style={tabStyle}>
+                        Dosagem
+                      </Tab>
+                      <Tab style={tabStyle}>
+                        Saúde
+                      </Tab>
+                      <Tab style={tabStyle}>
+                        Lei
+                      </Tab>
+                      <Tab style={tabStyle}>
+                        + Info
+                      </Tab>
+                    </TabGroup>
                   </div>
+                </div>
+                <div className="card-body">
+                  <p>{this.props.data.Drug.summary}</p>
+                  <h2>Efeitos</h2>
+                  {this.props.data.Drug.effectsExcerpt || (<div className="text-grey">Ainda sem sumário de efeitos</div>)}
                 </div>
               </div>
             </div>
@@ -116,7 +107,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
   }
   render() {
     return (
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1 }} className="bg-blueLighter">
         <Helmet>
           <title>{this.state.loading ? 'TRIPBY' : `${this.props.data.Drug.name} – efeitos, duração, dose, saúde e lei`}</title>
         </Helmet>
@@ -133,6 +124,7 @@ const Drug = gql`
       name
       aliases
       class {
+        id
         title
       }
       routes {

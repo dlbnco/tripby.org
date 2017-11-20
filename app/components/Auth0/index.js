@@ -28,7 +28,9 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
     this.parseHash = this.parseHash.bind(this)
   }
   componentDidMount() {
-    if (this.props.location.pathname === '/authorize' && this.props.location.hash) {
+    if (localStorage.userId) {
+      this.checkUser(localStorage.userId)
+    } else if (this.props.location.pathname === '/authorize' && this.props.location.hash) {
       this.parseHash()
     }
   }
@@ -41,6 +43,8 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
           err,
         })
       }
+      localStorage.token = authResult.idToken
+      localStorage.userId = authResult.idTokenPayload.user_id
       this.setState({
         authResult,
       }, () => {
@@ -75,12 +79,12 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
   render() {
     return (
       <div>
-        {this.props.data.User ? (
+        {!this.props.data.User ? (
+          <Button secondary onClick={this.login} type="primary">{this.props.data.loading ? '...' : messages.auth.login}</Button>
+        ) : (
           <div>
             Logado como {this.props.data.User.id}
           </div>
-        ) : (
-          <Button secondary onClick={this.login} type="primary">{messages.auth.login}</Button>
         )}
       </div>
     )
@@ -115,4 +119,4 @@ const checkUser = gql`
   }
 `
 
-export default compose(graphql(createUser), graphql(checkUser, { options: { variables: { userId: '' } } }))(Auth0)
+export default compose(graphql(createUser), graphql(checkUser, { options: { variables: { userId: localStorage.userId || '' } } }))(Auth0)

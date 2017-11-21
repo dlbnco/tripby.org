@@ -18,8 +18,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   render() {
     return (
       <div>
-        <FeaturedContent tagline="Leia a bula." subtagline="Saiba como contribuir com o TRIPBY">
-          <Button campaign icon="trending_flat">Contribuir</Button>
+        <FeaturedContent tagline="Leia a bula.">
+          <Button campaign icon="trending_flat">Manifesto</Button>
         </FeaturedContent>
         <section className="py-4 grey--lighter">
           <div className="container">

@@ -37,7 +37,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
               <div className="ml-3 ml-md-0">
                 <Link to="/"><img role="presentation" src={logo} className="logo" /></Link>
               </div>
-              <div className={`ml-3 d-flex justify-content-end ${(this.state.navOpened ? '' : 'hidden-md-down')}`}>
+              <div className={`ml-md-5 d-flex justify-content-end ${(this.state.navOpened ? '' : 'hidden-md-down')}`}>
                 <Navigation navOpened={this.state.navOpened} />
               </div>
             </div>

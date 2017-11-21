@@ -4,6 +4,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -80,6 +81,7 @@ module.exports = (options) => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
+    new CopyWebpackPlugin([{ from: 'app/static' }]),
   ]),
   resolve: {
     modules: ['app', 'node_modules'],

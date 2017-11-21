@@ -7,11 +7,10 @@ button, .btn {
   background-color: map-get($colors, blueLight);
   color: #fff;
   text-transform: uppercase;
-  padding: 14px 16px;
+  padding: 12px;
   transition: .2s;
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1rem;
-  margin-right: 0.5rem;
   &:hover {
     opacity: 0.8;
     color: #fff;

@@ -26,8 +26,8 @@ function DrugHeader(props) {
                   <p><em><small>{props.drugAliases.join(', ')}</small></em></p>
             </span> : null}
             <div className="my-3">
-              {props.drugClass ? (
-                <div className="badge badge-pill text-uppercase">{props.drugClass}</div>
+              {props.drugClass.length > 0 ? (
+                <div className="badge badge-pill text-uppercase">{props.drugClass[0].title}</div>
                 ) : (
                   <div className="text-grey">+ Adicionar classificação</div>
                 )}

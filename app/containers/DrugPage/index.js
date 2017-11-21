@@ -12,6 +12,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { TabGroup, Tab } from 'material-tabs'
 import { createStructuredSelector } from 'reselect'
+import Markdown from 'react-markdown'
 import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
 import DrugHeader from '../../components/DrugHeader'
@@ -19,6 +20,7 @@ import DrugHeader from '../../components/DrugHeader'
 const tabStyle = {
   color: '#ee6e73',
   fontWeight: 500,
+  whiteSpace: 'nowrap',
 }
 
 export class DrugPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -63,18 +65,15 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
               />
             </div>
             <div className="col-12 col-lg-8 mt-3">
-              <div className="card" style={{ borderRadius: '4px' }}>
+              <div className="card" style={{ borderRadius: '4px', border: 0 }}>
                 <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
                   <div style={{ minWidth: 480, margin: '0 auto' }}>
                     <TabGroup style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
                       <Tab style={tabStyle}>
-                        Sumário
+                        Visão geral
                       </Tab>
                       <Tab style={tabStyle}>
                         Efeitos
-                      </Tab>
-                      <Tab style={tabStyle}>
-                        Dosagem
                       </Tab>
                       <Tab style={tabStyle}>
                         Saúde
@@ -83,15 +82,13 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                         Lei
                       </Tab>
                       <Tab style={tabStyle}>
-                        + Info
+                        Experiências
                       </Tab>
                     </TabGroup>
                   </div>
                 </div>
                 <div className="card-body">
-                  <p>{this.props.data.Drug.summary}</p>
-                  <h2>Efeitos</h2>
-                  {this.props.data.Drug.effectsExcerpt || (<div className="text-grey">Ainda sem sumário de efeitos</div>)}
+                  <Markdown source={this.props.data.Drug.summary} />
                 </div>
               </div>
             </div>
@@ -123,6 +120,9 @@ const Drug = gql`
     Drug(id: $id) {
       name
       aliases
+      effects {
+        name
+      }
       class {
         id
         title

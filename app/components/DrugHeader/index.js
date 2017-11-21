@@ -36,7 +36,7 @@ function DrugHeader(props) {
             {props.drugRoutes.length > 0 ? (
               <div>
                 <p className="text-uppercase mb-0"><strong>Vias de administração</strong></p>
-                <p><small>{props.drugRoutes.join(', ')}</small></p>
+                <p><small>{props.drugRoutes.map((route, index) => `${route.name}${index !== props.drugRoutes.length - 1 ? ', ' : ''}`)}</small></p>
               </div>
             ) : (
               <div className="text-grey">+ Adicionar vias de administração</div>

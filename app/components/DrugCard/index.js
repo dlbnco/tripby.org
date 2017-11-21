@@ -17,6 +17,8 @@ function DrugCard(props) {
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
+    width: '100%',
+    height: '100%',
   }
   return (
     <Link to={`/drugs/${props.id}`} className="card" style={{ marginBottom: '1rem' }}>
@@ -33,13 +35,12 @@ function DrugCard(props) {
             ) : null }
             </p>
           </div>
-          <div className="col-4">
+          <div className="col-4 d-flex align-items-center">
             {props.molecule ? (
               <div style={moleculeStyle}></div>
             ) :
-              <div>
-                <div className="icon-molecule"><SVG src={moleculeIcon} /></div>
-              </div>}
+              <div className="icon-molecule mx-auto"><SVG src={moleculeIcon} /></div>
+              }
           </div>
         </div>
       </div>

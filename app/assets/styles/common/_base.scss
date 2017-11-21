@@ -7,6 +7,12 @@ body {
 	background-color: #fff;
   font-size: 14px;
 }
+@include media-breakpoint-down(md) {
+  .prevent-scroll {
+    overflow-y: hidden;
+    height: 100vh;
+  }
+}
 
 ::selection {
 	background: map-get($colors, blueAccent); /* WebKit/Blink Browsers */

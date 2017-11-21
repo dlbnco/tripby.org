@@ -1,5 +1,7 @@
 @import "~hamburgers/dist/hamburgers";
-
+.hamburger {
+  z-index: 20;
+}
 .hamburger:focus {
   outline: 0;
 }

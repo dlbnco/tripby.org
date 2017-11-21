@@ -1,70 +1,44 @@
-// nav text
-.nav ul li, .nav ul li a {
-  font-size: 0.95rem;
-  font-weight: normal;
-}
-
-// nav
 .nav {
   transition: 0.25s;
   overflow: hidden;
-  // opacity: 0;
-  transform: scaleY(0);
-  transform-origin: top;
-  height: 0;
-}
-@include media-breakpoint-down(md) {
-  .nav--visible {
-    transform: scaleY(1);
-    height: 100%;
-    padding: 1.5rem 0 0;
+  position: absolute;
+  left: -100%;
+  background: #fff;
+  ul {
+    display: flex;
+    align-items: center;
   }
-}
-.nav ul {
-  list-style-type: none;
-  padding:0;
-  margin:0;
-}
-.nav ul li {
-  list-style-type: none;
-  margin: 0 0 1rem;
-}
-.nav ul li:last-child {
-  margin:0;
-}
-.nav > ul > li > ul {
-  padding: 0.75rem 0 0 0.5rem;
-  border-left: 2px solid #eee;
-}
+  @include media-breakpoint-down(md) {
+    &.nav--visible {
+      left: 0;
+      top: 0;
+      z-index: 10;
+      width: 100vw;
+      height: 100vh;
+      ul {
 
-@include media-breakpoint-up(md) {
-  .nav {
-    transform: none;
-    height: auto;
-    overflow: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        li {
+          text-align: left;
+          font-size: 1.8rem;
+        }
+      }
+    }
   }
-  .nav ul li {
-    margin: 0 0 0.5rem;
+  @include media-breakpoint-up(md) {
+    & {
+      position: static;
+      background: none;
+    }
   }
-  .nav > ul > li {
-    float: left;
-    margin: 0 1.5rem 0 0;
-  }
-  .nav > ul > li > ul {
-    border: 0;
-    padding:0;
-    position: absolute;
-    opacity: 0;
-    visibility:hidden;
-    transition: 0.2s;
-    background: #fff;
-    padding: 0.66rem 0.84rem;
-    border: 1px solid #eee;
-    border-radius: 2px;
-    z-index:2;
-  }
-  .nav > ul > li:hover > ul {
-    opacity: 1;
-    visibility: visible;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      margin-right: 1rem;
+    }
   }
 }

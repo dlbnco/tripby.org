@@ -11,7 +11,7 @@ import { Link } from 'react-router'
 function Navigation(props) {
   return (
     <nav className={`nav text-uppercase ${(props.navOpened ? 'nav--visible' : '')}`}>
-      <ul className="d-flex align-items-center">
+      <ul>
         <li>
           <Link to="/drugs">Psicoativos</Link>
         </li>

@@ -24,6 +24,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     this.setState({
       navOpened: !this.state.navOpened,
     })
+    document.body.classList.toggle('prevent-scroll')
   }
   render() {
     return (
@@ -31,13 +32,11 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
         <div className="container">
           <div className="d-flex flex-wrap align-items-center">
             <div className="d-flex" style={{ flex: 1 }}>
-              <div className="d-flex d-md-none align-items-center">
+              <div className="d-flex d-md-none align-items-center mr-3">
                 <Hamburger onClick={this.handleNav} navOpened={this.state.navOpened} />
               </div>
-              <div className="ml-3 ml-md-0">
-                <Link to="/"><img role="presentation" src={logo} className="logo" /></Link>
-              </div>
-              <div className={`ml-md-5 d-flex justify-content-end ${(this.state.navOpened ? '' : 'hidden-md-down')}`}>
+              <Link to="/"><img role="presentation" src={logo} className="logo" /></Link>
+              <div className={'ml-md-5 d-flex justify-content-end'}>
                 <Navigation navOpened={this.state.navOpened} />
               </div>
             </div>

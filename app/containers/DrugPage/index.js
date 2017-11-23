@@ -7,6 +7,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import Helmet from 'react-helmet'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -23,21 +24,78 @@ const tabStyle = {
   whiteSpace: 'nowrap',
 }
 
+const tabs = [
+  { link: 'overview', label: 'Visão geral' },
+  { link: 'effects', label: 'Efeitos' },
+  { link: 'health', label: 'Saúde' },
+  { link: 'law', label: 'Lei' },
+  { link: 'experiences', label: 'Experiências' },
+]
+
 export class DrugPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super()
     this.handleTabs = this.handleTabs.bind(this)
     this.state = {
-      drugObject: {
-        title: {
-          rendered: '',
-        },
-      },
       colorScheme: [],
-      selectedTab: 0,
       loading: true,
       error: null,
     }
+    this.tabSwitch = this.tabSwitch.bind(this)
+  }
+  tabSwitch() {
+    const drug = this.props.data.Drug
+    switch (this.props.params.tab) {
+      case 'overview':
+        return (
+          <Markdown source={drug.summary} />
+        )
+      case 'effects':
+        return (
+            drug.effects.length > 0 ? (
+              'efeitoss'
+            ) : (
+              <div>+ Adicionar efeitos</div>
+            )
+        )
+      case 'health':
+        return (
+          drug.health ? (
+            <Markdown source={drug.health} />
+          ) : (
+            <div>+ Adicionar saúde</div>
+          )
+        )
+      case 'law':
+        return (
+            drug.law ? (
+              <Markdown source={drug.law} />
+            ) : (
+              <div>+ Adicionar lei</div>
+            )
+        )
+      case 'experiences':
+        return (
+              drug.experiences.length > 0 ? (
+                <div>experiências aqui</div>
+              ) : (
+                <div>+ Postar experiência com {drug.name}</div>
+              )
+        )
+      default:
+        return (
+          <Markdown source={this.props.data.Drug.summary} />
+        )
+    }
+  }
+  mapTabs() {
+    return tabs.map((tab, index) => (
+      <Link to={`/drugs/${this.props.params.drug}/${tab.link}`} key={index}>
+        <Tab style={tabStyle}>
+          {tab.label}
+        </Tab>
+      </Link>
+      ))
   }
   theDrug() {
     if (this.props.data.loading && this.state.error == null) {
@@ -62,33 +120,20 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                 drugClass={this.props.data.Drug.class}
                 drugRoutes={this.props.data.Drug.routes}
                 drugMolecules={this.props.data.Drug.molecules}
+                alerts={this.props.data.Drug.alerts}
               />
             </div>
             <div className="col-12 col-lg-8 mt-3">
               <div className="card" style={{ borderRadius: '4px', border: 0 }}>
                 <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
                   <div style={{ minWidth: 480, margin: '0 auto' }}>
-                    <TabGroup style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
-                      <Tab style={tabStyle}>
-                        Visão geral
-                      </Tab>
-                      <Tab style={tabStyle}>
-                        Efeitos
-                      </Tab>
-                      <Tab style={tabStyle}>
-                        Saúde
-                      </Tab>
-                      <Tab style={tabStyle}>
-                        Lei
-                      </Tab>
-                      <Tab style={tabStyle}>
-                        Experiências
-                      </Tab>
+                    <TabGroup defaultSelectedTab={tabs.findIndex((tab) => tab.link === this.props.params.tab)} style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
+                      {this.mapTabs()}
                     </TabGroup>
                   </div>
                 </div>
                 <div className="card-body">
-                  <Markdown source={this.props.data.Drug.summary} />
+                  {this.tabSwitch()}
                 </div>
               </div>
             </div>
@@ -99,14 +144,14 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
   }
   /* eslint-disable react/no-danger */
 
-  handleTabs(event) {
-    this.setState({ selectedTab: event })
+  handleTabs(tab) {
+    this.setState({ selectedTab: tab })
   }
   render() {
     return (
       <div style={{ flex: 1 }} className="bg-blueLighter">
         <Helmet>
-          <title>{this.state.loading ? 'TRIPBY' : `${this.props.data.Drug.name} – efeitos, duração, dose, saúde e lei`}</title>
+          <title>{this.props.data.loading ? 'TRIPBY' : `${this.props.data.Drug.name} – efeitos, duração, dose, saúde e lei`}</title>
         </Helmet>
         {this.theDrug()}
       </div>
@@ -119,7 +164,13 @@ const Drug = gql`
   query($id: ID!) {
     Drug(id: $id) {
       name
+      alerts
       aliases
+      health
+      law
+      experiences {
+        title
+      }
       effects {
         name
       }
@@ -134,13 +185,13 @@ const Drug = gql`
         url
       }
       summary
-      effectsExcerpt
     }
   }
 `
 
 DrugPage.propTypes = {
   data: PropTypes.object,
+  params: PropTypes.object,
 }
 
 const mapStateToProps = createStructuredSelector({

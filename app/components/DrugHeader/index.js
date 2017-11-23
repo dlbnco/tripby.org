@@ -6,6 +6,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import Alert from '../Alert'
 
 function DrugHeader(props) {
   return (
@@ -21,17 +22,17 @@ function DrugHeader(props) {
             </div>
           </div>
           <div className="col-12">
-            {props.drugAliases ? <span>
-                  ou
-                  <p><em><small>{props.drugAliases.join(', ')}</small></em></p>
-            </span> : null}
             <div className="my-3">
               {props.drugClass.length > 0 ? (
-                <div className="badge badge-pill text-uppercase">{props.drugClass[0].title}</div>
-                ) : (
-                  <div className="text-grey">+ Adicionar classificação</div>
-                )}
+                <div className="badge bg-pinkLighter text-white badge-pill text-uppercase">{props.drugClass[0].title}</div>
+              ) : (
+                <div className="text-grey">+ Adicionar classificação</div>
+              )}
             </div>
+            {props.drugAliases ? <span>
+              <p className="text-uppercase mb-0"><strong>Nomes comuns</strong></p>
+              <p><em><small>{props.drugAliases.join(', ')}</small></em></p>
+            </span> : null}
 
             {props.drugRoutes.length > 0 ? (
               <div>
@@ -41,6 +42,13 @@ function DrugHeader(props) {
             ) : (
               <div className="text-grey">+ Adicionar vias de administração</div>
             )}
+            {props.alerts.length > 0 ?
+              <div>
+                {props.alerts.map((alert, index) => (
+                  <div key={index}><Alert icon="warning" type="danger">{alert}</Alert></div>
+                ))}
+              </div>
+              : null }
           </div>
         </div>
       </section>
@@ -50,10 +58,11 @@ function DrugHeader(props) {
 
 DrugHeader.propTypes = {
   drugName: PropTypes.string,
-  drugClass: PropTypes.string,
+  drugClass: PropTypes.array,
   drugAliases: PropTypes.array,
   drugRoutes: PropTypes.array,
   drugMolecules: PropTypes.array,
+  alerts: PropTypes.array,
 }
 
 export default DrugHeader

@@ -34,7 +34,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading)
       },
     }, {
-      path: '/drugs/:drug',
+      path: '/drugs/:drug/:tab',
       name: 'drugPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([

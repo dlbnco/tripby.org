@@ -21,7 +21,7 @@ function DrugCard(props) {
     height: '100%',
   }
   return (
-    <Link to={`/drugs/${props.id}`} className="card" style={{ marginBottom: '1rem' }}>
+    <Link to={`/drugs/${props.id}/overview`} className="card" style={{ marginBottom: '1rem' }}>
       <div className="card-body">
         <div className="row">
           <div className="col-8">

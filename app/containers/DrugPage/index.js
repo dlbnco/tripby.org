@@ -16,6 +16,7 @@ import { createStructuredSelector } from 'reselect'
 import Markdown from 'react-markdown'
 import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
+import Alert from '../../components/Alert'
 import DrugHeader from '../../components/DrugHeader'
 
 const tabStyle = {
@@ -53,7 +54,26 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
       case 'effects':
         return (
             drug.effects.length > 0 ? (
-              'efeitoss'
+              <div>
+                <Alert icon="info_outline" type="info">Os efeitos listados abaixo raramente (ou nunca) ocorrerão de uma só vez, mas doses maiores aumentarão as chances e são mais propensas a induzir uma gama completa de efeitos.</Alert>
+                <ul className="p-0 list-unstyled row">
+                  {drug.effects.map((effect, index) => (
+                    <li key={index} className="col-12 col-md-4">
+                      <div className="card">
+                        <div className="p-3">
+                          <div className="d-flex align-items-center">
+                            <h5 style={{ flex: 1 }}>{effect.name}</h5>
+                            <div className="d-flex flex-column">
+                              <i className="material-icons">keyboard_arrow_up</i>
+                              <i className="material-icons">keyboard_arrow_down</i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ) : (
               <div>+ Adicionar efeitos</div>
             )
@@ -115,11 +135,11 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
             <div className="col-12 col-lg-4">
               <DrugHeader
                 handleTabs={this.handleTabs}
-                drugName={this.props.data.Drug.name}
-                drugAliases={this.props.data.Drug.aliases}
-                drugClass={this.props.data.Drug.class}
-                drugRoutes={this.props.data.Drug.routes}
-                drugMolecules={this.props.data.Drug.molecules}
+                name={this.props.data.Drug.name}
+                aliases={this.props.data.Drug.aliases}
+                classes={this.props.data.Drug.classes}
+                routes={this.props.data.Drug.routes}
+                molecules={this.props.data.Drug.molecules}
                 alerts={this.props.data.Drug.alerts}
               />
             </div>
@@ -174,7 +194,7 @@ const Drug = gql`
       effects {
         name
       }
-      class {
+      classes {
         id
         title
       }

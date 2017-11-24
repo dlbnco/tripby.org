@@ -7,31 +7,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import Helmet from 'react-helmet'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { TabGroup, Tab } from 'material-tabs'
 import { createStructuredSelector } from 'reselect'
-import Markdown from 'react-markdown'
+
 import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
-import Alert from '../../components/Alert'
 import DrugHeader from '../../components/DrugHeader'
-
-const tabStyle = {
-  color: '#ee6e73',
-  fontWeight: 500,
-  whiteSpace: 'nowrap',
-}
-
-const tabs = [
-  { link: 'overview', label: 'Visão geral' },
-  { link: 'effects', label: 'Efeitos' },
-  { link: 'health', label: 'Saúde' },
-  { link: 'law', label: 'Lei' },
-  { link: 'experiences', label: 'Experiências' },
-]
+import DrugBody from '../../components/DrugBody'
 
 export class DrugPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -42,80 +26,6 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
       loading: true,
       error: null,
     }
-    this.tabSwitch = this.tabSwitch.bind(this)
-  }
-  tabSwitch() {
-    const drug = this.props.data.Drug
-    switch (this.props.params.tab) {
-      case 'overview':
-        return (
-          <Markdown source={drug.summary} />
-        )
-      case 'effects':
-        return (
-            drug.effects.length > 0 ? (
-              <div>
-                <Alert icon="info_outline" type="info">Os efeitos listados abaixo raramente (ou nunca) ocorrerão de uma só vez, mas doses maiores aumentarão as chances e são mais propensas a induzir uma gama completa de efeitos.</Alert>
-                <ul className="p-0 list-unstyled row">
-                  {drug.effects.map((effect, index) => (
-                    <li key={index} className="col-12 col-md-4">
-                      <div className="card">
-                        <div className="p-3">
-                          <div className="d-flex align-items-center">
-                            <h5 style={{ flex: 1 }}>{effect.name}</h5>
-                            <div className="d-flex flex-column">
-                              <i className="material-icons">keyboard_arrow_up</i>
-                              <i className="material-icons">keyboard_arrow_down</i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <div>+ Adicionar efeitos</div>
-            )
-        )
-      case 'health':
-        return (
-          drug.health ? (
-            <Markdown source={drug.health} />
-          ) : (
-            <div>+ Adicionar saúde</div>
-          )
-        )
-      case 'law':
-        return (
-            drug.law ? (
-              <Markdown source={drug.law} />
-            ) : (
-              <div>+ Adicionar lei</div>
-            )
-        )
-      case 'experiences':
-        return (
-              drug.experiences.length > 0 ? (
-                <div>experiências aqui</div>
-              ) : (
-                <div>+ Postar experiência com {drug.name}</div>
-              )
-        )
-      default:
-        return (
-          <Markdown source={this.props.data.Drug.summary} />
-        )
-    }
-  }
-  mapTabs() {
-    return tabs.map((tab, index) => (
-      <Link to={`/drugs/${this.props.params.drug}/${tab.link}`} key={index}>
-        <Tab style={tabStyle}>
-          {tab.label}
-        </Tab>
-      </Link>
-      ))
   }
   theDrug() {
     if (this.props.data.loading && this.state.error == null) {
@@ -144,18 +54,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
               />
             </div>
             <div className="col-12 col-lg-8 mt-3">
-              <div className="card" style={{ borderRadius: '4px', border: 0 }}>
-                <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
-                  <div style={{ minWidth: 480, margin: '0 auto' }}>
-                    <TabGroup defaultSelectedTab={tabs.findIndex((tab) => tab.link === this.props.params.tab)} style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
-                      {this.mapTabs()}
-                    </TabGroup>
-                  </div>
-                </div>
-                <div className="card-body">
-                  {this.tabSwitch()}
-                </div>
-              </div>
+              <DrugBody drug={this.props.data.Drug} params={this.props.params} />
             </div>
           </div>
         </div>

@@ -30,13 +30,13 @@ function DrugHeader(props) {
               )}
             </div>
             {props.aliases ? <span>
-              <h6 className="text-uppercase mb-0"><strong>Nomes comuns</strong></h6>
-              <p><em><small>{props.aliases.join(', ')}</small></em></p>
+              <h6 className="text-uppercase mb-0">Nomes comuns</h6>
+              <p><small>{props.aliases.join(', ')}</small></p>
             </span> : null}
 
             {props.routes.length > 0 ? (
               <div>
-                <h6 className="text-uppercase mb-0"><strong>Vias de administração</strong></h6>
+                <h6 className="text-uppercase mb-0">Vias de administração</h6>
                 <p><small>{props.routes.map((route, index) => `${route.name}${index !== props.routes.length - 1 ? ', ' : ''}`)}</small></p>
               </div>
             ) : (

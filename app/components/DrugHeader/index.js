@@ -43,11 +43,13 @@ function DrugHeader(props) {
               <div className="text-grey">+ Adicionar vias de administração</div>
             )}
             {props.alerts ?
-              <div>
-                {props.alerts.map((alert, index) => (
-                  <div key={index}><Alert icon="warning" type="warning">{alert}</Alert></div>
-                ))}
-              </div>
+              <Alert type="danger" icon="warning">
+                <ul className="m-0 pl-4">
+                  {props.alerts.map((alert, index) => (
+                    <li key={index}><strong>{alert}</strong></li>
+                  ))}
+                </ul>
+              </Alert>
               : null }
           </div>
         </div>

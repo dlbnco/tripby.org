@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 
 function Alert(props) {
   return (
-    <div className={`alert alert-${props.type} d-flex`}>
+    <div className={`alert alert-${props.type} d-flex align-items-center`}>
       {props.icon ? <i className="material-icons mr-2">{props.icon}</i> : null}<div style={{ flex: 1 }}>{props.children}</div>
     </div>
   )

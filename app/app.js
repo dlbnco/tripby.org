@@ -1,9 +1,9 @@
 /**
- * app.js
- *
- * This is the entry file for the application, only setup and boilerplate
- * code.
- */
+* app.js
+*
+* This is the entry file for the application, only setup and boilerplate
+* code.
+*/
 
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill'
@@ -99,10 +99,17 @@ const render = (messages) => {
             history={history}
             routes={rootRoute}
             render={
-            // Scroll to top when going to a new page, imitating default browser
-            // behaviour
-            applyRouterMiddleware(useScroll())
-          }
+              // Scroll to top when going to a new page, imitating default browser
+              // behaviour
+              applyRouterMiddleware(
+                useScroll((prevRouterProps, { routes }) => {
+                  if (prevRouterProps) {
+                    return routes[1].path !== '/drugs/:drug/:tab'
+                  }
+                  return true
+                })
+              )
+            }
           />
         </ApolloProvider>
       </LanguageProvider>
@@ -125,13 +132,13 @@ if (!window.Intl) {
   (new Promise((resolve) => {
     resolve(import('intl'))
   }))
-    .then(() => Promise.all([
-      import('intl/locale-data/jsonp/en.js'),
-    ]))
-    .then(() => render(translationMessages))
-    .catch((err) => {
-      throw err
-    })
+  .then(() => Promise.all([
+    import('intl/locale-data/jsonp/en.js'),
+  ]))
+  .then(() => render(translationMessages))
+  .catch((err) => {
+    throw err
+  })
 } else {
   render(translationMessages)
 }

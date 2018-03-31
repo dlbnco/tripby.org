@@ -11,7 +11,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import Helmet from 'react-helmet'
 import { FormattedMessage } from 'react-intl'
-import qs from 'query-string'
+import qs from 'qs'
 import { createStructuredSelector } from 'reselect'
 import makeSelectAllDrugs from './selectors'
 import ListDrugs from '../../components/ListDrugs'
@@ -32,13 +32,14 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
     this.handlePagination = this.handlePagination.bind(this)
     this.updateQuery = this.updateQuery.bind(this)
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.AllDrugs !== this.props.AllDrugs) {
       this.updateQuery()
     }
   }
   updateQuery() {
-    const query = qs.stringify(this.props.AllDrugs.navigation)
+    let query = this.props.AllDrugs.navigation
+    query = qs.stringify(query)
     browserHistory.push({
       pathname: '/drugs',
       search: `?${query}`,
@@ -52,7 +53,7 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
     })
   }
   render() {
-    const nav = this.props.location.search !== '' ? this.props.location.query : this.props.AllDrugs.navigation
+    const nav = this.props.location.search !== '' ? qs.parse(this.props.location.search) : this.props.AllDrugs.navigation
     const currentPage = Number(nav.page)
     const limit = Number(nav.limit)
     const skip = limit * (currentPage)

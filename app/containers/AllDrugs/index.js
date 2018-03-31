@@ -15,6 +15,7 @@ import qs from 'query-string'
 import { createStructuredSelector } from 'reselect'
 import makeSelectAllDrugs from './selectors'
 import ListDrugs from '../../components/ListDrugs'
+import FilterDrugs from '../../components/FilterDrugs'
 import messages from './messages'
 import PageHeader from '../../components/PageHeader'
 
@@ -31,18 +32,17 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
     this.handlePagination = this.handlePagination.bind(this)
     this.updateQuery = this.updateQuery.bind(this)
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      this.updateQuery()
+    }
+  }
   updateQuery() {
-    const query = qs.stringify(this.state.navigation)
+    const query = qs.stringify(this.props.AllDrugs.navigation)
     browserHistory.push({
       pathname: '/drugs',
       search: `?${query}`,
     })
-  }
-  componentDidUpdate(prevProps, prevState) {
-    console.log('updated')
-    if (prevState !== this.state) {
-      this.updateQuery()
-    }
   }
   handlePagination(page) {
     const navigation = this.state.navigation
@@ -52,7 +52,7 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
     })
   }
   render() {
-    const nav = this.props.location.search !== '' ? this.props.location.query : this.state.navigation
+    const nav = this.props.location.search !== '' ? this.props.location.query : this.props.AllDrugs.navigation
     const currentPage = Number(nav.page)
     const limit = Number(nav.limit)
     const skip = limit * (currentPage)
@@ -75,7 +75,8 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
         </PageHeader>
         <section className="py-4">
           <div className="container">
-            <ListDrugs limit={limit} orderBy={nav.orderBy} skip={skip} />
+            <FilterDrugs categories={this.props.data.allCategories || []} />
+            <ListDrugs limit={limit} orderBy={nav.orderBy} skip={skip} filter={nav.filter} />
             <nav aria-label="Page navigation example">
               <ul className="pagination list-unstyled">
                 <li className="page-item"><button disabled={currentPage === 0} onClick={() => this.handlePagination(currentPage - 1)} className="page-link" href="#">Anterior</button></li>
@@ -95,6 +96,8 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
 
 AllDrugs.propTypes = {
   data: PropTypes.object,
+  AllDrugs: PropTypes.object,
+  location: PropTypes.object,
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -111,6 +114,10 @@ const Drugs = gql`
   query {
     _allDrugsMeta {
       count
+    }
+    allCategories {
+      id
+      title
     }
   }
 `

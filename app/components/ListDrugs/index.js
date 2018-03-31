@@ -62,8 +62,8 @@ ListDrugs.propTypes = {
 }
 
 const Drugs = gql`
-  query($limit: Int, $orderBy: DrugOrderBy, $skip: Int) {
-    allDrugs(first: $limit, orderBy: $orderBy, skip: $skip) {
+  query($limit: Int, $orderBy: DrugOrderBy, $skip: Int, $filter: DrugFilter) {
+    allDrugs(first: $limit, orderBy: $orderBy, skip: $skip, filter: $filter) {
       id
       name
       aliases
@@ -81,4 +81,4 @@ const Drugs = gql`
 `
 
 
-export default graphql(Drugs, { options: ({ limit, orderBy, skip }) => ({ variables: { limit, orderBy, skip } }) })(ListDrugs)
+export default graphql(Drugs, { options: ({ limit, orderBy, skip, filter }) => ({ variables: { limit, orderBy, skip, filter } }) })(ListDrugs)

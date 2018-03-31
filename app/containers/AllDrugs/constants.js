@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/AllDrugs/DEFAULT_ACTION'
+export const SET_NAVIGATION = 'app/AllDrugs/SET_NAVIGATION'

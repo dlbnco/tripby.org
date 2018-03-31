@@ -5,11 +5,12 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  SET_NAVIGATION,
 } from './constants'
 
-export function defaultAction() {
+export function setNavigation(navigation) {
   return {
-    type: DEFAULT_ACTION,
+    type: SET_NAVIGATION,
+    navigation,
   }
 }

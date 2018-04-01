@@ -22,6 +22,8 @@ function allDrugsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_NAVIGATION:
       return state.mergeDeep(state.navigation, action.navigation)
+    case 'RESET_FILTERS':
+      return state.removeIn(['navigation', 'filter', 'classes_some'])
     default:
       return state
   }

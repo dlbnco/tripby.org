@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl'
 export default defineMessages({
   class: {
     id: 'app.components.FilterDrugs2.class',
-    defaultMessage: 'Todas as classes',
+    defaultMessage: 'Classes',
   },
 })

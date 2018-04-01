@@ -77,17 +77,8 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
         <section className="py-4">
           <div className="container">
             <FilterDrugs categories={this.props.data.allCategories || []} />
-            <ListDrugs limit={limit} orderBy={nav.orderBy} skip={skip} filter={nav.filter} />
-            <nav aria-label="Page navigation example">
-              <ul className="pagination list-unstyled">
-                <li className="page-item"><button disabled={currentPage === 0} onClick={() => this.handlePagination(currentPage - 1)} className="page-link" href="#">Anterior</button></li>
-                { pages.map((page) => (
-                  <li className={`page-item ${currentPage === (page - 1) ? 'active' : ''}`}><button onClick={() => this.handlePagination(page - 1)} className="page-link" href="#">{page}</button></li>
-                  ))
-                }
-                <li className="page-item"><button onClick={() => this.handlePagination(currentPage + 1)} className="page-link" href="#">Próximo</button></li>
-              </ul>
-            </nav>
+            <ListDrugs limit={limit} orderBy={nav.orderBy} skip={skip} filter={nav.filter} pagination={{ pages, currentPage }} />
+
           </div>
         </section>
       </div>

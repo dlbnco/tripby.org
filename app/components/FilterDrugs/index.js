@@ -18,20 +18,16 @@ import messages from './messages'
 
 function FilterDrugs(props) {
   return (
-    <div>
-      Filtros:
-      <div className="div">
-        <div className="d-flex">
-          <div className="dropdown">
-            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <FormattedMessage {...messages.class} />
-            </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {props.categories.map((category, index) =>
-                <a key={index} className="dropdown-item" href="#!" onClick={() => props.dispatch(setNavigation({ navigation: { filter: { classes_some: { id: category.id } } } }))}>{category.title}</a>
+    <div className="d-flex">
+      <div className="dropdown">
+        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <FormattedMessage {...messages.class} />
+        </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a className="dropdown-item" href="#!" onClick={() => props.dispatch({ type: 'RESET_FILTERS' })}>Todas as classes</a>
+          {props.categories.map((category, index) =>
+            <a key={index} className="dropdown-item" href="#!" onClick={() => props.dispatch(setNavigation({ navigation: { filter: { classes_some: { id: category.id } }, page: 0 } }))}>{category.title}</a>
               )}
-            </div>
-          </div>
         </div>
       </div>
     </div>

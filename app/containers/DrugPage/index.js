@@ -14,6 +14,7 @@ import { createStructuredSelector } from 'reselect'
 
 import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
+import ConnectionError from '../../components/ConnectionError'
 import DrugHeader from '../../components/DrugHeader'
 import DrugBody from '../../components/DrugBody'
 
@@ -32,31 +33,33 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
       return (
         <Spinner className="mx-auto" />
       )
-    } else if (this.state.error !== null) {
+    } else if (this.props.data.error) {
       return (
-        <div className="col text-center">
-          😥<br />{this.state.error}
-        </div>
+        <ConnectionError />
       )
     } return (
       <div className="py-4">
         <div className="container">
-          <div className="row">
-            <div className="col-12 col-lg-4">
-              <DrugHeader
-                handleTabs={this.handleTabs}
-                name={this.props.data.Drug.name}
-                aliases={this.props.data.Drug.aliases}
-                classes={this.props.data.Drug.classes}
-                routes={this.props.data.Drug.routes}
-                molecules={this.props.data.Drug.molecules}
-                alerts={this.props.data.Drug.alerts}
-              />
+          {!this.props.data.error ? (
+            <div className="row">
+              <div className="col-12 col-lg-4">
+                <DrugHeader
+                  handleTabs={this.handleTabs}
+                  name={this.props.data.Drug.name}
+                  aliases={this.props.data.Drug.aliases}
+                  classes={this.props.data.Drug.classes}
+                  routes={this.props.data.Drug.routes}
+                  molecules={this.props.data.Drug.molecules}
+                  alerts={this.props.data.Drug.alerts}
+                />
+              </div>
+              <div className="col-12 col-lg-8 mt-3">
+                <DrugBody drug={this.props.data.Drug} params={this.props.params} />
+              </div>
             </div>
-            <div className="col-12 col-lg-8 mt-3">
-              <DrugBody drug={this.props.data.Drug} params={this.props.params} />
-            </div>
-          </div>
+            ) : (
+              <ConnectionError />
+            )}
         </div>
       </div>
     )

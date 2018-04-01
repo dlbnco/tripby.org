@@ -14,6 +14,7 @@ import { FormattedMessage } from 'react-intl'
 import qs from 'qs'
 import { createStructuredSelector } from 'reselect'
 import makeSelectAllDrugs from './selectors'
+import ConnectionError from '../../components/ConnectionError'
 import ListDrugs from '../../components/ListDrugs'
 import FilterDrugs from '../../components/FilterDrugs'
 import messages from './messages'
@@ -58,7 +59,7 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
     const limit = Number(nav.limit)
     const skip = limit * (currentPage)
     const pages = []
-    if (!this.props.data.loading) {
+    if (!this.props.data.loading && !this.props.data.error) {
       for (let i = 0; i < Math.ceil(this.props.data._allDrugsMeta.count / limit); i += 1) {
         pages.push(i + 1)
       }
@@ -66,7 +67,7 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
     return (
       <div>
         <Helmet
-          title="AllDrugs"
+          title="Todos os psicoativos"
           meta={[
             { name: 'description', content: 'Description of AllDrugs' },
           ]}
@@ -76,8 +77,16 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
         </PageHeader>
         <section className="py-4">
           <div className="container">
-            <FilterDrugs categories={this.props.data.allCategories || []} />
-            <ListDrugs limit={limit} orderBy={nav.orderBy} skip={skip} filter={nav.filter} pagination={{ pages, currentPage }} />
+            {!this.props.data.error ? (
+              <div>
+                <FilterDrugs categories={this.props.data.allCategories || []} />
+                <ListDrugs limit={limit} orderBy={nav.orderBy} skip={skip} filter={nav.filter} pagination={{ pages, currentPage }} />
+              </div>
+            ) : (
+              <div>
+                <ConnectionError />
+              </div>
+            )}
 
           </div>
         </section>

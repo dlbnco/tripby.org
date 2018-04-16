@@ -40,7 +40,13 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
                 <Navigation navOpened={this.state.navOpened} />
               </div>
             </div>
-            <div className="ml-3">
+            <div className="d-flex align-items-center ml-3">
+              <Link to="/search">
+                <button className="text-uppercase text-blueAccent mx-3">
+                  <i className="material-icons">search</i>
+                  <span className="mr-1 d-none d-md-inline-flex">Buscar</span>
+                </button>
+              </Link>
               <Auth0 location={this.props.location} />
             </div>
           </div>

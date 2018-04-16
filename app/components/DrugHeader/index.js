@@ -29,7 +29,7 @@ function DrugHeader(props) {
                 <div className="text-grey">+ Adicionar classificação</div>
               )}
             </div>
-            {props.aliases ? <span>
+            {props.aliases && props.aliases.length > 0 ? <span>
               <h6 className="text-uppercase mb-0">Nomes comuns</h6>
               <p><small>{props.aliases.join(', ')}</small></p>
             </span> : null}

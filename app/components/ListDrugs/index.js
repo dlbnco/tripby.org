@@ -28,7 +28,7 @@ export class ListDrugs extends React.Component { // eslint-disable-line react/pr
     const allDrugs = this.props.data.allDrugs
     const drugs = allDrugs.map((drug, index) => (
       <div className="col-12 col-md-6 col-lg-4" key={index}>
-        <DrugCard id={drug.id} name={drug.name} class={drug.classes.length > 0 ? drug.classes[0].title : null} molecule={drug.molecules.length > 0 ? drug.molecules[0].url : null} />
+        <DrugCard id={drug.id} name={drug.name} aliases={drug.aliases || []} classes={drug.classes} molecules={drug.molecules} />
       </div>)
     )
     return (

@@ -101,6 +101,7 @@ const Drug = gql`
         title
       }
       routes {
+        id
         name
       }
       molecules {

@@ -102,7 +102,12 @@ const Drug = gql`
       }
       routes {
         id
-        name
+        type
+        durations {
+          min
+          max
+          timeframe
+        }
       }
       molecules {
         url

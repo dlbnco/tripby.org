@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Collapse } from 'reactstrap'
 import Alert from '../Alert'
+import DrugRoute from '../DrugRoute'
 
 class DrugHeader extends React.Component {
   componentWillMount() {
@@ -51,13 +52,13 @@ class DrugHeader extends React.Component {
                         <div className="card" key={route.id}>
                           <div className="card-header" style={{ padding: '0.5rem 0.75rem' }}>
                             <button className="d-inline-flex justify-content-between w-100" type="button" onClick={() => this.setState({ routes: { [id]: !this.state.routes[id] } })}>
-                              {route.name}
+                              {route.type}
                               <i className="material-icons">{this.state.routes[id] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
                             </button>
                           </div>
                           <Collapse isOpen={this.state.routes[id]}>
                             <div className="card-body">
-                              uehauhea
+                              <DrugRoute route={route} />
                             </div>
                           </Collapse>
                         </div>
@@ -69,13 +70,13 @@ class DrugHeader extends React.Component {
                 <div className="text-grey">+ Adicionar vias de administração</div>
               )}
               {this.props.alerts ?
-                <Alert type="danger" icon="warning">
+                <div className="mt-3"><Alert type="danger" icon="warning">
                   <ul className="m-0 pl-4">
                     {this.props.alerts.map((alert, index) => (
                       <li key={index}><strong>{alert}</strong></li>
                     ))}
                   </ul>
-                </Alert>
+                </Alert></div>
                 : null }
             </div>
           </div>

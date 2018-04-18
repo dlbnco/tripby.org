@@ -13,6 +13,9 @@ Our back-end is based on [Graphcool](https://graph.cool/docs).
 
 We fetch data from the database using [React Apollo](https://www.apollographql.com/docs/react/).
 
+## API documentation and playground
+[api.graph.cool/simple/v1/cj72ajc9b0byx0128eim8rgoz](https://api.graph.cool/simple/v1/cj72ajc9b0byx0128eim8rgoz)
+
 ## Docs
 This project is built using [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate/releases/tag/v3.4.0).
 

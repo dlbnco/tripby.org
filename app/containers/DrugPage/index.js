@@ -108,6 +108,13 @@ const Drug = gql`
           max
           timeframe
         }
+        dosage {
+          treshold
+          light
+          common
+          strong
+          heavy
+        }
       }
       molecules {
         url

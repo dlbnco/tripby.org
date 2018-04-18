@@ -41,7 +41,6 @@ class DrugHeader extends React.Component {
                 <h6 className="text-uppercase mb-0">Nomes comuns</h6>
                 <p><small>{this.props.aliases.join(', ')}</small></p>
               </span> : null}
-
               {this.props.routes.length > 0 ? (
                 <div>
                   <h6 className="text-uppercase">Rotas de administração</h6>
@@ -49,16 +48,16 @@ class DrugHeader extends React.Component {
                     {this.props.routes.map((route) => {
                       const id = route.id
                       return (
-                        <div className="card" key={route.id}>
-                          <div className="card-header" style={{ padding: '0.5rem 0.75rem' }}>
-                            <button className="d-inline-flex justify-content-between w-100" type="button" onClick={() => this.setState({ routes: { [id]: !this.state.routes[id] } })}>
+                        <div className="card mb-1" key={route.id}>
+                          <div className="card-header" style={{ border: 0, padding: '0.5rem 0.75rem' }}>
+                            <button disabled={!route.dosage && route.durations.length === 0} className="d-inline-flex justify-content-between w-100" type="button" onClick={() => this.setState({ routes: { [id]: !this.state.routes[id] } })}>
                               {route.type}
-                              <i className="material-icons">{this.state.routes[id] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
+                              {route.dosage || route.durations.length > 0 ? <i className="material-icons">{this.state.routes[id] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i> : null}
                             </button>
                           </div>
                           <Collapse isOpen={this.state.routes[id]}>
                             <div className="card-body">
-                              <DrugRoute route={route} />
+                              {route.dosage || route.durations.length > 0 ? <DrugRoute route={route} /> : null}
                             </div>
                           </Collapse>
                         </div>
@@ -70,13 +69,13 @@ class DrugHeader extends React.Component {
                 <div className="text-grey">+ Adicionar vias de administração</div>
               )}
               {this.props.alerts ?
-                <div className="mt-3"><Alert type="danger" icon="warning">
+                <Alert type="danger" icon="warning">
                   <ul className="m-0 pl-4">
                     {this.props.alerts.map((alert, index) => (
                       <li key={index}><strong>{alert}</strong></li>
                     ))}
                   </ul>
-                </Alert></div>
+                </Alert>
                 : null }
             </div>
           </div>

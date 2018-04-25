@@ -71,7 +71,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
   }
   render() {
     return (
-      <div style={{ flex: 1 }} className="bg-blueLighter">
+      <div style={{ flex: 1 }}>
         <Helmet>
           <title>{this.props.data.loading ? 'TRIPBY' : `${this.props.data.Drug.name} – efeitos, duração, dose, saúde e lei`}</title>
         </Helmet>

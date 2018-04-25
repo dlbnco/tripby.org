@@ -105,7 +105,7 @@ class DrugBody extends React.Component { // eslint-disable-line react/prefer-sta
   }
   render() {
     return (
-      <div className="card" style={{ borderRadius: '4px', border: 0 }}>
+      <div className="card" style={{ borderRadius: '4px' }}>
         <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
           <div style={{ minWidth: 480, margin: '0 auto' }}>
             <TabGroup defaultSelectedTab={tabs.findIndex((tab) => tab.link === this.props.params.tab)} style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>

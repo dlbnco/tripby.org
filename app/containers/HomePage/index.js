@@ -19,11 +19,12 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <div>
         <FeaturedContent tagline="Leia a bula.">
+          <p className="lead">Seja consciente sobre seu uso de drogas</p>
           <Button campaign icon="trending_flat">Manifesto</Button>
         </FeaturedContent>
         <section className="py-4 grey--lighter">
           <div className="container">
-            <h3 className="pb-3">Psicoativos</h3>
+            <h3 className="pb-3">Psicoativos em destaque</h3>
             <ListDrugs limit={6} />
           </div>
         </section>

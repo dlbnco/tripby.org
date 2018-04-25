@@ -13,8 +13,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Header from '../../components/Header'
-import Footer from '../../components/Footer'
+import Navigation from '../../components/Navigation'
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -25,12 +24,15 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-        <Header location={this.props.location} />
-        <div style={{ flex: 1 }} className="d-flex flex-column">
-          {React.Children.toArray(this.props.children)}
+      <div className="row flex-column flex-md-row no-gutters justify-content-stretch" style={{ minHeight: '100vh' }}>
+        <div className="col-12 col-md-3 col-lg-2">
+          <Navigation location={this.props.location} />
         </div>
-        <Footer />
+        <div className="col-12 col-md-9 col-lg-10 d-flex flex-column bg-greyLighter" style={{ flex: 1 }}>
+          <div style={{ flex: 1 }} className="d-flex flex-column">
+            {React.Children.toArray(this.props.children)}
+          </div>
+        </div>
       </div>
     )
   }

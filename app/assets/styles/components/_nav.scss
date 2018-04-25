@@ -1,44 +1,7 @@
 .nav {
-  transition: 0.25s;
-  overflow: hidden;
-  position: absolute;
-  left: -100%;
-  background: #fff;
-  ul {
-    display: flex;
-    align-items: center;
-  }
-  @include media-breakpoint-down(md) {
-    &.nav--visible {
-      left: 0;
-      top: 0;
-      z-index: 10;
-      width: 100vw;
-      height: 100vh;
-      ul {
-
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        li {
-          text-align: left;
-          font-size: 1.8rem;
-        }
-      }
-    }
-  }
-  @include media-breakpoint-up(md) {
-    & {
-      position: static;
-      background: none;
-    }
-  }
-  ul {
-    margin: 0;
-    padding: 0;
-    li {
-      margin-right: 1rem;
-    }
+  li {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 1.5rem;
   }
 }

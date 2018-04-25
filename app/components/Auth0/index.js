@@ -10,7 +10,7 @@ import auth0 from 'auth0-js'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import messages from './messages'
-import Button from '../Button'
+import FeatherIcon from '../FeatherIcon'
 
 
 class Auth0 extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -80,9 +80,12 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
     return (
       <div>
         {!this.props.data.User ? (
-          <Button secondary onClick={this.login} type="primary">{this.props.data.loading ? '...' : messages.auth.login}</Button>
+          <a href="#!" onClick={this.login}>
+            {this.props.data.loading ? '...' : (<div className="d-flex align-items-center"><span className="d-inline-flex mr-2"><FeatherIcon icon="log-in" size="24" /></span><span>{messages.auth.login}</span></div>)}
+          </a>
         ) : (
           <div>
+            <span className="d-inline-flex mr-2"><FeatherIcon icon="user" size="24" /></span>
             Logado como {this.props.data.User.id}
           </div>
         )}

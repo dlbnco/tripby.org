@@ -74,7 +74,7 @@ class Search extends React.Component {
     return (
       <section className="py-4 py-md-5">
         <div className="container">
-          <h1 className="text-uppercase"><strong><FormattedMessage {...messages.header} /></strong></h1>
+          <h1><FormattedMessage {...messages.header} /></h1>
           <InstantSearch
             appId="Y9AKTKXRI6"
             apiKey="6fc18ed8e8e829048f8318b04fb66252"

@@ -21,15 +21,10 @@ p, ul, li, a {
 p small {
   font-size: 14px;
 }
-@include media-breakpoint-up(md) {
-  p, ul, li, a {
-    font-size: 1rem;
-  }
-  p, p > em {
-    font-size: 1rem;
-  }
-};
 
+a {
+  color: map-get($colors, blue);
+}
 a:hover, .text-hover:hover {
   text-decoration: none;
   color: map-get($colors, blueLight) !important;

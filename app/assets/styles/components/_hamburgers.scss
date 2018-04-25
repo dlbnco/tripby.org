@@ -13,12 +13,12 @@
 .hamburger-box {
 }
 .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
-  background: map-get($colors, grey);
+  background: map-get($colors, blue);
   width: 20px;
-  height: 2px;
+  height: .2em;
 }
 .hamburger-inner {
-  margin-top: -1px;
+  margin-top: 0;
 }
 .hamburger-inner::before {
   top: -9px;
@@ -27,6 +27,7 @@
 .hamburger-inner::after {
   bottom: -9px;
   width: 14px;
+  right: 0;
 }
 
 .is-active .hamburger-inner::after {

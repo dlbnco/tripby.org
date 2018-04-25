@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 
 
 const PageHeader = (props) => (
-  <div className="bg-greyLight py-4 py-md-5">
+  <div className="py-3 py-md-4">
     <div className="container">
       <h1>{props.children}</h1>
     </div>

@@ -7,10 +7,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import SVG from 'react-inlinesvg'
 import Markdown from 'react-markdown'
 
-const moleculeIcon = require('../../assets/img/icons/molecule.svg')
+import FeatherIcon from '../FeatherIcon'
 
 function DrugCard(props) {
   const moleculeStyle = {
@@ -43,7 +42,9 @@ function DrugCard(props) {
             {props.molecules.length > 0 ? (
               <div style={moleculeStyle}></div>
             ) :
-              <div className="icon-molecule mx-auto"><SVG src={moleculeIcon} /></div>
+              <div className="icon-molecule mx-auto">
+                <FeatherIcon icon="loader" size={48} />
+              </div>
               }
           </div>
           {props.summary ? (

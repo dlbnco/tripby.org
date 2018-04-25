@@ -4,5 +4,5 @@
 }
 
 .icon-molecule {
-  svg { fill: #eee; height: 48px; margin: auto; }
+  svg { color: map-get($colors, greyLight); fill: map-get($colors, greyLight) !important; stroke: map-get($colors, greyLight) !important; height: 48px; margin: auto; }
 }

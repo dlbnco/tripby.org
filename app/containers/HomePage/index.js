@@ -11,7 +11,7 @@
 
 import React from 'react'
 import FeaturedContent from '../../components/FeaturedContent'
-import Button from '../../components/Button'
+// import Button from '../../components/Button'
 import ListDrugs from '../../components/ListDrugs'
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -19,8 +19,9 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <div>
         <FeaturedContent tagline="Leia a bula.">
-          <p className="lead">Seja consciente sobre seu uso de drogas</p>
-          <Button campaign icon="trending_flat">Manifesto</Button>
+          <p className="lead">Esta é a versão em desenvolvimento do TRIPBY.</p>
+          <p>Nos ajude a melhorar dando seu feedback no <a href="https://instagram.com/tripby_">Instagram</a>, <a href="https://twitter.com/tripby_">Twitter</a>, <a href="https://tripby.slack.com/join/shared_invite/enQtMzQwOTcyNTUyNjYzLTY5MjFiZjIyOWVkZDk2ZDQ2Zjc3MmE0N2FmNmE3NmFhMzA3MzY3MTFkNjJhZjgxMjYzOWZhNGQyNzg1YWM4ZTU">Slack</a> ou <a href="https://github.com/tripby/tripby.org">GitHub</a>.</p>
+          {/* <Button campaign icon="trending_flat">Manifesto</Button> */}
         </FeaturedContent>
         <section className="py-4 grey--lighter">
           <div className="container">

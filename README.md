@@ -2,9 +2,9 @@
 Client-side layer of [dev.tripby.org]()
 
 
-## Installation
-1. `npm install`
-2. `npm start`
+## Install
+1. `yarn`
+2. `yarn start`
 
 The project will be available at `http://localhost:3000`
 

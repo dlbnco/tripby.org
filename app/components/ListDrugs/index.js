@@ -49,18 +49,18 @@ export class ListDrugs extends React.Component { // eslint-disable-line react/pr
           <Spinner />
             : (
               <div>
-                <div className="mb-3">
-                  <FormattedMessage
-                    {...messages.countInfo}
-                    values={{
-                      limit: this.props.limit,
-                      count: this.props.data._allDrugsMeta.count,
-                    }}
-                  />
-                </div>
                 {this.theDrugs()}
                 {this.props.pagination ? (
                   <nav aria-label="Page navigation">
+                    <div className="mb-3">
+                      <FormattedMessage
+                        {...messages.countInfo}
+                        values={{
+                          limit: this.props.data.allDrugs.length,
+                          count: this.props.data._allDrugsMeta.count,
+                        }}
+                      />
+                    </div>
                     <ul className="pagination list-unstyled">
                       <li className="page-item"><button disabled={this.props.pagination.currentPage === 0} onClick={() => this.props.dispatch(setNavigation({ navigation: { page: this.props.pagination.currentPage - 1 } }))} className="page-link" href="#">Anterior</button></li>
                       { pages.map((page) => (

@@ -79,7 +79,7 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
           <div className="container">
             {!this.props.data.error ? (
               <div>
-                <FilterDrugs categories={this.props.data.allCategories || []} />
+                <div className="mb-3"><FilterDrugs categories={this.props.data.allCategories || []} /></div>
                 <ListDrugs limit={limit} orderBy={nav.orderBy} skip={skip} filter={nav.filter} pagination={{ pages, currentPage }} />
               </div>
             ) : (

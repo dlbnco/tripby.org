@@ -10,3 +10,10 @@ a.card:hover {
   font-size: 1rem;
   margin-right: 0.33em;
 }
+
+.card--shadow:hover {
+  -webkit-box-shadow: 0px 0px 100px 0 rgba(0,0,0,0.075);
+-moz-box-shadow: 0px 0px 100px 0 rgba(0,0,0,0.075);
+box-shadow: 0px 0px 100px 0 rgba(0,0,0,0.075);
+  transition: 0.5s;
+}

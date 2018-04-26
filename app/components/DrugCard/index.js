@@ -21,7 +21,7 @@ function DrugCard(props) {
     height: '100%',
   }
   return (
-    <Link to={`/drugs/${props.id}/overview`} className="card" style={{ marginBottom: '1rem' }}>
+    <Link to={`/drugs/${props.id}/overview`} className="card card--shadow" style={{ marginBottom: '1rem' }}>
       <div className="card-body">
         <div className="row">
           <div className="col-8">
@@ -34,9 +34,6 @@ function DrugCard(props) {
                 </div>
             ) : null }
             </p>
-            {props.aliases && props.aliases.length > 0 ? <span>
-              <small className="text-muted">({props.aliases.join(', ')})</small>
-            </span> : null}
           </div>
           <div className="col-4 d-flex align-items-center">
             {props.molecules.length > 0 ? (
@@ -47,13 +44,16 @@ function DrugCard(props) {
               </div>
               }
           </div>
-          {props.summary ? (
-            <div className="col-12">
+          <div className="col-12">
+            {props.aliases && props.aliases.length > 0 ? <span>
+              <small className="text-muted">({props.aliases.join(', ')})</small>
+            </span> : null}
+            {props.summary ? (
               <Markdown>
                 {props.summary}
               </Markdown>
-            </div>
-              ) : null}
+            ) : null}
+          </div>
         </div>
       </div>
     </Link>

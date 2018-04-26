@@ -17,7 +17,7 @@ const tabStyle = {
   whiteSpace: 'nowrap',
 }
 
-const tabs = [
+const defaultTabs = [
   { link: 'overview', label: 'Visão geral' },
   { link: 'effects', label: 'Efeitos' },
   { link: 'health', label: 'Saúde' },
@@ -26,18 +26,25 @@ const tabs = [
 ]
 
 class DrugBody extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor() {
+  constructor(props) {
     super()
     this.tabSwitch = this.tabSwitch.bind(this)
+    this.tabs = defaultTabs.filter((tab) => (Array.isArray(props.drug[tab.link]) && props.drug[tab.link].length > 0) || (!Array.isArray(props.drug[tab.link]) && props.drug[tab.link] !== null))
   }
   mapTabs() {
-    return tabs.map((tab, index) => (
-      <Link to={`/drugs/${this.props.params.drug}/${tab.link}`} key={index}>
-        <Tab style={tabStyle}>
-          {tab.label}
-        </Tab>
-      </Link>
-      ))
+    const tabs = defaultTabs.filter((tab) => (Array.isArray(this.props.drug[tab.link]) && this.props.drug[tab.link].length > 0) || (!Array.isArray(this.props.drug[tab.link]) && this.props.drug[tab.link] !== null))
+    return tabs.map((tab, index) => {
+      if ((Array.isArray(this.props.drug[tab.link]) && this.props.drug[tab.link].length > 10) || this.props.drug[tab.link] !== null) { // show only tabs that has content
+        return (
+          <Link to={`/drugs/${this.props.params.drug}/${tab.link}`} key={index}>
+            <Tab style={tabStyle}>
+              {tab.label}
+            </Tab>
+          </Link>
+        )
+      }
+      return null
+    })
   }
   tabSwitch() {
     const drug = this.props.drug
@@ -58,10 +65,10 @@ class DrugBody extends React.Component { // eslint-disable-line react/prefer-sta
                         <div className="p-3">
                           <div className="d-flex align-items-center">
                             <h5 style={{ flex: 1 }}>{effect.name}</h5>
-                            <div className="d-flex flex-column">
+                            {/* <div className="d-flex flex-column">
                               <i className="material-icons">keyboard_arrow_up</i>
                               <i className="material-icons">keyboard_arrow_down</i>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -107,8 +114,8 @@ class DrugBody extends React.Component { // eslint-disable-line react/prefer-sta
     return (
       <div className="card" style={{ borderRadius: '4px' }}>
         <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
-          <div style={{ minWidth: 480, margin: '0 auto' }}>
-            <TabGroup defaultSelectedTab={tabs.findIndex((tab) => tab.link === this.props.params.tab)} style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
+          <div style={{ minWidth: this.tabs.length > 3 ? 560 : 320, margin: '0 auto' }}>
+            <TabGroup defaultSelectedTab={defaultTabs.findIndex((tab) => tab.link === this.props.params.tab)} style={{ indicator: { backgroundColor: '#f6b2b5' } }} onChangeTab={this.handleTabs}>
               {this.mapTabs()}
             </TabGroup>
           </div>

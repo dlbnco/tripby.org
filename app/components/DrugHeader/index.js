@@ -33,9 +33,7 @@ class DrugHeader extends React.Component {
               <div className="mt-1 mb-3">
                 {this.props.classes.length > 0 ? (
                   <p><strong className="text-uppercase text-pinkLight">{this.props.classes[0].title}</strong></p>
-                ) : (
-                  <div className="text-grey">+ Adicionar classificação</div>
-                )}
+                ) : null}
               </div>
               {this.props.aliases && this.props.aliases.length > 0 ? <span>
                 <h6 className="text-uppercase mb-0">Nomes comuns</h6>
@@ -65,9 +63,7 @@ class DrugHeader extends React.Component {
                     })}
                   </div>
                 </div>
-              ) : (
-                <div className="text-grey">+ Adicionar vias de administração</div>
-              )}
+              ) : null}
               {this.props.alerts ?
                 <Alert type="danger" icon="warning">
                   <ul className="m-0 pl-4">

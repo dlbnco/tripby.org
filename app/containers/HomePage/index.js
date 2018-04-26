@@ -26,7 +26,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <section className="py-4 grey--lighter">
           <div className="container">
             <h3 className="pb-3">Psicoativos em destaque</h3>
-            <ListDrugs limit={6} />
+            <ListDrugs
+              limit={6} filter={{ molecules_some: {
+                id_contains: '', // show only drugs that has molecule images
+              } }}
+            />
           </div>
         </section>
         {/** <section className="section grey--lighter">

@@ -60,11 +60,11 @@ class DrugBody extends React.Component { // eslint-disable-line react/prefer-sta
                 <Alert icon="info_outline" type="info">Os efeitos listados abaixo raramente (ou nunca) ocorrerão de uma só vez, mas doses maiores aumentarão as chances e são mais propensas a induzir uma gama completa de efeitos.</Alert>
                 <ul className="p-0 list-unstyled row">
                   {drug.effects.map((effect, index) => (
-                    <li key={index} className="col-12 col-md-4">
+                    <li key={index} className="col-12 col-md-6 mb-3">
                       <div className="card">
                         <div className="p-3">
                           <div className="d-flex align-items-center">
-                            <h5 style={{ flex: 1 }}>{effect.name}</h5>
+                            <h6 style={{ flex: 1 }}>{effect.name}</h6>
                             {/* <div className="d-flex flex-column">
                               <i className="material-icons">keyboard_arrow_up</i>
                               <i className="material-icons">keyboard_arrow_down</i>

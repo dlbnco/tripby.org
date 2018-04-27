@@ -22,3 +22,7 @@ body {
   background: map-get($colors, blueAccent); /* WebKit/Blink Browsers */
 	color: #fff;
 }
+
+.flex-1 {
+  flex: 1;
+}

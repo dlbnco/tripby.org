@@ -57,9 +57,9 @@ class Navigation extends React.Component {
           <Link to="/"><img src={logo} alt="TRIPBY" className="logo mb-0 mb-md-5" /></Link>
           <div className="d-inline-flex">
             <Link to="/search">
-              <button className="d-md-none text-uppercase mr-2">
+              <div className="d-md-none text-uppercase mr-2">
                 <FeatherIcon icon="search" size={24} />
-              </button>
+              </div>
             </Link>
             <span className="d-md-none"><Hamburger onClick={this.handleNav} navOpened={this.state.navOpened} /></span>
           </div>

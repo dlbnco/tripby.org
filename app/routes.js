@@ -102,6 +102,14 @@ export default function createRoutes(store) {
           .catch(errorLoading)
       },
     }, {
+      path: '/:type/:operation/success',
+      name: 'contributionSuccess',
+      getComponent(location, cb) {
+        import('components/ContributionSuccess')
+          .then(loadModule(cb))
+          .catch(errorLoading)
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

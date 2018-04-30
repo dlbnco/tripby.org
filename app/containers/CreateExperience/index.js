@@ -19,6 +19,7 @@ import messages from './messages'
 import PageHeader from '../../components/PageHeader'
 import FeatherIcon from '../../components/FeatherIcon'
 import Spinner from '../../components/Spinner'
+import Alert from '../../components/Alert'
 import Button from '../../components/Button'
 
 export class CreateExperience extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -89,15 +90,16 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
             <Mutation
               mutation={CREATE_EXPERIENCE}
               onCompleted={(data) => { browserHistory.push(`/experiences/create/success?id=${data.createExperience.id}`) }}
+              onError={() => { window.scrollTo(0, 0) }}
             >
-              {(createExperience, { loading }) => (
+              {(createExperience, { loading, error }) => (
                 <form
                   onSubmit={(e) => {
                     e.preventDefault()
                     createExperience({
                       variables: {
                         title: e.target.title.value,
-                        story: e.target.story.value,
+                        story: this.state.story,
                         drugsIds: this.state.selectedDrugs,
                         authorId: this.props.userId,
                       },
@@ -105,6 +107,16 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                   }
                 }
                 >
+                  {error ?
+                    <div className="my-4"><Alert type="danger">
+                      <h5>Algo deu errado</h5>
+                      <ul className="m-0">
+                        {error.graphQLErrors.map((err) => (
+                          <li>{err.message}</li>
+                      ))}
+                      </ul>
+                    </Alert></div>
+                  : null}
                   <div className="form-group">
                     {!this.props.data.loading ? (
                       <div className="card d-block">

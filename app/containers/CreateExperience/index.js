@@ -37,15 +37,15 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
       this.storyTextarea = e
     }
   }
-  handleSelect(id) {
-    const drugs = this.state.selectedDrugs
-    const index = drugs.indexOf(id)
+  handleSelect(drug) {
+    const { selectedDrugs } = this.state
+    const index = selectedDrugs.indexOf(drug)
     if (index === -1) {
-      drugs.push(id)
+      selectedDrugs.push(drug)
     } else {
-      drugs.splice(index, 1)
+      selectedDrugs.splice(index, 1)
     }
-    this.setState({ selectedDrugs: drugs })
+    this.setState({ selectedDrugs })
   }
   handleInputs(e) {
     this.setState({ [e.target.name || e.target.id]: e.target.value })
@@ -63,13 +63,13 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
         }
       }
     `
-    const drugButton = (id) => classnames({
+    const drugButton = (drug) => classnames({
       'list-group-item': true,
       'list-group-item-action': true,
       'd-flex': true,
       'align-items-center': true,
       'justify-content-between': true,
-      active: this.state.selectedDrugs.indexOf(id) >= 0,
+      active: this.state.selectedDrugs.indexOf(drug) >= 0,
     })
     const allDrugs = this.props.data.allDrugs || []
     const drugs = allDrugs.filter((drug) => drug.name.toLowerCase().indexOf(this.state.filter.toLowerCase()) !== -1)
@@ -100,7 +100,10 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                       variables: {
                         title: e.target.title.value,
                         story: this.state.story,
-                        drugsIds: this.state.selectedDrugs,
+                        drugsIds: this.state.selectedDrugs.reduce((arr, drug) => {
+                          arr.push(drug.id)
+                          return arr
+                        }, []),
                         authorId: this.props.userId,
                       },
                     })
@@ -125,15 +128,18 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                         </div>
                         <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
                           {drugs.map((drug) =>
-                            <button type="button" key={drug.id} onClick={() => this.handleSelect(drug.id)} className={drugButton(drug.id)}>
+                            <button type="button" key={drug.id} onClick={() => this.handleSelect(drug)} className={drugButton(drug)}>
                               {drug.name}
-                              <FeatherIcon icon={this.state.selectedDrugs.indexOf(drug.id) >= 0 ? 'check-circle' : 'circle'} size={24} />
+                              <FeatherIcon icon={this.state.selectedDrugs.indexOf(drug) >= 0 ? 'check-circle' : 'circle'} size={24} />
                             </button>
                           )}
                         </ul>
                       </div>)
                       : <Spinner />}
                   </div>
+                  {this.state.selectedDrugs.map((drug) =>
+                    <div className="badge badge-pill badge-blue mr-2 mb-3 text-white">{drug.name}</div>
+                  )}
                   <div className="form-group">
                     <label htmlFor="title"><h5>Título da experiência</h5></label>
                     <input onChange={this.handleInputs} type="text" id="title" name="title" className="form-control form-control-lg" />

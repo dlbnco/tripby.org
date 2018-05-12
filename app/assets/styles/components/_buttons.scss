@@ -1,3 +1,8 @@
+button {
+  background: 0;
+  border: 0;
+}
+
 button, .btn {
   cursor: pointer;
 }
@@ -15,6 +20,15 @@ button, .btn {
     opacity: 0.8;
     color: #fff;
   }
+
+}
+.list-group-item {
+  transition: .2s;
+  &:focus {outline: 0;}
+}
+.list-group-item.active {
+  background-color: map-get($colors, blue);
+  border-color: map-get($colors, blue);
 }
 .btn-secondary {
   background: none;

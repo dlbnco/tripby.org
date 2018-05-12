@@ -94,6 +94,22 @@ export default function createRoutes(store) {
           .catch(errorLoading)
       },
     }, {
+      path: '/experiences/create',
+      name: 'createExperience',
+      getComponent(location, cb) {
+        import('containers/CreateExperience')
+          .then(loadModule(cb))
+          .catch(errorLoading)
+      },
+    }, {
+      path: '/:type/:operation/success',
+      name: 'contributionSuccess',
+      getComponent(location, cb) {
+        import('components/ContributionSuccess')
+          .then(loadModule(cb))
+          .catch(errorLoading)
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

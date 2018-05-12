@@ -9,6 +9,9 @@ import PropTypes from 'prop-types'
 import auth0 from 'auth0-js'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
+import { connect } from 'react-redux'
+
+import setUser from './actions'
 import messages from './messages'
 import FeatherIcon from '../FeatherIcon'
 
@@ -34,6 +37,36 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
       this.parseHash()
     }
   }
+  componentDidUpdate(prevProps) {
+    const user = this.props.data.User
+    if (user && prevProps.data.User !== user && user.id) {
+      this.props.dispatch(setUser(user.id))
+    }
+  }
+  login() {
+    this.auth.authorize()
+  }
+  createUser(idToken) {
+    this.props.mutate({
+      refetchQueries: [
+        'checkUser',
+      ],
+      variables: {
+        idToken,
+      },
+    })
+  }
+  checkUser(userId) {
+    this.props.data.refetch({
+      userId,
+    }).then((response) => {
+      if (!response.data.User) {
+        this.createUser(this.state.authResult.idToken)
+      } else {
+        this.props.data.updateQuery({ variables: { userId } })
+      }
+    })
+  }
   parseHash() {
     this.auth.parseHash({
       hash: this.props.location.hash,
@@ -51,30 +84,6 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
         this.checkUser(authResult.idTokenPayload.user_id)
       })
     })
-  }
-  checkUser(userId) {
-    this.props.data.refetch({
-      userId,
-    }).then((response) => {
-      if (!response.data.User) {
-        this.createUser(this.state.authResult.idToken)
-      } else {
-        this.props.data.updateQuery({ variables: { userId } })
-      }
-    })
-  }
-  createUser(idToken) {
-    this.props.mutate({
-      refetchQueries: [
-        'checkUser',
-      ],
-      variables: {
-        idToken,
-      },
-    })
-  }
-  login() {
-    this.auth.authorize()
   }
   render() {
     return (
@@ -98,6 +107,7 @@ Auth0.propTypes = {
   location: PropTypes.object,
   data: PropTypes.object,
   mutate: PropTypes.func,
+  dispatch: PropTypes.func,
 }
 
 const createUser = gql`
@@ -122,4 +132,10 @@ const checkUser = gql`
   }
 `
 
-export default compose(graphql(createUser), graphql(checkUser, { options: { variables: { userId: localStorage.userId || '' } } }))(Auth0)
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  }
+}
+
+export default compose(graphql(createUser), graphql(checkUser, { options: { variables: { userId: localStorage.userId || '' } } }))(connect(null, mapDispatchToProps)(Auth0))

@@ -152,7 +152,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                             </ul>
                           </div>
                           {this.state.selectedDrugs.map((drug) =>
-                            <div key={drug.id} className="d-inline-flex mr-2 mb-2"><Badge close={() => this.handleSelect(drug)} bg="blue">{drug.name}</Badge></div>
+                            <div key={drug.id} className="d-inline-flex mr-2 mb-2"><Badge close={() => this.handleSelect(drug)} bg="pinkLight">{drug.name}</Badge></div>
                           )}
                         </div>
                         )

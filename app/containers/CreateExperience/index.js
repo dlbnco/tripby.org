@@ -130,7 +130,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                       <div className="form-group">
                         <label htmlFor="story"><h5>Conte a história da experiência</h5></label>
                         {/* <textarea ref={this.storyTextarea} name="story" id="story" className="form-control" onChange={this.handleInputs}></textarea> */}
-                        <SimpleMDE id="story" options={{ spellChecker: false }} onChange={(e) => this.handleInputs({ target: { value: e, name: 'story' } })} />
+                        <SimpleMDE value={this.state.story} id="story" options={{ spellChecker: false, forceSync: true }} onChange={(e) => this.handleInputs({ target: { value: e, name: 'story' } })} />
                       </div>
 
                     </div>
@@ -152,7 +152,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                             </ul>
                           </div>
                           {this.state.selectedDrugs.map((drug) =>
-                            <div key={drug.id} className="d-inline-flex mr-2 mb-2"><Badge close={() => this.handleSelect(drug)} bg="blue">{drug.name}</Badge></div>
+                            <div key={drug.id} className="d-inline-flex mr-2 mb-2"><Badge close={() => this.handleSelect(drug)} bg="pinkLight">{drug.name}</Badge></div>
                           )}
                         </div>
                         )

@@ -1,6 +1,9 @@
 button {
   background: 0;
   border: 0;
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 button, .btn {
@@ -8,43 +11,25 @@ button, .btn {
 }
 
 .btn {
-  border-radius: 2px;
+  border-radius: 100px;
   background-color: map-get($colors, blue);
   color: #fff;
   text-transform: uppercase;
-  padding: 12px;
+  padding: 0.66rem 1.66rem;
   transition: .2s;
-  font-size: 1rem;
-  line-height: 1rem;
+  font-size: 1.1rem;
   &:hover {
     opacity: 0.8;
     color: #fff;
   }
+}
 
-}
-.list-group-item {
-  transition: .2s;
-  &:focus {outline: 0;}
-}
-.list-group-item.active {
-  background-color: map-get($colors, blue);
-  border-color: map-get($colors, blue);
-}
-.btn-secondary {
-  background: none;
-  border: 1px solid map-get($colors, blueAccent);
-  color: map-get($colors, blueAccent);
+.btn-primary {
+  border: 0;
   &:hover {
     background-color: map-get($colors, blueLight);
-    border: 1px solid map-get($colors, blueLight)
   }
-}
-
-.btn--campaign {
-  background-color: map-get($colors, green);
-  color: rgba(0,0,0,0.75);
-  &:hover {
-    opacity: 0.8;
-    color: rgba(0,0,0,0.55);
+  &:active {
+    background-color: map-get($colors, blueAccent);
   }
 }

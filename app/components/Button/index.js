@@ -11,8 +11,8 @@ import classnames from 'classnames'
 function Button(props) {
   const btn = classnames({
     btn: true,
-    [`btn-${props.style}`]: !props.outline,
-    [`btn-outline-${props.style}`]: props.outline,
+    [`btn-${props.btnStyle}`]: !props.outline,
+    [`btn-outline-${props.btnStyle}`]: props.outline,
     'btn-lg': props.large,
     'btn-block': props.block,
   })
@@ -28,7 +28,7 @@ Button.propTypes = {
   children: PropTypes.node,
   onClick: PropTypes.func,
   type: PropTypes.string,
-  style: PropTypes.string,
+  btnStyle: PropTypes.string,
   large: PropTypes.bool,
   block: PropTypes.bool,
   outline: PropTypes.bool,

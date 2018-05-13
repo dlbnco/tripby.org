@@ -1,0 +1,8 @@
+.list-group-item {
+  transition: .2s;
+  &:focus {outline: 0;}
+}
+.list-group-item.active {
+  background-color: map-get($colors, pinkLight);
+  border-color: map-get($colors, pinkLight);
+}

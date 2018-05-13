@@ -21,6 +21,7 @@ import FeatherIcon from '../../components/FeatherIcon'
 import Spinner from '../../components/Spinner'
 import Alert from '../../components/Alert'
 import Button from '../../components/Button'
+import Badge from '../../components/Badge'
 
 export class CreateExperience extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -151,7 +152,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                             </ul>
                           </div>
                           {this.state.selectedDrugs.map((drug) =>
-                            <div className="badge badge-pill badge-blue mr-2 mb-3 text-white">{drug.name}</div>
+                            <div key={drug.id} className="d-inline-flex mr-2 mb-2"><Badge close={() => this.handleSelect(drug)} bg="blue">{drug.name}</Badge></div>
                           )}
                         </div>
                         )

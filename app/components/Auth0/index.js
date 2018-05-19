@@ -10,6 +10,7 @@ import auth0 from 'auth0-js'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 
 import setUser from './actions'
 import messages from './messages'
@@ -44,6 +45,7 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
     }
   }
   login() {
+    localStorage.pathname = this.props.location.pathname
     this.auth.authorize()
   }
   createUser(idToken, email) {
@@ -66,10 +68,14 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
       } else {
         this.props.data.updateQuery({ variables: { userId } })
       }
+    }).then(() => {
+      if (localStorage.pathname) {
+        browserHistory.push(localStorage.pathname)
+        localStorage.removeItem('pathname')
+      }
     })
   }
   parseHash() {
-    console.log(this.props.location.hash)
     this.auth.parseHash({
       hash: this.props.location.hash,
     }, (err, authResult) => {

@@ -27,7 +27,6 @@ class Navigation extends React.Component {
     this.setState({
       navOpened: !this.state.navOpened,
     })
-    document.body.classList.toggle('prevent-scroll')
   }
   render() {
     const navClasses = classnames({

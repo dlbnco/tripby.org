@@ -46,13 +46,14 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
   login() {
     this.auth.authorize()
   }
-  createUser(idToken) {
+  createUser(idToken, email) {
     this.props.mutate({
       refetchQueries: [
         'checkUser',
       ],
       variables: {
         idToken,
+        email,
       },
     })
   }
@@ -61,13 +62,14 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
       userId,
     }).then((response) => {
       if (!response.data.User) {
-        this.createUser(this.state.authResult.idToken)
+        this.createUser(this.state.authResult.idToken, this.state.authResult.idTokenPayload.email)
       } else {
         this.props.data.updateQuery({ variables: { userId } })
       }
     })
   }
   parseHash() {
+    console.log(this.props.location.hash)
     this.auth.parseHash({
       hash: this.props.location.hash,
     }, (err, authResult) => {
@@ -111,13 +113,14 @@ Auth0.propTypes = {
 }
 
 const createUser = gql`
-mutation createUser($idToken: String!) {
+mutation createUser($idToken: String!, $email: String!) {
   createUser (
     authProvider: {
       auth0: {
         idToken: $idToken
       }
-    }
+    },
+    email: $email
   ) {
     id
   }

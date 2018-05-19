@@ -66,7 +66,7 @@ class Navigation extends React.Component {
           <nav className={navClasses}>
             <ul className="nav flex-column">
               {items.map((item) =>
-                <li>
+                <li key={item.link}>
                   <Link to={item.link} onClick={() => this.setState({ navOpened: false })}>
                     <div className="d-flex align-items-center">
                       <span className="mr-2 d-inline-flex align-items-center">

@@ -12,8 +12,9 @@ import { FormattedMessage } from 'react-intl'
 import { graphql, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import classnames from 'classnames'
-import SimpleMDE from 'react-simplemde-editor'
-import 'simplemde/dist/simplemde.min.css'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import TurndownService from 'turndown'
 
 import messages from './messages'
 import PageHeader from '../../components/PageHeader'
@@ -99,10 +100,12 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                   <form
                     onSubmit={(e) => {
                       e.preventDefault()
+                      const turndownService = new TurndownService({ headingStyle: 'atx' })
+                      const story = turndownService.turndown(this.state.story)
                       createExperience({
                         variables: {
                           title: e.target.title.value,
-                          story: this.state.story,
+                          story,
                           drugsIds: this.state.selectedDrugs.reduce((arr, drug) => {
                             arr.push(drug.id)
                             return arr
@@ -132,7 +135,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                         <div className="form-group">
                           <label htmlFor="story"><h5>Conte a história da experiência</h5></label>
                           {/* <textarea ref={this.storyTextarea} name="story" id="story" className="form-control" onChange={this.handleInputs}></textarea> */}
-                          <SimpleMDE value={this.state.story} id="story" options={{ spellChecker: false, forceSync: true }} onChange={(e) => this.handleInputs({ target: { value: e, name: 'story' } })} />
+                          <ReactQuill value={this.state.story} onChange={(e) => this.handleInputs({ target: { value: e, name: 'story' } })} />
                         </div>
 
                       </div>

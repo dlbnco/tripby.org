@@ -10,6 +10,7 @@ import auth0 from 'auth0-js'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 
 import setUser from './actions'
 import messages from './messages'
@@ -44,15 +45,17 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
     }
   }
   login() {
+    localStorage.pathname = this.props.location.pathname
     this.auth.authorize()
   }
-  createUser(idToken) {
+  createUser(idToken, email) {
     this.props.mutate({
       refetchQueries: [
         'checkUser',
       ],
       variables: {
         idToken,
+        email,
       },
     })
   }
@@ -61,9 +64,14 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
       userId,
     }).then((response) => {
       if (!response.data.User) {
-        this.createUser(this.state.authResult.idToken)
+        this.createUser(this.state.authResult.idToken, this.state.authResult.idTokenPayload.email)
       } else {
         this.props.data.updateQuery({ variables: { userId } })
+      }
+    }).then(() => {
+      if (localStorage.pathname) {
+        browserHistory.push(localStorage.pathname)
+        localStorage.removeItem('pathname')
       }
     })
   }
@@ -111,13 +119,14 @@ Auth0.propTypes = {
 }
 
 const createUser = gql`
-mutation createUser($idToken: String!) {
+mutation createUser($idToken: String!, $email: String!) {
   createUser (
     authProvider: {
       auth0: {
         idToken: $idToken
       }
-    }
+    },
+    email: $email
   ) {
     id
   }

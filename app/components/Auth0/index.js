@@ -102,7 +102,7 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
           </a>
         ) : (
           <div>
-            <span className="d-inline-flex mr-2"><FeatherIcon icon="user" size="24" /></span>
+            <span className="d-inline-flex mr-2"><FeatherIcon icon="user" size={24} /></span>
             Logado como {this.props.data.User.id}
           </div>
         )}

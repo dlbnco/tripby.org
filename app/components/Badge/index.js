@@ -17,7 +17,7 @@ const Badge = ({
   return (
     <div className={badgeClass}>
       <div className="d-flex align-items-center">
-        <div className="mr-2">{icon}</div>
+        {icon && <div className="mr-2">{icon}</div>}
         {children}
         {close && <button type="button" className="ml-2" style={{ opacity: 0.5, cursor: 'pointer' }} onClick={() => close()}><FeatherIcon icon="x" size={12} /></button>}
       </div>

@@ -14,6 +14,7 @@ import { browserHistory } from 'react-router'
 
 import setUser from './actions'
 import messages from './messages'
+import Identicon from '../Identicon'
 import FeatherIcon from '../FeatherIcon'
 
 
@@ -110,9 +111,13 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
           </a>
         ) : (
           <div>
-            <span className="d-inline-flex mr-2"><FeatherIcon icon="user" size={24} /></span>
-            {this.props.data.User.id}
-            <button className="small text-muted d-block" onClick={() => this.logout()}>Sair</button>
+            <div className="d-inline-flex align-items-center">
+              <span className="mr-2">
+                <Identicon hash={this.props.data.User.id} size={24} />
+              </span>
+              <small>{this.props.data.User.id}</small>
+            </div>
+            <button className="p-0 small text-muted d-block" onClick={() => this.logout()}>Sair</button>
           </div>
         )}
       </div>

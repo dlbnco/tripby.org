@@ -4746,6 +4746,10 @@ icss-replace-symbols@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
 
+identicon.js@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/identicon.js/-/identicon.js-2.3.2.tgz#bfebb66c8047f386333ffa595fe2912345a0708d"
+
 idtoken-verifier@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/idtoken-verifier/-/idtoken-verifier-1.2.0.tgz#4654f1f07ab7a803fc9b1b8b36057e2a87ad8b09"

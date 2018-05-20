@@ -32,10 +32,13 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
     this.parseHash = this.parseHash.bind(this)
   }
   componentDidMount() {
-    if (localStorage.userId) {
-      this.checkUser(localStorage.userId)
+    const now = Date.parse(new Date())
+    if (localStorage.tokenExpires && now > localStorage.tokenExpires) {
+      this.logout()
     } else if (this.props.location.pathname === '/authorize' && this.props.location.hash) {
       this.parseHash()
+    } else if (localStorage.userId) {
+      this.checkUser(localStorage.userId)
     }
   }
   componentDidUpdate(prevProps) {
@@ -44,15 +47,18 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
       this.props.dispatch(setUser(user.id))
     }
   }
+  logout() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('tokenExpires')
+    localStorage.removeItem('userId')
+    this.setState({})
+  }
   login() {
     localStorage.pathname = this.props.location.pathname
     this.auth.authorize()
   }
   createUser(idToken, email) {
     this.props.mutate({
-      refetchQueries: [
-        'checkUser',
-      ],
       variables: {
         idToken,
         email,
@@ -84,7 +90,9 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
           err,
         })
       }
+      const now = new Date()
       localStorage.token = authResult.idToken
+      localStorage.tokenExpires = now.setSeconds(now.getSeconds() + authResult.expiresIn)
       localStorage.userId = authResult.idTokenPayload.user_id
       this.setState({
         authResult,
@@ -96,14 +104,15 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
   render() {
     return (
       <div>
-        {!this.props.data.User ? (
+        {!this.props.data.User || !localStorage.token ? (
           <a href="#!" onClick={this.login}>
             {this.props.data.loading ? '...' : (<div className="d-flex align-items-center"><span className="d-inline-flex mr-2"><FeatherIcon icon="log-in" size="24" /></span><span>{messages.auth.login}</span></div>)}
           </a>
         ) : (
           <div>
             <span className="d-inline-flex mr-2"><FeatherIcon icon="user" size={24} /></span>
-            Logado como {this.props.data.User.id}
+            {this.props.data.User.id}
+            <button className="small text-muted d-block" onClick={() => this.logout()}>Sair</button>
           </div>
         )}
       </div>
@@ -147,4 +156,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default compose(graphql(createUser), graphql(checkUser, { options: { variables: { userId: localStorage.userId || '' } } }))(connect(null, mapDispatchToProps)(Auth0))
+export default compose(graphql(createUser, { options: { refetchQueries: ['checkUser'] } }), graphql(checkUser, { options: { variables: { userId: localStorage.userId } } }))(connect(null, mapDispatchToProps)(Auth0))

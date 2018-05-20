@@ -91,7 +91,12 @@ const Drug = gql`
       health
       law
       experiences {
+        id
         title
+        drugs {
+          id
+          name
+        }
       }
       effects {
         name

@@ -47,7 +47,7 @@ class DrugBody extends React.Component { // eslint-disable-line react/prefer-sta
     })
   }
   tabSwitch() {
-    const drug = this.props.drug
+    const { drug } = this.props
     switch (this.props.params.tab) {
       case 'overview':
         return (
@@ -98,11 +98,31 @@ class DrugBody extends React.Component { // eslint-disable-line react/prefer-sta
         )
       case 'experiences':
         return (
-              drug.experiences.length > 0 ? (
-                <div>experiências aqui</div>
-              ) : (
-                <div>+ Postar experiência com {drug.name}</div>
-              )
+          <div>
+            {drug.experiences.length > 0 && (
+              <ul className="row list-unstyled">
+                {drug.experiences.map((experience) =>
+                  <li className="col-6 mb-3">
+                    <Link to={`/experiences/${experience.id}`} key={experience.id}>
+                      <div className="card">
+                        <div className="card-body">
+                          <h5 className="mb-3">{experience.title}</h5>
+                          <small>
+                            {drug.name} {experience.drugs.length > 1 && `+ ${experience.drugs.length - 1}`}
+                          </small>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+              )}
+              </ul>
+            )}
+            <div className="mb-3">
+              <Link to="/experiences/create">
+              + Poste uma experiência que você teve com {drug.name}
+              </Link>
+            </div>
+          </div>
         )
       default:
         return (

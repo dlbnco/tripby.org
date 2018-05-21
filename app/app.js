@@ -15,6 +15,7 @@ import { Provider } from 'react-redux'
 import { applyRouterMiddleware, Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { useScroll } from 'react-router-scroll'
+import ReactGA from 'react-ga'
 
 // Import Apollo stuff
 import { ApolloClient } from 'apollo-client'
@@ -89,6 +90,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
+
+ReactGA.initialize('UA-61977009-2')
+
+const track = () => {
+  ReactGA.pageview(window.location.pathname + window.location.search)
+}
+
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
@@ -96,6 +104,7 @@ const render = (messages) => {
         <ApolloProvider client={client}>
           <Router
             history={history}
+            onUpdate={track}
             routes={rootRoute}
             render={
               // Scroll to top when going to a new page, imitating default browser

@@ -36,8 +36,11 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
     }
     this.handleSelect = this.handleSelect.bind(this)
     this.handleInputs = this.handleInputs.bind(this)
-    this.setTextarea = (e) => {
-      this.storyTextarea = e
+  }
+  componentDidUpdate(prevProps, prevState) {
+    // Focus title input when form loads, and only in the first time.
+    if (this.titleInput && prevState === this.state) {
+      this.titleInput.focus()
     }
   }
   handleSelect(drug) {
@@ -130,14 +133,12 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                       <div className="col-12 col-md-8">
                         <div className="form-group">
                           <label htmlFor="title"><h5>Título da experiência</h5></label>
-                          <input onChange={this.handleInputs} type="text" id="title" name="title" className="form-control form-control-lg" />
+                          <input ref={(input) => { this.titleInput = input }} onChange={this.handleInputs} type="text" id="title" name="title" className="form-control form-control-lg" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="story"><h5>Conte a história da experiência</h5></label>
-                          {/* <textarea ref={this.storyTextarea} name="story" id="story" className="form-control" onChange={this.handleInputs}></textarea> */}
-                          <ReactQuill value={this.state.story} onChange={(e) => this.handleInputs({ target: { value: e, name: 'story' } })} />
+                          <ReactQuill tabIndex={-1} defaultValue={this.state.story} onChange={(e) => this.handleInputs({ target: { value: e, name: 'story' } })} />
                         </div>
-
                       </div>
                       <div className="col-12 col-md-4">
                         {!this.props.data.loading ? (

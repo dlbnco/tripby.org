@@ -220,7 +220,7 @@
   "dependencies": {
     "apollo-client-preset": "^1.0.1",
     "apollo-link-context": "^1.0.1",
-    "auth0-js": "^8.11.3",
+    "auth0-js": "^9.5.1",
     "axios": "^0.16.2",
     "babel-polyfill": "6.20.0",
     "bootstrap": "^4.0.0",

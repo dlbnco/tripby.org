@@ -10,22 +10,24 @@
 */
 
 import React from 'react'
+import Markdown from 'react-markdown'
+
+import messages from './messages'
+
 import FeaturedContent from '../../components/FeaturedContent'
-// import Button from '../../components/Button'
 import ListDrugs from '../../components/ListDrugs'
+
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
-        <FeaturedContent tagline="Leia a bula.">
-          <p className="lead">Esta é a versão em desenvolvimento do TRIPBY.</p>
-          <p>Nos ajude a melhorar dando seu feedback no <a href="https://instagram.com/tripby_">Instagram</a>, <a href="https://twitter.com/tripby_">Twitter</a>, <a href="https://tripby.slack.com/join/shared_invite/enQtMzQwOTcyNTUyNjYzLTY5MjFiZjIyOWVkZDk2ZDQ2Zjc3MmE0N2FmNmE3NmFhMzA3MzY3MTFkNjJhZjgxMjYzOWZhNGQyNzg1YWM4ZTU">Slack</a> ou <a href="https://github.com/tripby/tripby.org">GitHub</a>.</p>
-          {/* <Button campaign icon="trending_flat">Manifesto</Button> */}
+        <FeaturedContent tagline={messages.hero.title}>
+          <Markdown source={messages.hero.content} />
         </FeaturedContent>
         <section className="py-4 grey--lighter">
           <div className="container">
-            <h3 className="pb-3">Psicoativos em destaque</h3>
+            <h3 className="pb-3">{messages.featuredDrugs.defaultMessage}</h3>
             <ListDrugs
               limit={6} filter={{ molecules_some: {
                 id_contains: '', // show only drugs that has molecule images

@@ -8,7 +8,7 @@ import React from 'react'
 // import styled from 'styled-components';
 import Alert from '../Alert'
 // import { FormattedMessage } from 'react-intl'
-// import messages from './messages'
+import messages from './messages'
 
 function ConnectionError() {
   return (
@@ -18,10 +18,14 @@ function ConnectionError() {
           😿
         </h4>
         <div className="ml-3" style={{ flex: 1 }}>
-          <h3>Erro de conexão</h3>
-          <p className="mb-0">Não foi possível fazer o corre das informações</p>
+          <h3>{messages.header.defaultMessage}</h3>
+          <p className="mb-0">
+            {messages.body.defaultMessage}
+          </p>
           <hr />
-          <a href={window.location} className="text-uppercase">Tentar novamente</a>
+          <a href={window.location} className="text-uppercase">
+            {messages.body.action}
+          </a>
         </div>
       </div>
     </Alert>

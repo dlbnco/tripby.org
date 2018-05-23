@@ -8,11 +8,11 @@ import { defineMessages } from 'react-intl'
 export default defineMessages({
   header: {
     id: 'app.components.ContributionSuccess.header',
-    defaultMessage: 'Obrigado! 🎈',
+    defaultMessage: 'Thank you! 🎈',
   },
   success: {
     id: 'app.components.ContributionSuccess.success',
-    defaultMessage: '{type} postad{p} com sucesso.',
+    defaultMessage: '{type} successfully submited.',
   },
   action: {
     id: 'app.components.ContributionSuccess.action',
@@ -20,7 +20,6 @@ export default defineMessages({
   },
   experiences: {
     id: 'app.components.ContributionSuccess.action',
-    defaultMessage: 'Experiência',
-    pronoum: 'a',
+    defaultMessage: 'Experience',
   },
 })

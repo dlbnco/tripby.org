@@ -27,7 +27,6 @@ function ContributionSuccess(props) {
             {...messages.success}
             values={{
               type: messages[t].defaultMessage,
-              p: messages[t].pronoum,
             }}
           /></h5>
           <Link to={`/${props.params.type}/${props.location.query.id}`}>

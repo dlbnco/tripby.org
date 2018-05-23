@@ -8,6 +8,7 @@ import { defineMessages } from 'react-intl'
 export default defineMessages({
   auth: {
     id: 'app.components.Auth0.auth',
-    login: 'Entrar',
+    login: 'Sign in',
+    logout: 'Sign out',
   },
 })

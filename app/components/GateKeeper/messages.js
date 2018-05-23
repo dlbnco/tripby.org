@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl'
 export default defineMessages({
   header: {
     id: 'app.components.GateKeeper.header',
-    defaultMessage: 'Você precisa estar logado para continuar',
+    defaultMessage: 'You need to be logged in to continue',
   },
 })

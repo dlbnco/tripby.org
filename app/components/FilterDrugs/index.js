@@ -24,7 +24,9 @@ function FilterDrugs(props) {
           <FormattedMessage {...messages.class} />
         </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a className="dropdown-item" href="#!" onClick={() => props.dispatch({ type: 'RESET_FILTERS' })}>Todas as classes</a>
+          <a className="dropdown-item" href="#!" onClick={() => props.dispatch({ type: 'RESET_FILTERS' })}>
+            {messages.class.allClasses}
+          </a>
           {props.categories.map((category, index) =>
             <a key={index} className="dropdown-item" href="#!" onClick={() => props.dispatch(setNavigation({ navigation: { filter: { classes_some: { id: category.id } }, page: 0 } }))}>{category.title}</a>
               )}

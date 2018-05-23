@@ -10,4 +10,12 @@ export default defineMessages({
     id: 'app.components.DrugHeader.header',
     defaultMessage: 'This is the DrugHeader component !',
   },
+  aliases: {
+    id: 'app.components.DrugHeader.aliases',
+    defaultMessage: 'Common names',
+  },
+  routes: {
+    id: 'app.components.DrugHeader.aliases',
+    defaultMessage: 'Routes of administration',
+  },
 })

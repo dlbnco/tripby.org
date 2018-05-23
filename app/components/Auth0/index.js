@@ -107,7 +107,13 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
       <div>
         {!this.props.data.User || !localStorage.token ? (
           <a href="#!" onClick={this.login}>
-            {this.props.data.loading ? '...' : (<div className="d-flex align-items-center"><span className="d-inline-flex mr-2"><FeatherIcon icon="log-in" size="24" /></span><span>{messages.auth.login}</span></div>)}
+            {this.props.data.loading ? '...' : (
+              <div className="d-flex align-items-center">
+                <span className="d-inline-flex mr-2">
+                  <FeatherIcon icon="log-in" size="24" />
+                </span>
+                <span>{messages.auth.login}</span>
+              </div>)}
           </a>
         ) : (
           <div>
@@ -117,7 +123,9 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
               </span>
               <small>{this.props.data.User.id}</small>
             </div>
-            <button className="p-0 small text-muted d-block" onClick={() => this.logout()}>Sair</button>
+            <button className="p-0 small text-muted d-block" onClick={() => this.logout()}>
+              {messages.auth.logout}
+            </button>
           </div>
         )}
       </div>

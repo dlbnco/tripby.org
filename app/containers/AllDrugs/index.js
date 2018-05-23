@@ -67,9 +67,9 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
     return (
       <div>
         <Helmet
-          title="Todos os psicoativos"
+          title={messages.meta.title}
           meta={[
-            { name: 'description', content: 'Description of AllDrugs' },
+            { name: 'description', content: messages.meta.description },
           ]}
         />
         <PageHeader>

@@ -82,9 +82,9 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
     return (
       <div>
         <Helmet
-          title="CreateExperience"
+          title={messages.meta.title}
           meta={[
-            { name: 'description', content: 'Description of CreateExperience' },
+            { name: 'description', content: messages.meta.description },
           ]}
         />
         <PageHeader>
@@ -132,21 +132,21 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                     <div className="row">
                       <div className="col-12 col-md-8">
                         <div className="form-group">
-                          <label htmlFor="title"><h5>Título da experiência</h5></label>
+                          <label htmlFor="title"><h5>{messages.form.title}</h5></label>
                           <input ref={(input) => { this.titleInput = input }} onChange={this.handleInputs} type="text" id="title" name="title" className="form-control form-control-lg" />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="story"><h5>Conte a história da experiência</h5></label>
+                          <label htmlFor="story"><h5>{messages.form.story}</h5></label>
                           <ReactQuill tabIndex={-1} defaultValue={this.state.story} onChange={(e) => this.handleInputs({ target: { value: e, name: 'story' } })} />
                         </div>
                       </div>
                       <div className="col-12 col-md-4">
                         {!this.props.data.loading ? (
                           <div className="form-group">
-                            <label htmlFor="filter"><h5><FormattedMessage {...messages.drugSelection} /></h5></label>
+                            <label htmlFor="filter"><h5>{messages.form.drugSelection}</h5></label>
                             <div className="card d-block mb-3">
                               <div className="card-body">
-                                <input className="form-control" name="filter" type="text" placeholder="Filtrar..." onChange={this.handleInputs} value={this.state.filter} />
+                                <input className="form-control" name="filter" type="text" placeholder={`${messages.form.filter}...`} onChange={this.handleInputs} value={this.state.filter} />
                               </div>
                               <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
                                 {drugs.map((drug) =>
@@ -167,7 +167,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                       <div className="col-12">
                         <div className="d-inline-flex align-items-center">
                           <Button btnStyle="primary" type="submit" disabled={loading || this.state.selectedDrugs.length === 0 || this.state.title === '' || this.state.story === ''}>
-                            Continuar
+                            {messages.form.submit}
                           </Button>
                           {loading ? <span className="ml-2"><Spinner /></span> : null}
                         </div>

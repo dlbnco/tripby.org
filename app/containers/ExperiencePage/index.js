@@ -27,9 +27,9 @@ export class ExperiencePage extends React.Component { // eslint-disable-line rea
     return (
       <div>
         <Helmet
-          title={`${!loading ? Experience.title : '...'} · ${messages.header.defaultMessage}`}
+          title={`${!loading ? Experience.title : '...'} · ${messages.meta.title}`}
           meta={[
-            { name: 'description', content: 'Description of ExperiencePage' },
+            { name: 'description', content: messages.meta.description },
           ]}
         />
         <section className="py-4">
@@ -37,7 +37,7 @@ export class ExperiencePage extends React.Component { // eslint-disable-line rea
             {!loading ? (
               <div>
                 <p className="text-muted text-uppercase">
-                  <FormattedMessage {...messages.header} />
+                  <FormattedMessage {...messages.featuredDrugs} />
                 </p>
                 <h1><strong>{Experience.title}</strong></h1>
                 <ul className="list-unstyled p-0 d-inline-flex">

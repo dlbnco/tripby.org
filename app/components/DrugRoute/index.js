@@ -8,19 +8,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
+import messages from './messages'
+
 class DrugRoute extends React.Component {
   constructor() {
     super()
     this.mapDurations = this.mapDurations.bind(this)
     this.mapDosage = this.mapDosage.bind(this)
-    this.parseTimeframes = this.parseTimeframes.bind(this)
-    this.parseIntensity = this.parseIntensity.bind(this)
   }
   mapDurations() {
     const durations = this.props.route.durations
     const durationRows = durations.map((duration) => (
       <tr>
-        <td>{this.parseTimeframes(duration.timeframe)}</td>
+        <td>{messages.duration.timeframes[duration.timeframe]}</td>
         <td>
           {(duration.min >= 60 && duration.min % 60 === 0) ? (`${(duration.min / 60)}h`) : (`${duration.min}min`)} – {duration.min > 60 && duration.min % 60 === 0 ? `${(duration.max / 60)}h` : `${duration.max}min`}
         </td>
@@ -39,7 +39,7 @@ class DrugRoute extends React.Component {
       if (intensity !== '__typename') {
         return (
           <tr className={rowClass(intensity)}>
-            <td>{this.parseIntensity(intensity)}</td>
+            <td>{messages.dosage.dosageLevels[intensity]}</td>
             <td>
               {typeof dosage[intensity] === 'object' ? ( //eslint-disable-line
                 (!dosage[intensity].max ? (
@@ -57,40 +57,6 @@ class DrugRoute extends React.Component {
   )
     return dosageRows
   }
-  parseIntensity(intensity) {
-    switch (intensity) {
-      case 'treshold':
-        return 'Mínimo'
-      case 'light':
-        return 'Leve'
-      case 'common':
-        return 'Comum'
-      case 'strong':
-        return 'Forte'
-      case 'heavy':
-        return 'Intenso'
-      default:
-        return ''
-    }
-  }
-  parseTimeframes(timeframe) {
-    switch (timeframe) {
-      case 'Total':
-        return 'Total'
-      case 'ComeUp':
-        return 'Ascensão'
-      case 'Onset':
-        return 'Primeiras sensações'
-      case 'Peak':
-        return 'Pico'
-      case 'ComeDown':
-        return 'Queda'
-      case 'Hangover':
-        return 'Efeitos posteriores'
-      default:
-        return ''
-    }
-  }
   render() {
     return (
       <div>
@@ -99,8 +65,8 @@ class DrugRoute extends React.Component {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <td><strong>Dosagem</strong></td>
-                  <td></td>
+                  <td><strong>{messages.dosage.dosageLevel}</strong></td>
+                  <td><strong>{messages.dosage.defaultMessage}</strong></td>
                 </tr>
               </thead>
               <tbody className="table-sm">
@@ -112,8 +78,12 @@ class DrugRoute extends React.Component {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <td><strong>Duração</strong></td>
-                  <td></td>
+                  <td>
+                    <strong>{messages.duration.timeframe}</strong>
+                  </td>
+                  <td>
+                    <strong>{messages.duration.defaultMessage}</strong>
+                  </td>
                 </tr>
               </thead>
               <tbody className="table-sm">

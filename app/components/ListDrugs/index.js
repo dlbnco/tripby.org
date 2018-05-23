@@ -62,12 +62,20 @@ export class ListDrugs extends React.Component { // eslint-disable-line react/pr
                       />
                     </div>
                     <ul className="pagination list-unstyled">
-                      <li className="page-item"><button disabled={this.props.pagination.currentPage === 0} onClick={() => this.props.dispatch(setNavigation({ navigation: { page: this.props.pagination.currentPage - 1 } }))} className="page-link" href="#">Anterior</button></li>
+                      <li className="page-item">
+                        <button disabled={this.props.pagination.currentPage === 0} onClick={() => this.props.dispatch(setNavigation({ navigation: { page: this.props.pagination.currentPage - 1 } }))} className="page-link" href="#">
+                          {messages.navigation.previous}
+                        </button>
+                      </li>
                       { pages.map((page) => (
                         <li className={`page-item ${this.props.pagination.currentPage === (page - 1) ? 'active' : ''}`}><button onClick={() => this.props.dispatch(setNavigation({ navigation: { page: page - 1 } }))} className="page-link" href="#">{page}</button></li>
                       ))
                     }
-                      <li className="page-item"><button onClick={() => this.props.dispatch(setNavigation({ navigation: { page: this.props.pagination.currentPage + 1 } }))} className="page-link" href="#">Próximo</button></li>
+                      <li className="page-item">
+                        <button onClick={() => this.props.dispatch(setNavigation({ navigation: { page: this.props.pagination.currentPage + 1 } }))} className="page-link" href="#">
+                          {messages.navigation.next}
+                        </button>
+                      </li>
                     </ul>
                   </nav>
               ) : null}

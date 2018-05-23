@@ -9,5 +9,6 @@ export default defineMessages({
   class: {
     id: 'app.components.FilterDrugs2.class',
     defaultMessage: 'Classes',
+    allClasses: 'All classes',
   },
 })

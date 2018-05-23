@@ -10,6 +10,8 @@ import { Collapse } from 'reactstrap'
 import Alert from '../Alert'
 import DrugRoute from '../DrugRoute'
 
+import messages from './messages'
+
 class DrugHeader extends React.Component {
   componentWillMount() {
     const routes = {}
@@ -36,12 +38,16 @@ class DrugHeader extends React.Component {
                 ) : null}
               </div>
               {this.props.aliases && this.props.aliases.length > 0 ? <span>
-                <h6 className="text-uppercase mb-0">Nomes comuns</h6>
+                <h6 className="text-uppercase mb-0">
+                  {messages.aliases.defaultMessage}
+                </h6>
                 <p><small>{this.props.aliases.join(', ')}</small></p>
               </span> : null}
               {this.props.routes.length > 0 ? (
                 <div>
-                  <h6 className="text-uppercase">Rotas de administração</h6>
+                  <h6 className="text-uppercase">
+                    {messages.routes.defaultMessage}
+                  </h6>
                   <div className="accordion">
                     {this.props.routes.map((route) => {
                       const id = route.id

@@ -9,9 +9,12 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classnames from 'classnames'
 
+import messages from './messages'
+
 import FeatherIcon from '../FeatherIcon'
 import Hamburger from '../Hamburger'
 import Auth0 from '../Auth0'
+
 
 const logo = require('../../assets/img/logos/logo.svg')
 
@@ -33,23 +36,7 @@ class Navigation extends React.Component {
       'd-none': !this.state.navOpened,
       'd-md-block': true,
     })
-    const items = [
-      {
-        label: 'Psicoativos',
-        link: '/drugs',
-        icon: 'loader',
-      },
-      {
-        label: 'Artigos',
-        link: '/articles',
-        icon: 'book',
-      },
-      {
-        label: 'Pesquisar',
-        link: '/search',
-        icon: 'search',
-      },
-    ]
+    const { items } = messages.navigation
     return (
       <div className="header py-3 py-md-4">
         <div className="container"><div className="d-flex align-items-center justify-content-between">

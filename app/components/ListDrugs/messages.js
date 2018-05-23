@@ -12,6 +12,11 @@ export default defineMessages({
   },
   countInfo: {
     id: 'app.container.ListDrugs.countInfo',
-    defaultMessage: 'Mostrando {limit} psicoativos de {count}',
+    defaultMessage: 'Showing {limit} drugs of {count}',
+  },
+  navigation: {
+    id: 'app.containers.ListDrugs.navigation',
+    previous: 'Previous',
+    next: 'Next',
   },
 })

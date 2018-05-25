@@ -60,6 +60,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   render() {
     const { loading, Drug } = this.props.data
     const { sections } = this.state
+
     const classButton = classnames({
       'list-group-item': true,
       'list-group-item-action': true,
@@ -139,8 +140,38 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                     </div>
                   </form>
                 </ContributionSection>
-                <ContributionSection>
-
+                <ContributionSection
+                  title={messages.sections.effects.title}
+                  isOpen={sections.effects}
+                  toggle={() => this.toggleSection('effects')}
+                >
+                  <form>
+                    <div className="form-group">
+                      <label htmlFor="effects">
+                        <strong>{messages.sections.effects.form.effects.label}</strong>
+                      </label>
+                      <Query query={GET_EFFECTS}>
+                            {({ loading, error, data }) => { //eslint-disable-line
+                              if (loading) return <Spinner />
+                              return (
+                                <div className="card d-block mb-3">
+                                  <div className="card-body">
+                                    <input className="form-control" name="filter" type="text" placeholder={messages.sections.effects.form.filter.placeholder} />
+                                  </div>
+                                  <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
+                                    {data.allEffects.map((effect) =>
+                                      <button type="button" key={effect.id} className={classButton}>
+                                        {effect.name}
+                                        <FeatherIcon icon={'circle'} size={24} />
+                                      </button>
+                              )}
+                                  </ul>
+                                </div>
+                              )
+                            }}
+                      </Query>
+                    </div>
+                  </form>
                 </ContributionSection>
               </div>
             </section>
@@ -163,6 +194,15 @@ const GET_CATEGORIES = gql`
   query {
     allCategories {
       title
+      id
+    }
+  }
+`
+
+const GET_EFFECTS = gql`
+  query {
+    allEffects {
+      name
       id
     }
   }

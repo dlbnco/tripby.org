@@ -12,7 +12,7 @@ export default defineMessages({
   },
   header: {
     id: 'app.containers.EditDrugPage.header',
-    defaultMessage: 'Suggesting edit for {drug}',
+    defaultMessage: 'Suggest edit for {drug}',
   },
   sections: {
     id: 'app.containers.EditDrugPage.sections',
@@ -31,6 +31,17 @@ export default defineMessages({
         },
         overview: {
           label: 'Overview',
+        },
+      },
+    },
+    effects: {
+      title: 'Effects',
+      form: {
+        effects: {
+          label: 'Select the effects for this drug',
+        },
+        filter: {
+          placeholder: 'Filter...',
         },
       },
     },

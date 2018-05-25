@@ -169,7 +169,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                           <Button btnStyle="primary" type="submit" disabled={loading || this.state.selectedDrugs.length === 0 || this.state.title === '' || this.state.story === ''}>
                             {messages.form.submit}
                           </Button>
-                          {loading ? <span className="ml-2"><Spinner /></span> : null}
+                          {loading ? <span className="ml-2"><Spinner inline /></span> : null}
                         </div>
                       </div>
                     </div>

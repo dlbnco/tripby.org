@@ -5,20 +5,18 @@
 */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 // import styled from 'styled-components';
 
 
-function Spinner() {
-  return (
-    <div className="spinner">
-      <div className="double-bounce1"></div>
-      <div className="double-bounce2"></div>
-    </div>
-  )
-}
+const Spinner = ({ inline }) => (
+  <div className={!inline && 'spinner-wrapper'}>
+    <div className="spinner" />
+  </div>
+)
 
 Spinner.propTypes = {
-
+  inline: PropTypes.bool,
 }
 
 export default Spinner

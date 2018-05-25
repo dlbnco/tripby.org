@@ -34,6 +34,24 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading)
       },
     }, {
+      path: '/drugs/:drug/edit',
+      name: 'editDrugPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/EditDrugPage/reducer'),
+          import('containers/EditDrugPage'),
+        ])
+
+        const renderRoute = loadModule(cb)
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('editDrugPage', reducer.default)
+          renderRoute(component)
+        })
+
+        importModules.catch(errorLoading)
+      },
+    }, {
       path: '/drugs/:drug/:tab',
       name: 'drugPage',
       getComponent(nextState, cb) {
@@ -114,24 +132,6 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, component]) => {
           injectReducer('experiencePage', reducer.default)
-          renderRoute(component)
-        })
-
-        importModules.catch(errorLoading)
-      },
-    }, {
-      path: '/drugs/:drug/edit',
-      name: 'editDrugPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/EditDrugPage/reducer'),
-          import('containers/EditDrugPage'),
-        ])
-
-        const renderRoute = loadModule(cb)
-
-        importModules.then(([reducer, component]) => {
-          injectReducer('editDrugPage', reducer.default)
           renderRoute(component)
         })
 

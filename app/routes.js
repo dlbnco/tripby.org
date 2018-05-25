@@ -120,6 +120,24 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading)
       },
     }, {
+      path: '/drugs/:drug/edit',
+      name: 'editDrugPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/EditDrugPage/reducer'),
+          import('containers/EditDrugPage'),
+        ])
+
+        const renderRoute = loadModule(cb)
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('editDrugPage', reducer.default)
+          renderRoute(component)
+        })
+
+        importModules.catch(errorLoading)
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

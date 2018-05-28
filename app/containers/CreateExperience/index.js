@@ -146,7 +146,7 @@ export class CreateExperience extends React.Component { // eslint-disable-line r
                             <label htmlFor="filter"><h5>{messages.form.drugSelection}</h5></label>
                             <div className="card d-block mb-3">
                               <div className="card-body">
-                                <input className="form-control" name="filter" type="text" placeholder={`${messages.form.filter}...`} onChange={this.handleInputs} value={this.state.filter} />
+                                <input className="form-control" name="filter" type="text" placeholder={messages.form.filter} onChange={this.handleInputs} value={this.state.filter} />
                               </div>
                               <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
                                 {drugs.map((drug) =>

@@ -15,7 +15,6 @@ import gql from 'graphql-tag'
 import { Collapse } from 'reactstrap'
 import classnames from 'classnames'
 import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
 
 import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
@@ -90,9 +89,27 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   toggle={() => this.toggleSection('basics')}
                 >
                   <form>
-                    <div className="form-group">
-                      <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
-                      <input type="text" name="name" className="form-control" />
+                    <div className="row">
+                      <div className="col-12 col-md-6">
+                        <div className="form-group">
+                          <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
+                          <input type="text" name="name" className="form-control form-control-lg" />
+                        </div>
+                      </div>
+                      <div className="col-12 d-md-none"><hr /></div>
+                      <div className="col-12 col-md-6">
+                        <div className="form-group">
+                          <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
+                          <input type="text" name="alias" className="form-control form-control-lg" placeholder={messages.sections.basics.form.aliases.placeholder} />
+                          <div className="badge-group mt-3">
+                            {Drug.aliases.map((alias, index) =>
+                              <Badge bg="pinkLighter" key={`${alias}-${index}`}>
+                                {alias}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <hr />
                     <div className="row">
@@ -121,15 +138,24 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                       <div className="col-12 d-md-none"><hr /></div>
                       <div className="col-12 col-md-6">
                         <div className="form-group">
-                          <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
-                          <input type="text" name="alias" className="form-control" placeholder={messages.sections.basics.form.aliases.placeholder} />
-                          <div className="badge-group mt-3">
-                            {Drug.aliases.map((alias, index) =>
-                              <Badge bg="pinkLighter" key={`${alias}-${index}`}>
-                                {alias}
-                              </Badge>
-                            )}
-                          </div>
+                          <label htmlFor="class">
+                            <strong>{messages.sections.basics.form.routes.label}</strong>
+                          </label>
+                          <Query query={GET_ROUTES}>
+                            {({ loading, error, data }) => { //eslint-disable-line
+                              if (loading) return <Spinner />
+                              return (
+                                <ul className="list-group d-block" style={{ overflowY: 'auto' }}>
+                                  {data.__type.enumValues.map((route) =>
+                                    <button type="button" key={route.id} className={classButton}>
+                                      {route.name}
+                                      <FeatherIcon icon={'circle'} size={24} />
+                                    </button>
+                              )}
+                                </ul>
+                              )
+                            }}
+                          </Query>
                         </div>
                       </div>
                     </div>
@@ -195,6 +221,16 @@ const GET_CATEGORIES = gql`
     allCategories {
       title
       id
+    }
+  }
+`
+
+const GET_ROUTES = gql`
+  query {
+    __type (name: "Routes") {
+      enumValues {
+        name
+      }
     }
   }
 `

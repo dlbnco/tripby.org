@@ -29,6 +29,9 @@ export default defineMessages({
         classes: {
           label: 'Classes',
         },
+        routes: {
+          label: 'Routes of administration',
+        },
         overview: {
           label: 'Overview',
         },

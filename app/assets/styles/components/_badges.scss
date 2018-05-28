@@ -1,7 +1,21 @@
 .badge {
   color: inherit;
   font-size: 0.9rem;
+  & + & {
+    margin-right: .5em;
+  }
 }
+
 .badge-pill {
   padding: 0.5rem 1rem;
+}
+
+.badge-group {
+  .badge {
+    margin-right: .5em;
+    margin-bottom: .5em;
+  }
+  &:last-child {
+    margin: 0
+  }
 }

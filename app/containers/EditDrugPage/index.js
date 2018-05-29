@@ -16,6 +16,7 @@ import { Collapse } from 'reactstrap'
 import classnames from 'classnames'
 import ReactQuill from 'react-quill'
 import { Converter } from 'showdown'
+import { Map } from 'immutable'
 
 import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
@@ -52,7 +53,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     sections: {
       basics: true,
     },
-    newDrug: {},
+    newDrug: Map(),
   }
   componentDidUpdate(prevProps) {
     if (!prevProps.data.Drug && this.props.data.Drug) {
@@ -61,9 +62,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   }
   buildDrugState() {
     const { Drug } = this.props.data
-    const newDrug = Object.create(Drug)
+    const drugObj = (JSON.parse(JSON.stringify(Drug)))
     const converter = new Converter()
-    Object.defineProperties(newDrug, {
+    Object.defineProperties(drugObj, {
       summary: {
         value: converter.makeHtml(Drug.summary),
         writable: true,
@@ -77,9 +78,15 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
         writable: true,
       },
     })
+    const newDrug = Map(drugObj)
     this.setState({
       newDrug,
     })
+  }
+  handleChange(property, value) {
+    this.setState(({ newDrug }) => ({
+      newDrug: newDrug.set(property, value),
+    }))
   }
   toggleSection(id) {
     const { sections } = this.state
@@ -122,7 +129,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                       <div className="col-12 col-md-6">
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
-                          <input defaultValue={Drug.name} type="text" name="name" className="form-control form-control-lg" />
+                          <input value={newDrug.get('name')} onChange={(e) => this.handleChange('name', e.target.value)} type="text" name="name" className="form-control form-control-lg" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
@@ -209,7 +216,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="summary"><strong>{messages.sections.summary.form.summary.label}</strong></label>
-                      <ReactQuill value={newDrug.summary} />
+                      <ReactQuill value={newDrug.get('summary')} onChange={(e) => this.handleChange('summary', e)} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -254,7 +261,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="health"><strong>{messages.sections.health.form.health.label}</strong></label>
-                      <ReactQuill value={newDrug.health} />
+                      <ReactQuill value={newDrug.get('health')} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -266,7 +273,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="law"><strong>{messages.sections.law.form.law.label}</strong></label>
-                      <ReactQuill value={newDrug.law} />
+                      <ReactQuill value={newDrug.get('law')} />
                     </div>
                   </form>
                 </ContributionSection>

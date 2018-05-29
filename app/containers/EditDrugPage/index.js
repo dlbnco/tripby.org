@@ -52,6 +52,34 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     sections: {
       basics: true,
     },
+    newDrug: {},
+  }
+  componentDidUpdate(prevProps) {
+    if (!prevProps.data.Drug && this.props.data.Drug) {
+      this.buildDrugState()
+    }
+  }
+  buildDrugState() {
+    const { Drug } = this.props.data
+    const newDrug = Object.create(Drug)
+    const converter = new Converter()
+    Object.defineProperties(newDrug, {
+      summary: {
+        value: converter.makeHtml(Drug.summary),
+        writable: true,
+      },
+      health: {
+        value: converter.makeHtml(Drug.health),
+        writable: true,
+      },
+      law: {
+        value: converter.makeHtml(Drug.law),
+        writable: true,
+      },
+    })
+    this.setState({
+      newDrug,
+    })
   }
   toggleSection(id) {
     const { sections } = this.state
@@ -60,12 +88,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   }
   render() {
     const { loading, Drug } = this.props.data
-    const { sections } = this.state
-    const converter = new Converter()
-    const summary = converter.makeHtml(Drug.summary)
-    const health = converter.makeHtml(Drug.health)
-    const law = converter.makeHtml(Drug.law)
-
+    const { sections, newDrug } = this.state
     const classButton = classnames({
       'list-group-item': true,
       'list-group-item-action': true,
@@ -186,7 +209,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="summary"><strong>{messages.sections.summary.form.summary.label}</strong></label>
-                      <ReactQuill defaultValue={summary} />
+                      <ReactQuill value={newDrug.summary} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -231,7 +254,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="health"><strong>{messages.sections.health.form.health.label}</strong></label>
-                      <ReactQuill defaultValue={health} />
+                      <ReactQuill value={newDrug.health} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -243,7 +266,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="law"><strong>{messages.sections.law.form.law.label}</strong></label>
-                      <ReactQuill defaultValue={law} />
+                      <ReactQuill value={newDrug.law} />
                     </div>
                   </form>
                 </ContributionSection>

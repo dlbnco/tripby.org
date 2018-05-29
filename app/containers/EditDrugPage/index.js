@@ -15,6 +15,7 @@ import gql from 'graphql-tag'
 import { Collapse } from 'reactstrap'
 import classnames from 'classnames'
 import ReactQuill from 'react-quill'
+import { Converter } from 'showdown'
 
 import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
@@ -60,6 +61,10 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   render() {
     const { loading, Drug } = this.props.data
     const { sections } = this.state
+    const converter = new Converter()
+    const summary = converter.makeHtml(Drug.summary)
+    const health = converter.makeHtml(Drug.health)
+    const law = converter.makeHtml(Drug.law)
 
     const classButton = classnames({
       'list-group-item': true,
@@ -94,7 +99,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                       <div className="col-12 col-md-6">
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
-                          <input type="text" name="name" className="form-control form-control-lg" />
+                          <input defaultValue={Drug.name} type="text" name="name" className="form-control form-control-lg" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
@@ -164,7 +169,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                         </div>
                         <Alert type="danger" icon="warning">
                           <ul className="m-0 pl-4">
-                            {Drug.alerts.map((alert, index) => (
+                            {Drug.alerts && Drug.alerts.map((alert, index) => (
                               <li key={index}><strong>{alert}</strong></li>
                             ))}
                           </ul>
@@ -181,7 +186,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="summary"><strong>{messages.sections.summary.form.summary.label}</strong></label>
-                      <ReactQuill />
+                      <ReactQuill defaultValue={summary} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -226,7 +231,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="health"><strong>{messages.sections.health.form.health.label}</strong></label>
-                      <ReactQuill />
+                      <ReactQuill defaultValue={health} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -238,7 +243,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="law"><strong>{messages.sections.law.form.law.label}</strong></label>
-                      <ReactQuill />
+                      <ReactQuill defaultValue={law} />
                     </div>
                   </form>
                 </ContributionSection>

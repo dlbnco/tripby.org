@@ -174,13 +174,13 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   </form>
                 </ContributionSection>
                 <ContributionSection
-                  title={messages.sections.overview.title}
-                  isOpen={sections.overview}
-                  toggle={() => this.toggleSection('overview')}
+                  title={messages.sections.summary.title}
+                  isOpen={sections.summary}
+                  toggle={() => this.toggleSection('summary')}
                 >
                   <form>
                     <div className="form-group">
-                      <label htmlFor="overview"><strong>{messages.sections.overview.form.overview.label}</strong></label>
+                      <label htmlFor="summary"><strong>{messages.sections.summary.form.summary.label}</strong></label>
                       <ReactQuill />
                     </div>
                   </form>
@@ -215,6 +215,30 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                               )
                             }}
                       </Query>
+                    </div>
+                  </form>
+                </ContributionSection>
+                <ContributionSection
+                  title={messages.sections.health.title}
+                  isOpen={sections.health}
+                  toggle={() => this.toggleSection('health')}
+                >
+                  <form>
+                    <div className="form-group">
+                      <label htmlFor="health"><strong>{messages.sections.health.form.health.label}</strong></label>
+                      <ReactQuill />
+                    </div>
+                  </form>
+                </ContributionSection>
+                <ContributionSection
+                  title={messages.sections.law.title}
+                  isOpen={sections.law}
+                  toggle={() => this.toggleSection('law')}
+                >
+                  <form>
+                    <div className="form-group">
+                      <label htmlFor="law"><strong>{messages.sections.law.form.law.label}</strong></label>
+                      <ReactQuill />
                     </div>
                   </form>
                 </ContributionSection>

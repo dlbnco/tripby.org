@@ -37,11 +37,11 @@ export default defineMessages({
         },
       },
     },
-    overview: {
-      title: 'Overview',
+    summary: {
+      title: 'Summary',
       form: {
-        overview: {
-          label: 'Overview',
+        summary: {
+          label: 'Summary',
         },
       },
     },
@@ -53,6 +53,22 @@ export default defineMessages({
         },
         filter: {
           placeholder: 'Filter...',
+        },
+      },
+    },
+    health: {
+      title: 'Health',
+      form: {
+        health: {
+          label: 'Health',
+        },
+      },
+    },
+    law: {
+      title: 'Law',
+      form: {
+        law: {
+          label: 'Law',
         },
       },
     },

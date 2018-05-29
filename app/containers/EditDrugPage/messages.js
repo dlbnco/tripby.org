@@ -32,6 +32,14 @@ export default defineMessages({
         routes: {
           label: 'Routes of administration',
         },
+        alerts: {
+          label: 'Alerts',
+        },
+      },
+    },
+    overview: {
+      title: 'Overview',
+      form: {
         overview: {
           label: 'Overview',
         },

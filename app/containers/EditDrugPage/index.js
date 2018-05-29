@@ -20,6 +20,7 @@ import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
 import Badge from '../../components/Badge'
 import FeatherIcon from '../../components/FeatherIcon'
+import Alert from '../../components/Alert'
 
 import makeSelectEditDrugPage from './selectors'
 import messages from './messages'
@@ -95,9 +96,6 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                           <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
                           <input type="text" name="name" className="form-control form-control-lg" />
                         </div>
-                      </div>
-                      <div className="col-12 d-md-none"><hr /></div>
-                      <div className="col-12 col-md-6">
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
                           <input type="text" name="alias" className="form-control form-control-lg" placeholder={messages.sections.basics.form.aliases.placeholder} />
@@ -110,9 +108,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <hr />
-                    <div className="row">
+                      <div className="col-12 d-md-none"><hr /></div>
                       <div className="col-12 col-md-6">
                         <div className="form-group">
                           <label htmlFor="class">
@@ -135,7 +131,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                           </Query>
                         </div>
                       </div>
-                      <div className="col-12 d-md-none"><hr /></div>
+                    </div>
+                    <hr />
+                    <div className="row">
                       <div className="col-12 col-md-6">
                         <div className="form-group">
                           <label htmlFor="class">
@@ -158,10 +156,31 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                           </Query>
                         </div>
                       </div>
+                      <div className="col-12 d-md-none"><hr /></div>
+                      <div className="col-12 col-md-6">
+                        <div className="form-group">
+                          <label htmlFor="name"><strong>{messages.sections.basics.form.alerts.label}</strong></label>
+                          <input type="text" name="alias" className="form-control form-control-lg" placeholder={messages.sections.basics.form.aliases.placeholder} />
+                        </div>
+                        <Alert type="danger" icon="warning">
+                          <ul className="m-0 pl-4">
+                            {Drug.alerts.map((alert, index) => (
+                              <li key={index}><strong>{alert}</strong></li>
+                            ))}
+                          </ul>
+                        </Alert>
+                      </div>
                     </div>
-                    <hr />
+                  </form>
+                </ContributionSection>
+                <ContributionSection
+                  title={messages.sections.overview.title}
+                  isOpen={sections.overview}
+                  toggle={() => this.toggleSection('overview')}
+                >
+                  <form>
                     <div className="form-group">
-                      <label htmlFor="overview"><strong>{messages.sections.basics.form.overview.label}</strong></label>
+                      <label htmlFor="overview"><strong>{messages.sections.overview.form.overview.label}</strong></label>
                       <ReactQuill />
                     </div>
                   </form>

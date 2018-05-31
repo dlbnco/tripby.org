@@ -272,6 +272,7 @@
     "redux-immutable": "3.0.8",
     "redux-saga": "0.14.0",
     "reselect": "2.5.4",
+    "showdown": "^1.8.6",
     "simplemde": "^1.11.2",
     "styled-components": "1.1.2",
     "turndown": "^4.0.2",

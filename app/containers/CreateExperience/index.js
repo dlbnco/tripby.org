@@ -13,7 +13,6 @@ import { graphql, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import classnames from 'classnames'
 import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
 import TurndownService from 'turndown'
 
 import messages from './messages'

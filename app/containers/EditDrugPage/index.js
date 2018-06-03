@@ -135,8 +135,8 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                           <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
                           <input type="text" name="alias" className="form-control form-control-lg" placeholder={messages.sections.basics.form.aliases.placeholder} />
                           <div className="badge-group mt-3">
-                            {Drug.aliases.map((alias, index) =>
-                              <Badge bg="pinkLighter" key={`${alias}-${index}`}>
+                            {newDrug.get('aliases').map((alias, index) =>
+                              <Badge bg="pinkLighter" close={() => this.handleChange('aliases', newDrug.get('aliases').filter((string) => string !== alias))} key={`${alias}-${index}`}>
                                 {alias}
                               </Badge>
                             )}
@@ -180,7 +180,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                               return (
                                 <ul className="list-group d-block" style={{ overflowY: 'auto' }}>
                                   {data.__type.enumValues.map((route) =>
-                                    <button type="button" key={route.id} className={classButton}>
+                                    <button type="button" key={route.name} className={classButton}>
                                       {route.name}
                                       <FeatherIcon icon={'circle'} size={24} />
                                     </button>

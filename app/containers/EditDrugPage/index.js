@@ -88,6 +88,15 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       newDrug: newDrug.set(property, value),
     }))
   }
+  handleAliases(e) {
+    let { value } = e.target
+    if (e.key === 'Enter') {
+      const aliases = this.state.newDrug.get('aliases')
+      aliases.splice(0, 0, value)
+      this.handleChange('aliases', aliases)
+      value = ''
+    }
+  }
   toggleSection(id) {
     const { sections } = this.state
     sections[id] = !sections[id]
@@ -133,10 +142,20 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                         </div>
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
-                          <input type="text" name="alias" className="form-control form-control-lg" placeholder={messages.sections.basics.form.aliases.placeholder} />
+                          <input
+                            type="text"
+                            name="alias"
+                            className="form-control form-control-lg"
+                            placeholder={messages.sections.basics.form.aliases.placeholder}
+                            onKeyPress={(e) => this.handleAliases(e)}
+                          />
                           <div className="badge-group mt-3">
                             {newDrug.get('aliases').map((alias, index) =>
-                              <Badge bg="pinkLighter" close={() => this.handleChange('aliases', newDrug.get('aliases').filter((string) => string !== alias))} key={`${alias}-${index}`}>
+                              <Badge
+                                key={`${alias}-${index}`}
+                                bg="pinkLighter"
+                                close={() => this.handleChange('aliases', newDrug.get('aliases').filter((string) => string !== alias))}
+                              >
                                 {alias}
                               </Badge>
                             )}

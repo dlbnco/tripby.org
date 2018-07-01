@@ -17,6 +17,7 @@ import classnames from 'classnames'
 import ReactQuill from 'react-quill'
 import { Converter } from 'showdown'
 import { Map } from 'immutable'
+import * as Icon from 'react-feather'
 
 import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
@@ -97,6 +98,17 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       value = ''
     }
   }
+  handleCategories(category) {
+    const { newDrug } = this.state
+    const classes = newDrug.get('classes')
+    const index = classes.findIndex((item) => item.id === category.id)
+    if (index >= 0) {
+      classes.splice(index, 1)
+    } else {
+      classes.push(category)
+    }
+    this.handleChange('classes', classes)
+  }
   toggleSection(id) {
     const { sections } = this.state
     sections[id] = !sections[id]
@@ -105,13 +117,13 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   render() {
     const { loading, Drug } = this.props.data
     const { sections, newDrug } = this.state
-    const classButton = classnames({
+    const classButton = (category) => classnames({
       'list-group-item': true,
       'list-group-item-action': true,
       'd-flex': true,
       'align-items-center': true,
       'justify-content-between': true,
-      // active: this.state.selectedDrugs.indexOf(drug) >= 0,
+      active: newDrug.get('classes').some((item) => item.id === category.id),
     })
     return (
       <div>
@@ -174,9 +186,14 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                               return (
                                 <ul className="list-group d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
                                   {data.allCategories.map((category) =>
-                                    <button type="button" key={category.id} className={classButton}>
+                                    <button
+                                      type="button"
+                                      key={category.id}
+                                      className={classButton(category)}
+                                      onClick={() => this.handleCategories(category)}
+                                    >
                                       {category.title}
-                                      <FeatherIcon icon={'circle'} size={24} />
+                                      {newDrug.get('classes').some((item) => item.id === category.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
                                     </button>
                               )}
                                 </ul>
@@ -316,8 +333,8 @@ EditDrugPage.propTypes = {
 const GET_CATEGORIES = gql`
   query {
     allCategories {
-      title
       id
+      title
     }
   }
 `

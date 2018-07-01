@@ -19,6 +19,7 @@ import { Converter } from 'showdown'
 import { Map } from 'immutable'
 import * as Icon from 'react-feather'
 
+import ConnectionError from '../../components/ConnectionError'
 import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
 import Badge from '../../components/Badge'
@@ -115,7 +116,8 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     this.setState({ sections })
   }
   render() {
-    const { loading, Drug } = this.props.data
+    const { data } = this.props
+    const { loading, Drug } = data
     const { sections, newDrug } = this.state
     const classButton = (category) => classnames({
       'list-group-item': true,
@@ -133,7 +135,10 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
             { name: 'description', content: messages.meta.description },
           ]}
         />
-        {!loading ? (
+        {data.networkStatus === 8 && (
+          <ConnectionError />
+        )}
+        {loading === false && Drug && (
           <div>
             <PageHeader>
               <FormattedMessage values={{ drug: Drug.name }} {...messages.header} />
@@ -316,17 +321,16 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
               </div>
             </section>
           </div>
-          ) : (
-            <Spinner />
           )}
-
+        {loading && (
+          <Spinner />
+        )}
       </div>
     )
   }
 }
 
 EditDrugPage.propTypes = {
-  loading: PropTypes.bool,
   data: PropTypes.object,
 }
 

@@ -8163,6 +8163,10 @@ react-dom@15.4.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
+react-feather@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-feather/-/react-feather-1.1.0.tgz#f0aa692497de952237ca1f3b118ebcb5427152e1"
+
 react-ga@^2.5.2:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.2.tgz#1574b26e30ed668e4e74735527314393b22c55a9"

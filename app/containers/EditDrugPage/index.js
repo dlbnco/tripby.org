@@ -95,9 +95,10 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     }))
   }
   handleAliases(e) {
+    const { newDrug } = this.state
     const { value } = e.target
     if (e.key === 'Enter') {
-      const aliases = this.state.newDrug.get('aliases')
+      const aliases = newDrug.get('aliases')
       aliases.splice(0, 0, value)
       this.handleChange('aliases', aliases)
       this.setState({

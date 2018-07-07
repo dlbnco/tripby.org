@@ -1,0 +1,17 @@
+.animate-reveal--up {
+  animation-name: revealUp;
+  animation-duration: 0.16s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
+
+@keyframes revealUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

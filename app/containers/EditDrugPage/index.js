@@ -23,7 +23,6 @@ import ConnectionError from '../../components/ConnectionError'
 import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
 import Badge from '../../components/Badge'
-import FeatherIcon from '../../components/FeatherIcon'
 import Alert from '../../components/Alert'
 
 import makeSelectEditDrugPage from './selectors'
@@ -68,9 +67,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   }
   buildDrugState() {
     const { Drug } = this.props.data
-    const drugObj = (JSON.parse(JSON.stringify(Drug)))
+    const newDrug = (JSON.parse(JSON.stringify(Drug)))
     const converter = new Converter()
-    Object.defineProperties(drugObj, {
+    Object.defineProperties(newDrug, {
       summary: {
         value: converter.makeHtml(Drug.summary),
         writable: true,
@@ -84,21 +83,22 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
         writable: true,
       },
     })
-    const newDrug = Map(drugObj)
     this.setState({
       newDrug,
     })
   }
   handleChange(property, value) {
-    this.setState(({ newDrug }) => ({
-      newDrug: newDrug.set(property, value),
-    }))
+    const { newDrug } = this.state
+    newDrug[property] = value
+    this.setState({
+      newDrug,
+    })
   }
   handleAliases(e) {
     const { newDrug } = this.state
     const { value } = e.target
     if (e.key === 'Enter') {
-      const aliases = newDrug.get('aliases')
+      const aliases = newDrug.aliases
       aliases.splice(0, 0, value)
       this.handleChange('aliases', aliases)
       this.setState({
@@ -116,7 +116,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   }
   handleCategories(category) {
     const { newDrug } = this.state
-    const classes = newDrug.get('classes')
+    const classes = newDrug.classes
     const index = classes.findIndex((item) => item.id === category.id)
     if (index >= 0) {
       classes.splice(index, 1)
@@ -127,7 +127,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   }
   handleRoutes(route) {
     const { newDrug } = this.state
-    const routes = newDrug.get('routes')
+    const routes = newDrug.routes
     const index = routes.findIndex((item) => (item.type === route.name || item.name === route.name))
     if (index >= 0) {
       routes.splice(index, 1)
@@ -140,7 +140,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     const { newDrug } = this.state
     const { value } = e.target
     if (e.key === 'Enter') {
-      const alerts = newDrug.get('alerts')
+      const alerts = newDrug.alerts
       alerts.splice(0, 0, value)
       this.handleChange('alerts', alerts)
       this.setState({
@@ -165,21 +165,21 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     const { data } = this.props
     const { loading, Drug } = data
     const { sections, newDrug, forms } = this.state
-    const classButton = (category) => classnames({
+    const listButtonClassnames = {
       'list-group-item': true,
       'list-group-item-action': true,
       'd-flex': true,
       'align-items-center': true,
       'justify-content-between': true,
-      active: newDrug.get('classes').some((item) => item.id === category.id),
+    }
+    const classButton = (category) => classnames({
+      ...listButtonClassnames,
+      active: newDrug.classes.some((item) => item.id === category.id),
     })
     const routeButton = (route) => classnames({
-      'list-group-item': true,
-      'list-group-item-action': true,
-      'd-flex': true,
-      'align-items-center': true,
-      'justify-content-between': true,
-      active: newDrug.get('routes').some((item) => (item.type === route.name) || (item.name === route.name)),
+      ...listButtonClassnames,
+      active: newDrug.routes.some((item) => (item.type === route.name) || (item.name === route.name)),
+    })
     })
     return (
       <div>
@@ -209,7 +209,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                       <div className="col-12 col-md-6">
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
-                          <input value={newDrug.get('name')} onChange={(e) => this.handleChange('name', e.target.value)} type="text" name="name" className="form-control form-control-lg" />
+                          <input value={newDrug.name} onChange={(e) => this.handleChange('name', e.target.value)} type="text" name="name" className="form-control form-control-lg" />
                         </div>
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
@@ -223,11 +223,11 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                             value={forms.aliases}
                           />
                           <div className="badge-group mt-3">
-                            {newDrug.get('aliases').map((alias, index) =>
+                            {newDrug.aliases.map((alias, index) =>
                               <Badge
                                 key={`${alias}-${index}`}
                                 bg="pinkLighter"
-                                close={() => this.handleChange('aliases', newDrug.get('aliases').filter((string) => string !== alias))}
+                                close={() => this.handleChange('aliases', newDrug.aliases.filter((string) => string !== alias))}
                               >
                                 {alias}
                               </Badge>
@@ -254,7 +254,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                       onClick={() => this.handleCategories(category)}
                                     >
                                       {category.title}
-                                      {newDrug.get('classes').some((item) => item.id === category.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
+                                      {newDrug.classes.some((item) => item.id === category.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
                                     </button>
                               )}
                                 </ul>
@@ -284,7 +284,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                       onClick={() => this.handleRoutes(route)}
                                     >
                                       {route.name}
-                                      {newDrug.get('routes').some((item) => item.type === route.name || item.name === route.name) ? <Icon.CheckCircle /> : <Icon.Circle />}
+                                      {newDrug.routes.some((item) => item.type === route.name || item.name === route.name) ? <Icon.CheckCircle /> : <Icon.Circle />}
                                     </button>
                               )}
                                 </ul>
@@ -309,13 +309,13 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                         </div>
                         <Alert type="danger" icon="warning">
                           <ul className="m-0 pl-4">
-                            {newDrug.get('alerts').map((alert, index) => (
+                            {newDrug.alerts.map((alert, index) => (
                               <li key={index} className="line-height-1 d-flex align-items-start justify-content-between py-2">
                                 <strong>{alert}</strong>
                                 <Icon.X
                                   size={16}
                                   className="cursor-pointer"
-                                  onClick={() => this.handleChange('alerts', newDrug.get('alerts').filter((item) => item !== alert))}
+                                  onClick={() => this.handleChange('alerts', newDrug.alerts.filter((item) => item !== alert))}
                                 />
                               </li>
                             ))}
@@ -333,7 +333,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="summary"><strong>{messages.sections.summary.form.summary.label}</strong></label>
-                      <ReactQuill value={newDrug.get('summary')} onChange={(e) => this.handleChange('summary', e)} />
+                      <ReactQuill value={newDrug.summary} onChange={(e) => this.handleChange('summary', e)} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -378,7 +378,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="health"><strong>{messages.sections.health.form.health.label}</strong></label>
-                      <ReactQuill value={newDrug.get('health')} />
+                      <ReactQuill value={newDrug.health} />
                     </div>
                   </form>
                 </ContributionSection>
@@ -390,7 +390,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="law"><strong>{messages.sections.law.form.law.label}</strong></label>
-                      <ReactQuill value={newDrug.get('law')} />
+                      <ReactQuill value={newDrug.law} />
                     </div>
                   </form>
                 </ContributionSection>

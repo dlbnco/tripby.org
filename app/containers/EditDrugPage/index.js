@@ -55,6 +55,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     sections: {
       basics: true,
     },
+    forms: {
+      aliases: '',
+    },
     newDrug: Map(),
   }
   componentDidUpdate(prevProps) {
@@ -91,12 +94,22 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     }))
   }
   handleAliases(e) {
-    let { value } = e.target
+    const { value } = e.target
     if (e.key === 'Enter') {
       const aliases = this.state.newDrug.get('aliases')
       aliases.splice(0, 0, value)
       this.handleChange('aliases', aliases)
-      value = ''
+      this.setState({
+        forms: {
+          aliases: '',
+        },
+      })
+    } else {
+      this.setState({
+        forms: {
+          aliases: value,
+        },
+      })
     }
   }
   handleCategories(category) {
@@ -118,7 +131,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   render() {
     const { data } = this.props
     const { loading, Drug } = data
-    const { sections, newDrug } = this.state
+    const { sections, newDrug, forms } = this.state
     const classButton = (category) => classnames({
       'list-group-item': true,
       'list-group-item-action': true,
@@ -165,6 +178,8 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                             className="form-control form-control-lg"
                             placeholder={messages.sections.basics.form.aliases.placeholder}
                             onKeyPress={(e) => this.handleAliases(e)}
+                            onChange={(e) => this.handleAliases(e)}
+                            value={forms.aliases}
                           />
                           <div className="badge-group mt-3">
                             {newDrug.get('aliases').map((alias, index) =>

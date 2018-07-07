@@ -57,6 +57,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     forms: {
       aliases: '',
       alerts: '',
+      effects: '',
     },
     newDrug: Map(),
   }
@@ -156,6 +157,17 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       })
     }
   }
+  handleEffects(effect) {
+    const { newDrug } = this.state
+    const effects = newDrug.effects
+    const index = effects.findIndex((item) => (item.id === effect.id))
+    if (index >= 0) {
+      effects.splice(index, 1)
+    } else {
+      effects.push(effect)
+    }
+    this.handleChange('effects', effects)
+  }
   toggleSection(id) {
     const { sections } = this.state
     sections[id] = !sections[id]
@@ -180,6 +192,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       ...listButtonClassnames,
       active: newDrug.routes.some((item) => (item.type === route.name) || (item.name === route.name)),
     })
+    const effectButton = (effect) => classnames({
+      ...listButtonClassnames,
+      active: newDrug.effects.some((item) => item.id === effect.id),
     })
     return (
       <div>
@@ -348,24 +363,36 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                         <strong>{messages.sections.effects.form.effects.label}</strong>
                       </label>
                       <Query query={GET_EFFECTS}>
-                            {({ loading, error, data }) => { //eslint-disable-line
-                              if (loading) return <Spinner />
-                              return (
-                                <div className="card d-block mb-3">
-                                  <div className="card-body">
-                                    <input className="form-control" name="filter" type="text" placeholder={messages.sections.effects.form.filter.placeholder} />
-                                  </div>
-                                  <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
-                                    {data.allEffects.map((effect) =>
-                                      <button type="button" key={effect.id} className={classButton}>
-                                        {effect.name}
-                                        <FeatherIcon icon={'circle'} size={24} />
-                                      </button>
-                              )}
-                                  </ul>
-                                </div>
-                              )
-                            }}
+                        {({ loading, error, data }) => { //eslint-disable-line
+                          if (loading) return <Spinner />
+                          return (
+                            <div className="card d-block mb-3">
+                              <div className="card-body">
+                                <input
+                                  className="form-control"
+                                  name="filterEffects"
+                                  type="text"
+                                  placeholder={messages.sections.effects.form.filter.placeholder}
+                                  value={forms.effects}
+                                  onChange={(e) => this.setState({ forms: { effects: e.target.value } })}
+                                />
+                              </div>
+                              <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
+                                {data.allEffects.filter((item) => item.name.toLowerCase().indexOf(forms.effects.toLowerCase()) !== -1).map((effect) =>
+                                  <button
+                                    type="button"
+                                    key={effect.id}
+                                    className={effectButton(effect)}
+                                    onClick={() => this.handleEffects(effect)}
+                                  >
+                                    {effect.name}
+                                    {newDrug.effects.some((item) => item.id === effect.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
+                                  </button>
+                          )}
+                              </ul>
+                            </div>
+                          )
+                        }}
                       </Query>
                     </div>
                   </form>
@@ -455,6 +482,7 @@ const Drug = gql`
         }
       }
       effects {
+        id
         name
       }
       classes {

@@ -57,6 +57,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     },
     forms: {
       aliases: '',
+      alerts: '',
     },
     newDrug: Map(),
   }
@@ -133,6 +134,26 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       routes.push(route)
     }
     this.handleChange('routes', routes)
+  }
+  handleAlerts(e) {
+    const { newDrug } = this.state
+    const { value } = e.target
+    if (e.key === 'Enter') {
+      const alerts = newDrug.get('alerts')
+      alerts.splice(0, 0, value)
+      this.handleChange('alerts', alerts)
+      this.setState({
+        forms: {
+          alerts: '',
+        },
+      })
+    } else {
+      this.setState({
+        forms: {
+          alerts: value,
+        },
+      })
+    }
   }
   toggleSection(id) {
     const { sections } = this.state
@@ -275,12 +296,27 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                       <div className="col-12 col-md-6">
                         <div className="form-group">
                           <label htmlFor="name"><strong>{messages.sections.basics.form.alerts.label}</strong></label>
-                          <input type="text" name="alias" className="form-control form-control-lg" placeholder={messages.sections.basics.form.aliases.placeholder} />
+                          <input
+                            type="text"
+                            name="alert"
+                            className="form-control form-control-lg"
+                            placeholder={messages.sections.basics.form.aliases.placeholder}
+                            value={forms.alerts}
+                            onKeyPress={(e) => this.handleAlerts(e)}
+                            onChange={(e) => this.handleAlerts(e)}
+                          />
                         </div>
                         <Alert type="danger" icon="warning">
                           <ul className="m-0 pl-4">
-                            {Drug.alerts && Drug.alerts.map((alert, index) => (
-                              <li key={index}><strong>{alert}</strong></li>
+                            {newDrug.get('alerts').map((alert, index) => (
+                              <li key={index} className="line-height-1 d-flex align-items-start justify-content-between py-2">
+                                <strong>{alert}</strong>
+                                <Icon.X
+                                  size={16}
+                                  className="cursor-pointer"
+                                  onClick={() => this.handleChange('alerts', newDrug.get('alerts').filter((item) => item !== alert))}
+                                />
+                              </li>
                             ))}
                           </ul>
                         </Alert>

@@ -123,6 +123,17 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     }
     this.handleChange('classes', classes)
   }
+  handleRoutes(route) {
+    const { newDrug } = this.state
+    const routes = newDrug.get('routes')
+    const index = routes.findIndex((item) => (item.type === route.name || item.name === route.name))
+    if (index >= 0) {
+      routes.splice(index, 1)
+    } else {
+      routes.push(route)
+    }
+    this.handleChange('routes', routes)
+  }
   toggleSection(id) {
     const { sections } = this.state
     sections[id] = !sections[id]
@@ -139,6 +150,14 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       'align-items-center': true,
       'justify-content-between': true,
       active: newDrug.get('classes').some((item) => item.id === category.id),
+    })
+    const routeButton = (route) => classnames({
+      'list-group-item': true,
+      'list-group-item-action': true,
+      'd-flex': true,
+      'align-items-center': true,
+      'justify-content-between': true,
+      active: newDrug.get('routes').some((item) => (item.type === route.name) || (item.name === route.name)),
     })
     return (
       <div>
@@ -236,9 +255,14 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                               return (
                                 <ul className="list-group d-block" style={{ overflowY: 'auto' }}>
                                   {data.__type.enumValues.map((route) =>
-                                    <button type="button" key={route.name} className={classButton}>
+                                    <button
+                                      type="button"
+                                      key={route.name}
+                                      className={routeButton(route)}
+                                      onClick={() => this.handleRoutes(route)}
+                                    >
                                       {route.name}
-                                      <FeatherIcon icon={'circle'} size={24} />
+                                      {newDrug.get('routes').some((item) => item.type === route.name || item.name === route.name) ? <Icon.CheckCircle /> : <Icon.Circle />}
                                     </button>
                               )}
                                 </ul>

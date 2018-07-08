@@ -16,8 +16,8 @@ import { Collapse } from 'reactstrap'
 import classnames from 'classnames'
 import ReactQuill from 'react-quill'
 import { Converter } from 'showdown'
-import { Map } from 'immutable'
 import * as Icon from 'react-feather'
+import { isEqual } from 'underscore'
 
 import ConnectionError from '../../components/ConnectionError'
 import PageHeader from '../../components/PageHeader'
@@ -50,6 +50,10 @@ ContributionSection.propTypes = {
 
 
 export class EditDrugPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor() {
+    super()
+    this.converter = new Converter({ noHeaderId: true, simpleLineBreaks: true })
+  }
   state = {
     sections: {
       basics: true,
@@ -59,18 +63,43 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       alerts: '',
       effects: '',
     },
-    newDrug: Map(),
+    changes: {},
+    newDrug: {},
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    const { newDrug } = this.state
+    const { Drug } = this.props.data
     if (!prevProps.data.Drug && this.props.data.Drug) {
       this.buildDrugState()
     }
   }
+  calculateDiff(property) {
+    const { newDrug, changes } = this.state
+    const { Drug } = this.props.data
+    let changed
+    if (!Drug[property]) {
+      if (newDrug[property] === '' || newDrug[property] === '<p><br></p>') {
+        changed = false
+      } else {
+        changed = true
+      }
+    } else if (property === 'summary' || property === 'health' || property === 'law') {
+      changed = !isEqual(newDrug[property], this.converter.makeHtml(Drug[property]).replace(/(\r\n\t|\n|\r\t)/gm, ''))
+    } else {
+      changed = !isEqual(newDrug[property], Drug[property])
+    }
+    this.setState({
+      changes: {
+        ...changes,
+        [property]: changed,
+      },
+    })
+  }
   buildDrugState() {
     const { Drug } = this.props.data
-    const newDrug = (JSON.parse(JSON.stringify(Drug)))
-    const converter = new Converter()
-    Object.defineProperties(newDrug, {
+    const drug = (JSON.parse(JSON.stringify(Drug)))
+    const converter = this.converter
+    Object.defineProperties(drug, {
       summary: {
         value: converter.makeHtml(Drug.summary),
         writable: true,
@@ -85,18 +114,20 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       },
     })
     this.setState({
-      newDrug,
+      newDrug: drug,
     })
   }
   handleChange(property, value) {
     const { newDrug } = this.state
-    newDrug[property] = value
     this.setState({
-      newDrug,
-    })
+      newDrug: {
+        ...newDrug,
+        [property]: value,
+      },
+    }, () => this.calculateDiff(property))
   }
   handleAliases(e) {
-    const { newDrug } = this.state
+    const { newDrug, forms } = this.state
     const { value } = e.target
     if (e.key === 'Enter') {
       const aliases = newDrug.aliases
@@ -104,12 +135,14 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       this.handleChange('aliases', aliases)
       this.setState({
         forms: {
+          ...forms,
           aliases: '',
         },
       })
     } else {
       this.setState({
         forms: {
+          ...forms,
           aliases: value,
         },
       })
@@ -128,7 +161,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   }
   handleRoutes(route) {
     const { newDrug } = this.state
-    const routes = newDrug.routes
+    const { routes } = newDrug
     const index = routes.findIndex((item) => (item.type === route.name || item.name === route.name))
     if (index >= 0) {
       routes.splice(index, 1)
@@ -138,10 +171,10 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     this.handleChange('routes', routes)
   }
   handleAlerts(e) {
-    const { newDrug } = this.state
+    const { newDrug, forms } = this.state
     const { value } = e.target
     if (e.key === 'Enter') {
-      const alerts = newDrug.alerts
+      const alerts = newDrug.alerts || []
       alerts.splice(0, 0, value)
       this.handleChange('alerts', alerts)
       this.setState({
@@ -152,6 +185,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     } else {
       this.setState({
         forms: {
+          ...forms,
           alerts: value,
         },
       })
@@ -176,7 +210,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   render() {
     const { data } = this.props
     const { loading, Drug } = data
-    const { sections, newDrug, forms } = this.state
+    const { sections, newDrug, forms, changes } = this.state
     const listButtonClassnames = {
       'list-group-item': true,
       'list-group-item-action': true,
@@ -207,13 +241,14 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
         {data.networkStatus === 8 && (
           <ConnectionError />
         )}
-        {loading === false && Drug && (
+        {loading === false && Drug && newDrug && (
           <div>
             <PageHeader>
               <FormattedMessage values={{ drug: Drug.name }} {...messages.header} />
             </PageHeader>
             <section className="py-3 py-md-4">
               <div className="container">
+
                 <ContributionSection
                   title={messages.sections.basics.title}
                   isOpen={sections.basics}
@@ -238,7 +273,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                             value={forms.aliases}
                           />
                           <div className="badge-group mt-3">
-                            {newDrug.aliases.map((alias, index) =>
+                            {newDrug.aliases && newDrug.aliases.map((alias, index) =>
                               <Badge
                                 key={`${alias}-${index}`}
                                 bg="pinkLighter"
@@ -261,7 +296,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                               if (loading) return <Spinner />
                               return (
                                 <ul className="list-group d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
-                                  {data.allCategories.map((category) =>
+                                  {data.allCategories && data.allCategories.map((category) =>
                                     <button
                                       type="button"
                                       key={category.id}
@@ -324,7 +359,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                         </div>
                         <Alert type="danger" icon="warning">
                           <ul className="m-0 pl-4">
-                            {newDrug.alerts.map((alert, index) => (
+                            {newDrug.alerts && newDrug.alerts.map((alert, index) => (
                               <li key={index} className="line-height-1 d-flex align-items-start justify-content-between py-2">
                                 <strong>{alert}</strong>
                                 <Icon.X
@@ -348,7 +383,10 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="summary"><strong>{messages.sections.summary.form.summary.label}</strong></label>
-                      <ReactQuill value={newDrug.summary} onChange={(e) => this.handleChange('summary', e)} />
+                      <ReactQuill
+                        value={newDrug.summary}
+                        onChange={(e) => this.handleChange('summary', e)}
+                      />
                     </div>
                   </form>
                 </ContributionSection>
@@ -378,7 +416,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                 />
                               </div>
                               <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
-                                {data.allEffects.filter((item) => item.name.toLowerCase().indexOf(forms.effects.toLowerCase()) !== -1).map((effect) =>
+                                {data.allEffects && data.allEffects.filter((item) => item.name.toLowerCase().indexOf(forms.effects.toLowerCase()) !== -1).map((effect) =>
                                   <button
                                     type="button"
                                     key={effect.id}
@@ -405,7 +443,10 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="health"><strong>{messages.sections.health.form.health.label}</strong></label>
-                      <ReactQuill value={newDrug.health} />
+                      <ReactQuill
+                        value={newDrug.health}
+                        onChange={(e) => this.handleChange('health', e)}
+                      />
                     </div>
                   </form>
                 </ContributionSection>
@@ -417,10 +458,36 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                   <form>
                     <div className="form-group">
                       <label htmlFor="law"><strong>{messages.sections.law.form.law.label}</strong></label>
-                      <ReactQuill value={newDrug.law} />
+                      <ReactQuill
+                        value={newDrug.law}
+                        onChange={(e) => this.handleChange('law', e)}
+                      />
                     </div>
                   </form>
                 </ContributionSection>
+                {Object.keys(changes).filter((key) => changes[key] === true).length > 0 && (
+                  <div className="alert alert-info bg-blueLighter animate-reveal--up mt-3">
+                    <div className="card-body d-flex align-items-end justify-content-between">
+                      <div>
+                        <h5>{messages.sections.changes.title}</h5>
+                        <ul className="pl-3 mb-0">
+                          {Object.keys(changes).filter((key) => changes[key] === true).map((change) => {
+                            const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('').toLowerCase()
+                            return (<li>
+                              {capitalize(change)}
+                            </li>)
+                          })}
+                        </ul>
+                      </div>
+                      <div>
+                        <button className="btn d-flex align-items-center bg-green ">
+                          <div className="text-greyDark">Submit</div>
+                          <Icon.CheckCircle size={20} className="ml-2 text-greyDark" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
           </div>

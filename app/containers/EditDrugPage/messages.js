@@ -16,6 +16,9 @@ export default defineMessages({
   },
   sections: {
     id: 'app.containers.EditDrugPage.sections',
+    changes: {
+      title: 'Summary of changes',
+    },
     basics: {
       title: 'Basics',
       form: {

@@ -66,9 +66,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     changes: {},
     newDrug: {},
   }
-  componentDidUpdate(prevProps, prevState) {
-    const { newDrug } = this.state
-    const { Drug } = this.props.data
+  componentDidUpdate(prevProps) {
     if (!prevProps.data.Drug && this.props.data.Drug) {
       this.buildDrugState()
     }

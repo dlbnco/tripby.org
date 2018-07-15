@@ -128,7 +128,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     const { newDrug, forms } = this.state
     const { value } = e.target
     if (e.key === 'Enter') {
-      const aliases = newDrug.aliases
+      const aliases = newDrug.aliases || []
       aliases.splice(0, 0, value)
       this.handleChange('aliases', aliases)
       this.setState({

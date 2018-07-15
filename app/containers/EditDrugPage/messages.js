@@ -16,8 +16,10 @@ export default defineMessages({
   },
   sections: {
     id: 'app.containers.EditDrugPage.sections',
-    changes: {
+    submit: {
       title: 'Summary of changes',
+      loading: 'Submitting...',
+      success: 'Suggestion {id} submited!',
     },
     basics: {
       title: 'Basics',

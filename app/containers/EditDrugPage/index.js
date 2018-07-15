@@ -9,8 +9,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { FormattedMessage } from 'react-intl'
-import { createStructuredSelector } from 'reselect'
-import { graphql, Query } from 'react-apollo'
+import { graphql, Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Collapse } from 'reactstrap'
 import classnames from 'classnames'
@@ -18,6 +17,7 @@ import ReactQuill from 'react-quill'
 import { Converter } from 'showdown'
 import * as Icon from 'react-feather'
 import { isEqual } from 'underscore'
+import TurndownService from 'turndown'
 
 import ConnectionError from '../../components/ConnectionError'
 import PageHeader from '../../components/PageHeader'
@@ -25,7 +25,6 @@ import Spinner from '../../components/Spinner'
 import Badge from '../../components/Badge'
 import Alert from '../../components/Alert'
 
-import makeSelectEditDrugPage from './selectors'
 import messages from './messages'
 
 const ContributionSection = ({ isOpen, title, children, toggle }) => (
@@ -53,6 +52,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   constructor() {
     super()
     this.converter = new Converter({ noHeaderId: true, simpleLineBreaks: true })
+    this.turndownService = new TurndownService({ headingStyle: 'atx' })
   }
   state = {
     sections: {
@@ -99,15 +99,15 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     const converter = this.converter
     Object.defineProperties(drug, {
       summary: {
-        value: converter.makeHtml(Drug.summary),
+        value: converter.makeHtml(Drug.summary || ''),
         writable: true,
       },
       health: {
-        value: converter.makeHtml(Drug.health),
+        value: converter.makeHtml(Drug.health || ''),
         writable: true,
       },
       law: {
-        value: converter.makeHtml(Drug.law),
+        value: converter.makeHtml(Drug.law || ''),
         writable: true,
       },
     })
@@ -177,6 +177,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
       this.handleChange('alerts', alerts)
       this.setState({
         forms: {
+          ...forms,
           alerts: '',
         },
       })
@@ -239,7 +240,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
         {data.networkStatus === 8 && (
           <ConnectionError />
         )}
-        {loading === false && Drug && newDrug && (
+        {!loading && Drug && newDrug && (
           <div>
             <PageHeader>
               <FormattedMessage values={{ drug: Drug.name }} {...messages.header} />
@@ -424,7 +425,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                     {effect.name}
                                     {newDrug.effects.some((item) => item.id === effect.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
                                   </button>
-                          )}
+                                )}
                               </ul>
                             </div>
                           )
@@ -463,11 +464,11 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                     </div>
                   </form>
                 </ContributionSection>
-                {Object.keys(changes).filter((key) => changes[key] === true).length > 0 && (
+                {Object.keys(changes).length > 0 && Object.keys(changes).filter((key) => changes[key] === true).length > 0 && (
                   <div className="alert alert-info bg-blueLighter animate-reveal--up mt-3">
                     <div className="card-body d-flex align-items-end justify-content-between">
                       <div>
-                        <h5>{messages.sections.changes.title}</h5>
+                        <h5>{messages.sections.submit.title}</h5>
                         <ul className="pl-3 mb-0">
                           {Object.keys(changes).filter((key) => changes[key] === true).map((change) => {
                             const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('').toLowerCase()
@@ -478,10 +479,59 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                         </ul>
                       </div>
                       <div>
-                        <button className="btn d-flex align-items-center bg-green ">
-                          <div className="text-greyDark">Submit</div>
-                          <Icon.CheckCircle size={20} className="ml-2 text-greyDark" />
-                        </button>
+                        <Mutation
+                          mutation={CREATE_DRUG}
+                          variables={{
+                            alerts: newDrug.alerts,
+                            aliases: newDrug.aliases,
+                            classesIds: newDrug.classes.reduce((acc, val) => {
+                              acc.push(val.id)
+                              return acc
+                            }, []),
+                            effectsIds: newDrug.effects.reduce((acc, val) => {
+                              acc.push(val.id)
+                              return acc
+                            }, []),
+                            fromContribution: {
+                              toDrugId: Drug.id,
+                              userId: this.props.userId,
+                            },
+                            health: this.turndownService.turndown(newDrug.health),
+                            law: this.turndownService.turndown(newDrug.law),
+                            name: newDrug.name,
+                            routes: newDrug.routes.reduce((acc, val) => {
+                              const durationsIds = []
+                              if (val.durations) {
+                                val.durations.forEach((duration) => durationsIds.push(duration.id))
+                              }
+                              if (val.id) {
+                                const obj = {}
+                                if (val.dosage) {
+                                  obj.dosageId = val.dosage.id
+                                }
+                                acc.push({
+                                  ...obj,
+                                  type: val.type,
+                                  durationsIds,
+                                })
+                              } else {
+                                acc.push({ type: val.name })
+                              }
+                              return acc
+                            }, []),
+                            summary: this.turndownService.turndown(newDrug.summary),
+                          }}
+                        >
+                          {(createDrug, { loading }) => ( // eslint-disable-line
+                            <button
+                              onClick={() => !loading && createDrug()}
+                              className="btn d-flex align-items-center bg-green"
+                            >
+                              {loading ? messages.sections.submit.loading : <div className="text-greyDark">Submit</div>}
+                              <Icon.CheckCircle size={20} className="ml-2 text-greyDark" />
+                            </button>
+                        )}
+                        </Mutation>
                       </div>
                     </div>
                   </div>
@@ -500,6 +550,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
 
 EditDrugPage.propTypes = {
   data: PropTypes.object,
+  userId: PropTypes.string,
 }
 
 const GET_CATEGORIES = gql`
@@ -510,6 +561,7 @@ const GET_CATEGORIES = gql`
     }
   }
 `
+
 
 const GET_ROUTES = gql`
   query {
@@ -523,16 +575,47 @@ const GET_ROUTES = gql`
 
 const GET_EFFECTS = gql`
   query {
-    allEffects {
+    allEffects { 
       name
       id
     }
   }
 `
 
+const CREATE_DRUG = gql`
+  mutation(
+    $alerts: [String!],
+    $aliases: [String!],
+    $classesIds: [ID!],
+    $effectsIds: [ID!],
+    $fromContribution: DrugfromContributionContribution,
+    $health: String,
+    $law: String,
+    $name: String!,
+    $routes: [DrugroutesRoute!],
+    $summary: String,
+    ) {
+    createDrug(
+      alerts: $alerts,
+      aliases: $aliases,
+      classesIds: $classesIds,
+      effectsIds: $effectsIds,
+      fromContribution: $fromContribution,
+      health: $health,
+      law: $law,
+      name: $name,
+      routes: $routes,
+      summary: $summary
+    ) {
+      id
+    }
+  }
+`
+
 const Drug = gql`
-  query($id: ID!) {
+  query getDrug($id: ID!) {
     Drug(id: $id) {
+      id
       name
       alerts
       aliases
@@ -558,11 +641,13 @@ const Drug = gql`
         id
         type
         durations {
+          id
           min
           max
           timeframe
         }
         dosage {
+          id
           treshold
           light
           common
@@ -579,9 +664,13 @@ const Drug = gql`
 `
 
 
-const mapStateToProps = createStructuredSelector({
-  EditDrugPage: makeSelectEditDrugPage(),
-})
+const mapStateToProps = (state) => {
+  if (state.get('auth0')) {
+    return {
+      userId: state.get('auth0').id,
+    }
+  } return { userId: null }
+}
 
 function mapDispatchToProps(dispatch) {
   return {

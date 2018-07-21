@@ -16,15 +16,15 @@ $colors: (
 
 @each $value in $colors {
   .text-#{nth($value, 1)} {
-    color: nth($value, 2);
+    color: nth($value, 2) !important;
   }
   .bg-#{nth($value, 1)} {
-    background-color: nth($value, 2);
+    background-color: nth($value, 2) !important;
   }
   .btn-#{nth($value, 1)} {
-    background-color: nth($value, 2);
+    background-color: nth($value, 2) !important;
   }
   .badge-#{nth($value, 1)} {
-    background-color: nth($value, 2);
+    background-color: nth($value, 2) !important;
   }
 }

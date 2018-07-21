@@ -3,6 +3,6 @@
   &:focus {outline: 0;}
 }
 .list-group-item.active {
-  background-color: map-get($colors, pinkLight);
-  border-color: map-get($colors, pinkLight);
+  background-color: map-get($colors, pinkLighter);
+  border-color: map-get($colors, pinkLighter);
 }

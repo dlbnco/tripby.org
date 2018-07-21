@@ -8,14 +8,19 @@ import { defineMessages } from 'react-intl'
 export default defineMessages({
   meta: {
     id: 'app.containers.EditDrugPage.meta',
-    title: 'Suggest drug edit',
+    title: 'Edit drug',
   },
   header: {
     id: 'app.containers.EditDrugPage.header',
-    defaultMessage: 'Suggest edit for {drug}',
+    defaultMessage: 'Edit {drug}',
   },
   sections: {
     id: 'app.containers.EditDrugPage.sections',
+    submit: {
+      title: 'Summary of changes',
+      loading: 'Submitting...',
+      success: 'Suggestion {id} submited!',
+    },
     basics: {
       title: 'Basics',
       form: {

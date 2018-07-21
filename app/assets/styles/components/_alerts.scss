@@ -1,0 +1,4 @@
+.alert-danger {
+  background: map-get($map: $colors, $key: pinkLighter);
+  border-color: map-get($map: $colors, $key: pinkLighter);
+}

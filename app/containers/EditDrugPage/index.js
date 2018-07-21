@@ -18,6 +18,7 @@ import { Converter } from 'showdown'
 import * as Icon from 'react-feather'
 import { isEqual } from 'underscore'
 import TurndownService from 'turndown'
+import { TabList, Tab, Tabs, TabPanel } from 'react-tabs'
 
 import ConnectionError from '../../components/ConnectionError'
 import PageHeader from '../../components/PageHeader'
@@ -209,7 +210,8 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
   render() {
     const { data } = this.props
     const { loading, Drug } = data
-    const { sections, newDrug, forms, changes } = this.state
+    const { newDrug, forms, changes } = this.state
+    const changed = Object.keys(changes).length > 0 && Object.keys(changes).filter((key) => changes[key] === true).length > 0
     const listButtonClassnames = {
       'list-group-item': true,
       'list-group-item-action': true,
@@ -247,295 +249,290 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
             </PageHeader>
             <section className="py-3 py-md-4">
               <div className="container">
-
-                <ContributionSection
-                  title={messages.sections.basics.title}
-                  isOpen={sections.basics}
-                  toggle={() => this.toggleSection('basics')}
-                >
-                  <form>
-                    <div className="row">
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
-                          <input value={newDrug.name} onChange={(e) => this.handleChange('name', e.target.value)} type="text" name="name" className="form-control form-control-lg" />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
-                          <input
-                            type="text"
-                            name="alias"
-                            className="form-control form-control-lg"
-                            placeholder={messages.sections.basics.form.aliases.placeholder}
-                            onKeyPress={(e) => this.handleAliases(e)}
-                            onChange={(e) => this.handleAliases(e)}
-                            value={forms.aliases}
-                          />
-                          <div className="badge-group mt-3">
-                            {newDrug.aliases && newDrug.aliases.map((alias, index) =>
-                              <Badge
-                                key={`${alias}-${index}`}
-                                bg="pinkLighter"
-                                close={() => this.handleChange('aliases', newDrug.aliases.filter((string) => string !== alias))}
+                <Tabs className="react-tabs--edit-drug">
+                  <TabList>
+                    <Tab>
+                      {messages.sections.basics.title}
+                    </Tab>
+                    <Tab>
+                      {messages.sections.summary.title}
+                    </Tab>
+                    <Tab>
+                      {messages.sections.effects.title}
+                    </Tab>
+                    <Tab>
+                      {messages.sections.health.title}
+                    </Tab>
+                    <Tab>
+                      {messages.sections.law.title}
+                    </Tab>
+                  </TabList>
+                  <div className="row">
+                    <div className={`col-12 ${changed ? 'col-md-7 col-lg-8' : 'mt-3'}`}>
+                      <TabPanel>
+                        <form>
+                          <div className="row mt-3">
+                            <div className="col-12 col-md-6">
+                              <div className="form-group">
+                                <label htmlFor="name"><strong>{messages.sections.basics.form.name.label}</strong></label>
+                                <input value={newDrug.name} onChange={(e) => this.handleChange('name', e.target.value)} type="text" name="name" className="form-control form-control-lg" />
+                              </div>
+                              <div className="form-group">
+                                <label htmlFor="name"><strong>{messages.sections.basics.form.aliases.label}</strong></label>
+                                <input
+                                  type="text"
+                                  name="alias"
+                                  className="form-control form-control-lg"
+                                  placeholder={messages.sections.basics.form.aliases.placeholder}
+                                  onKeyPress={(e) => this.handleAliases(e)}
+                                  onChange={(e) => this.handleAliases(e)}
+                                  value={forms.aliases}
+                                />
+                                <div className="badge-group mt-3">
+                                  {newDrug.aliases && newDrug.aliases.map((alias, index) =>
+                                    <Badge
+                                      key={`${alias}-${index}`}
+                                      bg="pinkLighter"
+                                      close={() => this.handleChange('aliases', newDrug.aliases.filter((string) => string !== alias))}
+                                    >
+                                      {alias}
+                                    </Badge>
+                                )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-12 d-md-none"><hr /></div>
+                            <div className="col-12 col-md-6">
+                              <div className="form-group">
+                                <label htmlFor="class">
+                                  <strong>{messages.sections.basics.form.classes.label}</strong>
+                                </label>
+                                <Query query={GET_CATEGORIES}>
+                                {({ loading, error, data }) => { //eslint-disable-line
+                                  if (loading) return <Spinner />
+                                  return (
+                                    <ul className="list-group d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
+                                      {data.allCategories && data.allCategories.map((category) =>
+                                        <button
+                                          type="button"
+                                          key={category.id}
+                                          className={classButton(category)}
+                                          onClick={() => this.handleCategories(category)}
+                                        >
+                                          {category.title}
+                                          {newDrug.classes.some((item) => item.id === category.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
+                                        </button>
+                                  )}
+                                    </ul>
+                                  )
+                                }}
+                                </Query>
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                          <div className="row">
+                            <div className="col-12 col-md-6">
+                              <div className="form-group">
+                                <label htmlFor="class">
+                                  <strong>{messages.sections.basics.form.routes.label}</strong>
+                                </label>
+                                <Query query={GET_ROUTES}>
+                                {({ loading, error, data }) => { //eslint-disable-line
+                                  if (loading) return <Spinner />
+                                  return (
+                                    <ul className="list-group d-block" style={{ overflowY: 'auto' }}>
+                                      {data.__type.enumValues.map((route) =>
+                                        <button
+                                          type="button"
+                                          key={route.name}
+                                          className={routeButton(route)}
+                                          onClick={() => this.handleRoutes(route)}
+                                        >
+                                          {route.name}
+                                          {newDrug.routes.some((item) => item.type === route.name || item.name === route.name) ? <Icon.CheckCircle /> : <Icon.Circle />}
+                                        </button>
+                                  )}
+                                    </ul>
+                                  )
+                                }}
+                                </Query>
+                              </div>
+                            </div>
+                            <div className="col-12 d-md-none"><hr /></div>
+                            <div className="col-12 col-md-6">
+                              <div className="form-group">
+                                <label htmlFor="name"><strong>{messages.sections.basics.form.alerts.label}</strong></label>
+                                <input
+                                  type="text"
+                                  name="alert"
+                                  className="form-control form-control-lg"
+                                  placeholder={messages.sections.basics.form.aliases.placeholder}
+                                  value={forms.alerts}
+                                  onKeyPress={(e) => this.handleAlerts(e)}
+                                  onChange={(e) => this.handleAlerts(e)}
+                                />
+                              </div>
+                              <Alert type="danger" icon="warning">
+                                <ul className="m-0 pl-4">
+                                  {newDrug.alerts && newDrug.alerts.map((alert, index) => (
+                                    <li key={index} className="line-height-1 d-flex align-items-start justify-content-between py-2">
+                                      <strong>{alert}</strong>
+                                      <Icon.X
+                                        size={16}
+                                        className="cursor-pointer"
+                                        onClick={() => this.handleChange('alerts', newDrug.alerts.filter((item) => item !== alert))}
+                                      />
+                                    </li>
+                                ))}
+                                </ul>
+                              </Alert>
+                            </div>
+                          </div>
+                        </form>
+                      </TabPanel>
+                      <TabPanel>
+                        <form>
+                          <div className="form-group">
+                            <ReactQuill
+                              value={newDrug.summary}
+                              onChange={(e) => this.handleChange('summary', e)}
+                            />
+                          </div>
+                        </form>
+                      </TabPanel>
+                      <TabPanel>
+                        <form>
+                          <div className="form-group">
+                            <Query query={GET_EFFECTS}>
+                                {({ loading, error, data }) => { //eslint-disable-line
+                                  if (loading) return <Spinner />
+                                  return (
+                                    <div className="card d-block mb-3">
+                                      <div className="card-body">
+                                        <input
+                                          className="form-control"
+                                          name="filterEffects"
+                                          type="text"
+                                          placeholder={messages.sections.effects.form.filter.placeholder}
+                                          value={forms.effects}
+                                          onChange={(e) => this.setState({ forms: { effects: e.target.value } })}
+                                        />
+                                      </div>
+                                      <ul className="list-group list-group-flush d-block" style={{ overflowY: 'auto' }}>
+                                        {data.allEffects && data.allEffects.filter((item) => item.name.toLowerCase().indexOf(forms.effects.toLowerCase()) !== -1).map((effect) =>
+                                          <button
+                                            type="button"
+                                            key={effect.id}
+                                            className={effectButton(effect)}
+                                            onClick={() => this.handleEffects(effect)}
+                                          >
+                                            {effect.name}
+                                            {newDrug.effects.some((item) => item.id === effect.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
+                                          </button>
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )
+                                }}
+                            </Query>
+                          </div>
+                        </form>
+                      </TabPanel>
+                      <TabPanel>
+                        <form>
+                          <div className="form-group">
+                            <ReactQuill
+                              value={newDrug.health}
+                              onChange={(e) => this.handleChange('health', e)}
+                            />
+                          </div>
+                        </form>
+                      </TabPanel>
+                      <TabPanel>
+                        <form>
+                          <div className="form-group">
+                            <ReactQuill
+                              value={newDrug.law}
+                              onChange={(e) => this.handleChange('law', e)}
+                            />
+                          </div>
+                        </form>
+                      </TabPanel>
+                    </div>
+                    {changed && (
+                      <div className="col-12 col-md-5 col-lg-4">
+                        <div className="alert alert-info bg-blueLighter animate-reveal--up mt-3 mt-md-0">
+                          <div className="card-body d-flex align-items-end justify-content-between">
+                            <div>
+                              <h5>{messages.sections.submit.title}</h5>
+                              <ul className="pl-3 mb-0">
+                                {Object.keys(changes).filter((key) => changes[key] === true).map((change) => {
+                                  const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('').toLowerCase()
+                                  return (<li>
+                                    {capitalize(change)}
+                                  </li>)
+                                })}
+                              </ul>
+                            </div>
+                            <div>
+                              <Mutation
+                                mutation={UPDATE_DRUG}
+                                variables={{
+                                  alerts: newDrug.alerts,
+                                  aliases: newDrug.aliases,
+                                  classesIds: newDrug.classes.reduce((acc, val) => {
+                                    acc.push(val.id)
+                                    return acc
+                                  }, []),
+                                  effectsIds: newDrug.effects.reduce((acc, val) => {
+                                    acc.push(val.id)
+                                    return acc
+                                  }, []),
+                                  id: Drug.id,
+                                  health: this.turndownService.turndown(newDrug.health),
+                                  law: this.turndownService.turndown(newDrug.law),
+                                  name: newDrug.name,
+                                  routes: newDrug.routes.reduce((acc, val) => {
+                                    const durationsIds = []
+                                    if (val.durations) {
+                                      val.durations.forEach((duration) => durationsIds.push(duration.id))
+                                    }
+                                    if (val.id) {
+                                      const obj = {}
+                                      if (val.dosage) {
+                                        obj.dosageId = val.dosage.id
+                                      }
+                                      acc.push({
+                                        ...obj,
+                                        type: val.type,
+                                        durationsIds,
+                                      })
+                                    } else {
+                                      acc.push({ type: val.name })
+                                    }
+                                    return acc
+                                  }, []),
+                                  summary: this.turndownService.turndown(newDrug.summary),
+                                }}
                               >
-                                {alias}
-                              </Badge>
-                            )}
+                                {(createDrug, { loading }) => ( // eslint-disable-line
+                                  <button
+                                    onClick={() => !loading && createDrug()}
+                                    className="btn d-flex align-items-center bg-green"
+                                  >
+                                    {loading ? messages.sections.submit.loading : <div className="text-greyDark">Submit</div>}
+                                    <Icon.CheckCircle size={20} className="ml-2 text-greyDark" />
+                                  </button>
+                              )}
+                              </Mutation>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div className="col-12 d-md-none"><hr /></div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label htmlFor="class">
-                            <strong>{messages.sections.basics.form.classes.label}</strong>
-                          </label>
-                          <Query query={GET_CATEGORIES}>
-                            {({ loading, error, data }) => { //eslint-disable-line
-                              if (loading) return <Spinner />
-                              return (
-                                <ul className="list-group d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
-                                  {data.allCategories && data.allCategories.map((category) =>
-                                    <button
-                                      type="button"
-                                      key={category.id}
-                                      className={classButton(category)}
-                                      onClick={() => this.handleCategories(category)}
-                                    >
-                                      {category.title}
-                                      {newDrug.classes.some((item) => item.id === category.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
-                                    </button>
-                              )}
-                                </ul>
-                              )
-                            }}
-                          </Query>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="row">
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label htmlFor="class">
-                            <strong>{messages.sections.basics.form.routes.label}</strong>
-                          </label>
-                          <Query query={GET_ROUTES}>
-                            {({ loading, error, data }) => { //eslint-disable-line
-                              if (loading) return <Spinner />
-                              return (
-                                <ul className="list-group d-block" style={{ overflowY: 'auto' }}>
-                                  {data.__type.enumValues.map((route) =>
-                                    <button
-                                      type="button"
-                                      key={route.name}
-                                      className={routeButton(route)}
-                                      onClick={() => this.handleRoutes(route)}
-                                    >
-                                      {route.name}
-                                      {newDrug.routes.some((item) => item.type === route.name || item.name === route.name) ? <Icon.CheckCircle /> : <Icon.Circle />}
-                                    </button>
-                              )}
-                                </ul>
-                              )
-                            }}
-                          </Query>
-                        </div>
-                      </div>
-                      <div className="col-12 d-md-none"><hr /></div>
-                      <div className="col-12 col-md-6">
-                        <div className="form-group">
-                          <label htmlFor="name"><strong>{messages.sections.basics.form.alerts.label}</strong></label>
-                          <input
-                            type="text"
-                            name="alert"
-                            className="form-control form-control-lg"
-                            placeholder={messages.sections.basics.form.aliases.placeholder}
-                            value={forms.alerts}
-                            onKeyPress={(e) => this.handleAlerts(e)}
-                            onChange={(e) => this.handleAlerts(e)}
-                          />
-                        </div>
-                        <Alert type="danger" icon="warning">
-                          <ul className="m-0 pl-4">
-                            {newDrug.alerts && newDrug.alerts.map((alert, index) => (
-                              <li key={index} className="line-height-1 d-flex align-items-start justify-content-between py-2">
-                                <strong>{alert}</strong>
-                                <Icon.X
-                                  size={16}
-                                  className="cursor-pointer"
-                                  onClick={() => this.handleChange('alerts', newDrug.alerts.filter((item) => item !== alert))}
-                                />
-                              </li>
-                            ))}
-                          </ul>
-                        </Alert>
-                      </div>
-                    </div>
-                  </form>
-                </ContributionSection>
-                <ContributionSection
-                  title={messages.sections.summary.title}
-                  isOpen={sections.summary}
-                  toggle={() => this.toggleSection('summary')}
-                >
-                  <form>
-                    <div className="form-group">
-                      <label htmlFor="summary"><strong>{messages.sections.summary.form.summary.label}</strong></label>
-                      <ReactQuill
-                        value={newDrug.summary}
-                        onChange={(e) => this.handleChange('summary', e)}
-                      />
-                    </div>
-                  </form>
-                </ContributionSection>
-                <ContributionSection
-                  title={messages.sections.effects.title}
-                  isOpen={sections.effects}
-                  toggle={() => this.toggleSection('effects')}
-                >
-                  <form>
-                    <div className="form-group">
-                      <label htmlFor="effects">
-                        <strong>{messages.sections.effects.form.effects.label}</strong>
-                      </label>
-                      <Query query={GET_EFFECTS}>
-                        {({ loading, error, data }) => { //eslint-disable-line
-                          if (loading) return <Spinner />
-                          return (
-                            <div className="card d-block mb-3">
-                              <div className="card-body">
-                                <input
-                                  className="form-control"
-                                  name="filterEffects"
-                                  type="text"
-                                  placeholder={messages.sections.effects.form.filter.placeholder}
-                                  value={forms.effects}
-                                  onChange={(e) => this.setState({ forms: { effects: e.target.value } })}
-                                />
-                              </div>
-                              <ul className="list-group list-group-flush d-block" style={{ maxHeight: 240, overflowY: 'auto' }}>
-                                {data.allEffects && data.allEffects.filter((item) => item.name.toLowerCase().indexOf(forms.effects.toLowerCase()) !== -1).map((effect) =>
-                                  <button
-                                    type="button"
-                                    key={effect.id}
-                                    className={effectButton(effect)}
-                                    onClick={() => this.handleEffects(effect)}
-                                  >
-                                    {effect.name}
-                                    {newDrug.effects.some((item) => item.id === effect.id) ? <Icon.CheckCircle /> : <Icon.Circle />}
-                                  </button>
-                                )}
-                              </ul>
-                            </div>
-                          )
-                        }}
-                      </Query>
-                    </div>
-                  </form>
-                </ContributionSection>
-                <ContributionSection
-                  title={messages.sections.health.title}
-                  isOpen={sections.health}
-                  toggle={() => this.toggleSection('health')}
-                >
-                  <form>
-                    <div className="form-group">
-                      <label htmlFor="health"><strong>{messages.sections.health.form.health.label}</strong></label>
-                      <ReactQuill
-                        value={newDrug.health}
-                        onChange={(e) => this.handleChange('health', e)}
-                      />
-                    </div>
-                  </form>
-                </ContributionSection>
-                <ContributionSection
-                  title={messages.sections.law.title}
-                  isOpen={sections.law}
-                  toggle={() => this.toggleSection('law')}
-                >
-                  <form>
-                    <div className="form-group">
-                      <label htmlFor="law"><strong>{messages.sections.law.form.law.label}</strong></label>
-                      <ReactQuill
-                        value={newDrug.law}
-                        onChange={(e) => this.handleChange('law', e)}
-                      />
-                    </div>
-                  </form>
-                </ContributionSection>
-                {Object.keys(changes).length > 0 && Object.keys(changes).filter((key) => changes[key] === true).length > 0 && (
-                  <div className="alert alert-info bg-blueLighter animate-reveal--up mt-3">
-                    <div className="card-body d-flex align-items-end justify-content-between">
-                      <div>
-                        <h5>{messages.sections.submit.title}</h5>
-                        <ul className="pl-3 mb-0">
-                          {Object.keys(changes).filter((key) => changes[key] === true).map((change) => {
-                            const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('').toLowerCase()
-                            return (<li>
-                              {capitalize(change)}
-                            </li>)
-                          })}
-                        </ul>
-                      </div>
-                      <div>
-                        <Mutation
-                          mutation={CREATE_DRUG}
-                          variables={{
-                            alerts: newDrug.alerts,
-                            aliases: newDrug.aliases,
-                            classesIds: newDrug.classes.reduce((acc, val) => {
-                              acc.push(val.id)
-                              return acc
-                            }, []),
-                            effectsIds: newDrug.effects.reduce((acc, val) => {
-                              acc.push(val.id)
-                              return acc
-                            }, []),
-                            fromContribution: {
-                              toDrugId: Drug.id,
-                              userId: this.props.userId,
-                            },
-                            health: this.turndownService.turndown(newDrug.health),
-                            law: this.turndownService.turndown(newDrug.law),
-                            name: newDrug.name,
-                            routes: newDrug.routes.reduce((acc, val) => {
-                              const durationsIds = []
-                              if (val.durations) {
-                                val.durations.forEach((duration) => durationsIds.push(duration.id))
-                              }
-                              if (val.id) {
-                                const obj = {}
-                                if (val.dosage) {
-                                  obj.dosageId = val.dosage.id
-                                }
-                                acc.push({
-                                  ...obj,
-                                  type: val.type,
-                                  durationsIds,
-                                })
-                              } else {
-                                acc.push({ type: val.name })
-                              }
-                              return acc
-                            }, []),
-                            summary: this.turndownService.turndown(newDrug.summary),
-                          }}
-                        >
-                          {(createDrug, { loading }) => ( // eslint-disable-line
-                            <button
-                              onClick={() => !loading && createDrug()}
-                              className="btn d-flex align-items-center bg-green"
-                            >
-                              {loading ? messages.sections.submit.loading : <div className="text-greyDark">Submit</div>}
-                              <Icon.CheckCircle size={20} className="ml-2 text-greyDark" />
-                            </button>
-                        )}
-                        </Mutation>
-                      </div>
-                    </div>
+                      )}
                   </div>
-                )}
+                </Tabs>
               </div>
             </section>
           </div>
@@ -550,7 +547,6 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
 
 EditDrugPage.propTypes = {
   data: PropTypes.object,
-  userId: PropTypes.string,
 }
 
 const GET_CATEGORIES = gql`
@@ -582,25 +578,25 @@ const GET_EFFECTS = gql`
   }
 `
 
-const CREATE_DRUG = gql`
+const UPDATE_DRUG = gql`
   mutation(
+    $id: ID!,
     $alerts: [String!],
     $aliases: [String!],
     $classesIds: [ID!],
     $effectsIds: [ID!],
-    $fromContribution: DrugfromContributionContribution,
     $health: String,
     $law: String,
     $name: String!,
     $routes: [DrugroutesRoute!],
     $summary: String,
     ) {
-    createDrug(
+    updateDrug(
+      id: $id,
       alerts: $alerts,
       aliases: $aliases,
       classesIds: $classesIds,
       effectsIds: $effectsIds,
-      fromContribution: $fromContribution,
       health: $health,
       law: $law,
       name: $name,

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import FeatherIcon from '../FeatherIcon'
 
 const Badge = ({
-  children, bg, icon, close, color,
+  children, bg, icon, close, color, className,
 }) => {
   const badgeClass = classnames({
     badge: true,
@@ -15,7 +15,7 @@ const Badge = ({
     'text-white': true,
   })
   return (
-    <div className={badgeClass}>
+    <div className={`${badgeClass} ${className}`}>
       <div className="d-flex align-items-center">
         {icon && <div className="mr-2">{icon}</div>}
         {children}
@@ -26,12 +26,12 @@ const Badge = ({
 }
 
 Badge.propTypes = {
-  children: PropTypes.node,
   bg: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
   icon: PropTypes.node,
   close: PropTypes.func,
   color: PropTypes.string,
-
 }
 
 export default Badge

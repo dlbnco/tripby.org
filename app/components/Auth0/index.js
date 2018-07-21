@@ -110,7 +110,7 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
             {this.props.data.loading ? '...' : (
               <div className="d-flex align-items-center">
                 <span className="d-inline-flex mr-2">
-                  <FeatherIcon icon="log-in" size="24" />
+                  <FeatherIcon icon="log-in" size={24} />
                 </span>
                 <span>{messages.auth.login}</span>
               </div>)}

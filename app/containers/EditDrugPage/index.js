@@ -211,6 +211,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
     const { data } = this.props
     const { loading, Drug } = data
     const { newDrug, forms, changes } = this.state
+    const userIsAdmin = this.props.user.id && this.props.user.role === 'Admin'
     const changed = Object.keys(changes).length > 0 && Object.keys(changes).filter((key) => changes[key] === true).length > 0
     const listButtonClassnames = {
       'list-group-item': true,
@@ -242,7 +243,10 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
         {data.networkStatus === 8 && (
           <ErrorAlert type="connection" />
         )}
-        {!loading && Drug && newDrug && (
+        {!userIsAdmin && (
+          <ErrorAlert type="unauthorized" />
+        )}
+        {userIsAdmin && !loading && Drug && newDrug && (
           <div>
             <PageHeader>
               <FormattedMessage values={{ drug: Drug.name }} {...messages.header} />
@@ -547,6 +551,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
 
 EditDrugPage.propTypes = {
   data: PropTypes.object,
+  user: PropTypes.object,
 }
 
 const GET_CATEGORIES = gql`
@@ -663,7 +668,7 @@ const Drug = gql`
 const mapStateToProps = (state) => {
   if (state.get('auth0')) {
     return {
-      userId: state.get('auth0').id,
+      user: state.get('auth0'),
     }
   } return { userId: null }
 }

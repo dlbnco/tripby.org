@@ -19,7 +19,7 @@ class DrugRoute extends React.Component {
   mapDurations() {
     const durations = this.props.route.durations
     const durationRows = durations.map((duration) => (
-      <tr>
+      <tr key={`${this.props.route.id}-${duration.timeframe}`}>
         <td>{messages.duration.timeframes[duration.timeframe]}</td>
         <td>
           {(duration.min >= 60 && duration.min % 60 === 0) ? (`${(duration.min / 60)}h`) : (`${duration.min}min`)} – {duration.min > 60 && duration.min % 60 === 0 ? `${(duration.max / 60)}h` : `${duration.max}min`}
@@ -35,10 +35,10 @@ class DrugRoute extends React.Component {
     })
     const dosage = this.props.route.dosage
     const dosageKeys = Object.keys(dosage)
-    const dosageRows = dosageKeys.map((intensity) => {
+    const dosageRows = dosageKeys.map((intensity, index) => {
       if (intensity !== '__typename') {
         return (
-          <tr className={rowClass(intensity)}>
+          <tr className={rowClass(intensity)} key={`${this.props.route.id}-intensity-${dosageKeys[index]}`}>
             <td>{messages.dosage.dosageLevels[intensity]}</td>
             <td>
               {typeof dosage[intensity] === 'object' ? ( //eslint-disable-line

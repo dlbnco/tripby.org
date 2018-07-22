@@ -45,7 +45,7 @@ class Auth0 extends React.Component { // eslint-disable-line react/prefer-statel
   componentDidUpdate(prevProps) {
     const user = this.props.data.User
     if (user && prevProps.data.User !== user && user.id) {
-      this.props.dispatch(setUser(user.id))
+      this.props.dispatch(setUser(user))
     }
   }
   logout() {
@@ -159,6 +159,7 @@ const checkUser = gql`
   query checkUser($userId: String!) {
     User(auth0UserId: $userId) {
       id
+      role
     }
   }
 `

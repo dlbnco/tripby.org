@@ -51,6 +51,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                   routes={this.props.data.Drug.routes}
                   molecules={this.props.data.Drug.molecules}
                   alerts={this.props.data.Drug.alerts}
+                  id={this.props.data.Drug.id}
                 />
               </div>
               <div className="col-12 col-lg-8 mt-3">
@@ -85,6 +86,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
 const Drug = gql`
   query($id: ID!) {
     Drug(id: $id) {
+      id
       name
       alerts
       aliases

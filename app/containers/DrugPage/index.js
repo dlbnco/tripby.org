@@ -10,9 +10,7 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { createStructuredSelector } from 'reselect'
 
-import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
 import ErrorAlert from '../../components/ErrorAlert'
 import DrugHeader from '../../components/DrugHeader'
@@ -29,6 +27,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
     }
   }
   theDrug() {
+    const userIsAdmin = this.props.user.id && this.props.user.role === 'Admin'
     if (this.props.data.loading && this.state.error == null) {
       return (
         <Spinner className="mx-auto" />
@@ -52,6 +51,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                   molecules={this.props.data.Drug.molecules}
                   alerts={this.props.data.Drug.alerts}
                   id={this.props.data.Drug.id}
+                  userIsAdmin={userIsAdmin}
                 />
               </div>
               <div className="col-12 col-lg-8 mt-3">
@@ -134,10 +134,11 @@ const Drug = gql`
 DrugPage.propTypes = {
   data: PropTypes.object,
   params: PropTypes.object,
+  user: PropTypes.objectOf(PropTypes.string),
 }
 
-const mapStateToProps = createStructuredSelector({
-  DrugPage: makeSelectDrugPage(),
+const mapStateToProps = (state) => ({
+  user: state.get('auth0'),
 })
 
 function mapDispatchToProps(dispatch) {

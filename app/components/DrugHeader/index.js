@@ -7,9 +7,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Collapse } from 'reactstrap'
+import { Link } from 'react-router'
+import * as Icon from 'react-feather'
+
 import Alert from '../Alert'
 import DrugRoute from '../DrugRoute'
-
 import messages from './messages'
 
 class DrugHeader extends React.Component {
@@ -24,8 +26,13 @@ class DrugHeader extends React.Component {
         <section className="pt-3 pb-0">
           <div className="row align-items-center">
             <div className="col-12 d-flex">
-              <div style={{ flex: 1 }}>
-                <h1 className="text-uppercase text-greyDark mb-0"><strong>{this.props.name}</strong></h1>
+              <div style={{ flex: 1 }} className="d-flex align-items-center">
+                <h1 className="text-uppercase text-greyDark mb-0">
+                  <strong>{this.props.name}</strong>
+                </h1>
+                <Link to={`/edit/drug/${this.props.id}`}>
+                  <Icon.Edit2 size={16} className="text-muted ml-2" />
+                </Link>
               </div>
               <div>
                 {this.props.molecules.length > 0 ? <img src={this.props.molecules[0].url} role="presentation" style={{ maxWidth: 96 }} /> : null}
@@ -94,6 +101,7 @@ DrugHeader.propTypes = {
   routes: PropTypes.array,
   molecules: PropTypes.array,
   alerts: PropTypes.array,
+  id: PropTypes.string,
 }
 
 DrugHeader.defaultProps = {

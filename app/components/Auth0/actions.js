@@ -4,9 +4,9 @@
  *
  */
 
-export default function setUser(id) {
+export default function setUser(user) {
   return {
     type: 'SET_USER',
-    id,
+    payload: user,
   }
 }

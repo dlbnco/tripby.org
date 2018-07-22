@@ -10,11 +10,9 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { createStructuredSelector } from 'reselect'
 
-import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
-import ConnectionError from '../../components/ConnectionError'
+import ErrorAlert from '../../components/ErrorAlert'
 import DrugHeader from '../../components/DrugHeader'
 import DrugBody from '../../components/DrugBody'
 
@@ -29,13 +27,14 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
     }
   }
   theDrug() {
+    const userIsAdmin = this.props.user.id && this.props.user.role === 'Admin'
     if (this.props.data.loading && this.state.error == null) {
       return (
         <Spinner className="mx-auto" />
       )
     } else if (this.props.data.error) {
       return (
-        <ConnectionError />
+        <ErrorAlert />
       )
     } return (
       <div className="py-4">
@@ -51,6 +50,8 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
                   routes={this.props.data.Drug.routes}
                   molecules={this.props.data.Drug.molecules}
                   alerts={this.props.data.Drug.alerts}
+                  id={this.props.data.Drug.id}
+                  userIsAdmin={userIsAdmin}
                 />
               </div>
               <div className="col-12 col-lg-8 mt-3">
@@ -58,7 +59,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
               </div>
             </div>
             ) : (
-              <ConnectionError />
+              <ErrorAlert />
             )}
         </div>
       </div>
@@ -85,6 +86,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
 const Drug = gql`
   query($id: ID!) {
     Drug(id: $id) {
+      id
       name
       alerts
       aliases
@@ -132,10 +134,11 @@ const Drug = gql`
 DrugPage.propTypes = {
   data: PropTypes.object,
   params: PropTypes.object,
+  user: PropTypes.objectOf(PropTypes.string),
 }
 
-const mapStateToProps = createStructuredSelector({
-  DrugPage: makeSelectDrugPage(),
+const mapStateToProps = (state) => ({
+  user: state.get('auth0'),
 })
 
 function mapDispatchToProps(dispatch) {

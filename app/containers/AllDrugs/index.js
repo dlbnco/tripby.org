@@ -14,7 +14,7 @@ import { FormattedMessage } from 'react-intl'
 import qs from 'qs'
 import { createStructuredSelector } from 'reselect'
 import makeSelectAllDrugs from './selectors'
-import ConnectionError from '../../components/ConnectionError'
+import ErrorAlert from '../../components/ErrorAlert'
 import ListDrugs from '../../components/ListDrugs'
 import FilterDrugs from '../../components/FilterDrugs'
 import messages from './messages'
@@ -84,7 +84,7 @@ export class AllDrugs extends React.Component { // eslint-disable-line react/pre
               </div>
             ) : (
               <div>
-                <ConnectionError />
+                <ErrorAlert />
               </div>
             )}
 

@@ -20,7 +20,7 @@ import { isEqual } from 'underscore'
 import TurndownService from 'turndown'
 import { TabList, Tab, Tabs, TabPanel } from 'react-tabs'
 
-import ConnectionError from '../../components/ConnectionError'
+import ErrorAlert from '../../components/ErrorAlert'
 import PageHeader from '../../components/PageHeader'
 import Spinner from '../../components/Spinner'
 import Badge from '../../components/Badge'
@@ -240,7 +240,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
           ]}
         />
         {data.networkStatus === 8 && (
-          <ConnectionError />
+          <ErrorAlert type="connection" />
         )}
         {!loading && Drug && newDrug && (
           <div>

@@ -14,7 +14,7 @@ import { createStructuredSelector } from 'reselect'
 
 import makeSelectDrugPage from './selectors'
 import Spinner from '../../components/Spinner'
-import ConnectionError from '../../components/ConnectionError'
+import ErrorAlert from '../../components/ErrorAlert'
 import DrugHeader from '../../components/DrugHeader'
 import DrugBody from '../../components/DrugBody'
 
@@ -35,7 +35,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
       )
     } else if (this.props.data.error) {
       return (
-        <ConnectionError />
+        <ErrorAlert />
       )
     } return (
       <div className="py-4">
@@ -58,7 +58,7 @@ export class DrugPage extends React.Component { // eslint-disable-line react/pre
               </div>
             </div>
             ) : (
-              <ConnectionError />
+              <ErrorAlert />
             )}
         </div>
       </div>

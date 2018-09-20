@@ -2,41 +2,26 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Collapse } from 'reactstrap'
 import { ChevronDown } from 'react-feather'
-import { Mutation } from 'react-apollo'
+import { Mutation, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import messages from '../messages'
-import { Drug as GET_DRUG } from '..'
+import { Drug as GET_DRUG, GET_ROUTE_TYPES } from '..'
+import Dosage from './Dosage'
+import Duration from './Duration'
 
-const UPDATE_ROUTE_DOSAGE = gql`
-  mutation updateDosage(
-    $id: ID!
-    $treshold: Int
-    $light: Json
-    $common: Json
-    $strong: Json
-    $heavy: Int
+const CREATE_ROUTE = gql`
+  mutation createRoute(
+    $type: Routes!
+    $drugId: ID!
   ) {
-    updateDosage(
-      id: $id
-      treshold: $treshold
-      light: $light
-      common: $common
-      strong: $strong
-      heavy: $heavy
+    createRoute(
+      type: $type
+      drugId: $drugId
     ) {
       id
     }
   }
 `
-
-const dosageLevels = [
-  'treshold',
-  'light',
-  'common',
-  'strong',
-  'heavy',
-]
 
 export default class EditRoutes extends Component {
   static propTypes = {
@@ -55,27 +40,15 @@ export default class EditRoutes extends Component {
     }
     this.setState({ collapsed })
   }
-  handleUpdateDosage(dosageId, e, updateDosage) {
+  handleCreateRoute(e, createRoute) {
     e.preventDefault()
-    const { target } = e
-    const payload = {
-      id: dosageId,
-      treshold: Number(target['treshold-min'].value),
-      light: {
-        min: target['light-min'].value,
-        max: target['light-max'].value,
-      },
-      common: {
-        min: target['common-min'].value,
-        max: target['common-max'].value,
-      },
-      strong: {
-        min: target['strong-min'].value,
-        max: target['strong-max'].value,
-      },
-      heavy: Number(target['heavy-min'].value),
+    const { Drug } = this.props
+    const type = e.target.route.value
+    const variables = {
+      drugId: Drug.id,
+      type,
     }
-    updateDosage({ variables: payload })
+    createRoute({ variables })
   }
   render() {
     const { Drug } = this.props
@@ -84,6 +57,47 @@ export default class EditRoutes extends Component {
     return (
       <div>
         <ul className="list-group">
+          <li className="list-group-item">
+            <Mutation
+              mutation={CREATE_ROUTE}
+              refetchQueries={() => [
+                { query: GET_DRUG, variables: { id: Drug.id } },
+              ]}
+            >
+              {(createRoute, { data, loading, error }) => (
+                <form
+                  className="d-flex align-items-center"
+                  onSubmit={(e) => this.handleCreateRoute(e, createRoute)}
+                >
+                  <Query query={GET_ROUTE_TYPES}>
+                    {({ data }) => ( // eslint-disable-line
+                      <select name="route" className="form-control mr-3">
+                        {data && data.__type.enumValues.filter((routeType) => // show only routes that doesn't exist yet in this Drug
+                        Drug.routes.find((route) =>
+                          route.type === routeType.name) === undefined)
+                            .map((routeType) => (
+                              <option value={routeType.name}>
+                                {routeType.name}
+                              </option>
+                        ))}
+                      </select>
+                    )}
+                  </Query>
+                  <button
+                    className="btn btn-small"
+                    type="submit"
+                    disabled={loading}
+                  >
+                    {loading ? 'Updating...' : 'Add route'}
+                  </button>
+                  {!loading &&
+                    data &&
+                    data.createRoute.id &&
+                    (<div className="ml-2">Created!</div>)}
+                  {error && 'error'}
+                </form>)}
+            </Mutation>
+          </li>
           {routes.map((route) => {
             const isCollapsed = collapsed.includes(route.id)
             return (
@@ -102,69 +116,8 @@ export default class EditRoutes extends Component {
                   />
                 </button>
                 <Collapse isOpen={isCollapsed}>
-                  {route.dosage ? <Mutation
-                    refetchQueries={() => [
-                      { query: GET_DRUG, variables: { id: Drug.id } },
-                    ]}
-                    mutation={UPDATE_ROUTE_DOSAGE}
-                  >
-                    {(updateDosage, { data, loading, error }) => (
-                      <form
-                        className="py-3"
-                        onSubmit={(e) => this.handleUpdateDosage(route.dosage.id, e, updateDosage)}
-                      >
-                        <h6>
-                          <strong>
-                        Dosage
-                      </strong>
-                        </h6>
-                        {dosageLevels.map((level) => (
-                          <div className="row align-items-center justify-content-between my-2">
-                            <div className="col-8">
-                              {messages.sections.routes.dosage[level]}
-                            </div>
-                            <div className="col-4 d-flex">
-                              <input
-                                className="form-control"
-                                type="number"
-                                name={`${level}-min`}
-                                placeholder="min"
-                                defaultValue={route.dosage && route.dosage[level] && (route.dosage[level].min || route.dosage[level])}
-                              />
-                              {level !== 'treshold' && level !== 'heavy' && (
-                              <input
-                                className={'ml-2 form-control'}
-                                name={`${level}-max`}
-                                placeholder="max"
-                                type="number"
-                                defaultValue={route.dosage && route.dosage[level] && route.dosage[level].max}
-                              />
-                            )}
-                            </div>
-                            <small className="text-muted"></small>
-                          </div>
-                        ))}
-                        <div className="d-flex align-items-center mt-3">
-                          <button
-                            className="btn btn-small"
-                            type="submit"
-                            disabled={loading}
-                          >
-                            {loading ? 'Updating...' : 'Update'}
-                          </button>
-                          {!loading &&
-                            data &&
-                            data.updateDosage.id &&
-                            (<div className="ml-2">Updated!</div>)}
-                          {error && 'error'}
-                        </div>
-                      </form>
-                  )}
-                  </Mutation> : (
-                    <div>
-                      Create dosage
-                    </div>
-                  )}
+                  <Dosage Drug={Drug} route={route} />
+                  <Duration Drug={Drug} route={route} />
                 </Collapse>
               </li>
             )

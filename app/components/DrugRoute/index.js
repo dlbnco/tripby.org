@@ -17,7 +17,7 @@ class DrugRoute extends React.Component {
     this.mapDosage = this.mapDosage.bind(this)
   }
   mapDurations() {
-    const durations = this.props.route.durations
+    const durations = this.props.route.duration
     const durationRows = durations.map((duration) => (
       <tr key={`${this.props.route.id}-${duration.timeframe}`}>
         <td>{messages.duration.timeframes[duration.timeframe]}</td>
@@ -74,7 +74,7 @@ class DrugRoute extends React.Component {
               </tbody>
             </table> : null}
         {
-          this.props.route.durations ?
+          this.props.route.duration ?
             <table className="table table-striped table-hover">
               <thead>
                 <tr>

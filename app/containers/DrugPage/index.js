@@ -110,7 +110,7 @@ const Drug = gql`
       routes {
         id
         type
-        durations {
+        duration {
           id
           onset
           comeUp

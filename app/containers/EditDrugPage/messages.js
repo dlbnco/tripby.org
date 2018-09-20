@@ -53,11 +53,21 @@ export default defineMessages({
     routes: {
       title: 'Routes',
       dosage: {
+        title: 'Dosage (in mg)',
         treshold: 'Treshold',
         light: 'Light',
         common: 'Common',
         strong: 'Strong',
         heavy: 'Heavy',
+      },
+      duration: {
+        title: 'Duration (in minutes)',
+        onset: 'Onset',
+        comeUp: 'Comeup',
+        peak: 'Peak',
+        comeDown: 'Comedown',
+        total: 'Total',
+        afterEffects: 'After effects/hangover',
       },
     },
     effects: {

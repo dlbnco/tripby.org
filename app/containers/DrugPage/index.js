@@ -110,10 +110,14 @@ const Drug = gql`
       routes {
         id
         type
-        durations {
-          min
-          max
-          timeframe
+        duration {
+          id
+          onset
+          comeUp
+          peak
+          comeDown
+          total
+          afterEffects
         }
         dosage {
           treshold

@@ -27,6 +27,7 @@ import Badge from '../../components/Badge'
 import Alert from '../../components/Alert'
 
 import messages from './messages'
+import EditRoutes from './EditRoutes'
 
 const ContributionSection = ({ isOpen, title, children, toggle }) => (
   <div className="card">
@@ -262,6 +263,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                       {messages.sections.summary.title}
                     </Tab>
                     <Tab>
+                      {messages.sections.routes.title}
+                    </Tab>
+                    <Tab>
                       {messages.sections.effects.title}
                     </Tab>
                     <Tab>
@@ -341,7 +345,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                 <label htmlFor="class">
                                   <strong>{messages.sections.basics.form.routes.label}</strong>
                                 </label>
-                                <Query query={GET_ROUTES}>
+                                <Query query={GET_ROUTE_TYPES}>
                                 {({ loading, error, data }) => { //eslint-disable-line
                                   if (loading) return <Spinner />
                                   return (
@@ -404,6 +408,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                             />
                           </div>
                         </form>
+                      </TabPanel>
+                      <TabPanel>
+                        <EditRoutes Drug={Drug} routes={Drug.routes} />
                       </TabPanel>
                       <TabPanel>
                         <form>
@@ -498,9 +505,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                   law: this.turndownService.turndown(newDrug.law),
                                   name: newDrug.name,
                                   routes: newDrug.routes.reduce((acc, val) => {
-                                    const durationsIds = []
-                                    if (val.durations) {
-                                      val.durations.forEach((duration) => durationsIds.push(duration.id))
+                                    const durationIds = []
+                                    if (val.duration) {
+                                      val.duration.forEach((duration) => durationIds.push(duration.id))
                                     }
                                     if (val.id) {
                                       const obj = {}
@@ -510,7 +517,7 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                       acc.push({
                                         ...obj,
                                         type: val.type,
-                                        durationsIds,
+                                        durationIds,
                                       })
                                     } else {
                                       acc.push({ type: val.name })
@@ -564,8 +571,8 @@ const GET_CATEGORIES = gql`
 `
 
 
-const GET_ROUTES = gql`
-  query {
+export const GET_ROUTE_TYPES = gql`
+  query getRouteTypes {
     __type (name: "Routes") {
       enumValues {
         name
@@ -613,7 +620,7 @@ const UPDATE_DRUG = gql`
   }
 `
 
-const Drug = gql`
+export const Drug = gql`
   query getDrug($id: ID!) {
     Drug(id: $id) {
       id
@@ -641,11 +648,14 @@ const Drug = gql`
       routes {
         id
         type
-        durations {
+        duration {
           id
-          min
-          max
-          timeframe
+          onset
+          comeUp
+          peak
+          comeDown
+          total
+          afterEffects
         }
         dosage {
           id

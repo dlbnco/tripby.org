@@ -61,14 +61,14 @@ class DrugHeader extends React.Component {
                       return (
                         <div className="card border border-radius mb-1" key={route.id}>
                           <div className="card-header" style={{ border: 0, padding: '0.5rem 0.75rem' }}>
-                            <button disabled={!route.dosage && route.durations.length === 0} className="d-inline-flex justify-content-between w-100" type="button" onClick={() => this.setState({ routes: { [id]: !this.state.routes[id] } })}>
+                            <button disabled={!route.dosage && route.duration.length === 0} className="d-inline-flex justify-content-between w-100" type="button" onClick={() => this.setState({ routes: { [id]: !this.state.routes[id] } })}>
                               {route.type}
-                              {route.dosage || route.durations.length > 0 ? <i className="material-icons">{this.state.routes[id] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i> : null}
+                              {route.dosage || route.duration.length > 0 ? <i className="material-icons">{this.state.routes[id] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i> : null}
                             </button>
                           </div>
                           <Collapse isOpen={this.state.routes[id]}>
                             <div className="card-body">
-                              {route.dosage || route.durations.length > 0 ? <DrugRoute route={route} /> : null}
+                              {route.dosage || route.duration.length > 0 ? <DrugRoute route={route} /> : null}
                             </div>
                           </Collapse>
                         </div>

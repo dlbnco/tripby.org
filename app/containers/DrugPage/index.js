@@ -111,9 +111,13 @@ const Drug = gql`
         id
         type
         durations {
-          min
-          max
-          timeframe
+          id
+          onset
+          comeUp
+          peak
+          comeDown
+          total
+          afterEffects
         }
         dosage {
           treshold

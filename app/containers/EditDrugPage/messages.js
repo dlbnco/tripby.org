@@ -50,6 +50,16 @@ export default defineMessages({
         },
       },
     },
+    routes: {
+      title: 'Routes',
+      dosage: {
+        treshold: 'Treshold',
+        light: 'Light',
+        common: 'Common',
+        strong: 'Strong',
+        heavy: 'Heavy',
+      },
+    },
     effects: {
       title: 'Effects',
       form: {

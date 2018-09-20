@@ -27,6 +27,7 @@ import Badge from '../../components/Badge'
 import Alert from '../../components/Alert'
 
 import messages from './messages'
+import EditRoutes from './EditRoutes'
 
 const ContributionSection = ({ isOpen, title, children, toggle }) => (
   <div className="card">
@@ -262,6 +263,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                       {messages.sections.summary.title}
                     </Tab>
                     <Tab>
+                      {messages.sections.routes.title}
+                    </Tab>
+                    <Tab>
                       {messages.sections.effects.title}
                     </Tab>
                     <Tab>
@@ -404,6 +408,9 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                             />
                           </div>
                         </form>
+                      </TabPanel>
+                      <TabPanel>
+                        <EditRoutes Drug={Drug} routes={Drug.routes} />
                       </TabPanel>
                       <TabPanel>
                         <form>
@@ -613,7 +620,7 @@ const UPDATE_DRUG = gql`
   }
 `
 
-const Drug = gql`
+export const Drug = gql`
   query getDrug($id: ID!) {
     Drug(id: $id) {
       id
@@ -643,9 +650,12 @@ const Drug = gql`
         type
         durations {
           id
-          min
-          max
-          timeframe
+          onset
+          comeUp
+          peak
+          comeDown
+          total
+          afterEffects
         }
         dosage {
           id

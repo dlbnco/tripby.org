@@ -504,26 +504,6 @@ export class EditDrugPage extends React.Component { // eslint-disable-line react
                                   health: this.turndownService.turndown(newDrug.health),
                                   law: this.turndownService.turndown(newDrug.law),
                                   name: newDrug.name,
-                                  routes: newDrug.routes.reduce((acc, val) => {
-                                    const durationIds = []
-                                    if (val.duration) {
-                                      val.duration.forEach((duration) => durationIds.push(duration.id))
-                                    }
-                                    if (val.id) {
-                                      const obj = {}
-                                      if (val.dosage) {
-                                        obj.dosageId = val.dosage.id
-                                      }
-                                      acc.push({
-                                        ...obj,
-                                        type: val.type,
-                                        durationIds,
-                                      })
-                                    } else {
-                                      acc.push({ type: val.name })
-                                    }
-                                    return acc
-                                  }, []),
                                   summary: this.turndownService.turndown(newDrug.summary),
                                 }}
                               >

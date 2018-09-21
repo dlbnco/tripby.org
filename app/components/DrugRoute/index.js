@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 import messages from './messages'
+import { durationTimeframes } from '../../constants'
 
 class DrugRoute extends React.Component {
   constructor() {
@@ -17,16 +18,19 @@ class DrugRoute extends React.Component {
     this.mapDosage = this.mapDosage.bind(this)
   }
   mapDurations() {
-    const durations = this.props.route.duration
-    const durationRows = durations.map((duration) => (
-      <tr key={`${this.props.route.id}-${duration.timeframe}`}>
-        <td>{messages.duration.timeframes[duration.timeframe]}</td>
-        <td>
-          {(duration.min >= 60 && duration.min % 60 === 0) ? (`${(duration.min / 60)}h`) : (`${duration.min}min`)} – {duration.min > 60 && duration.min % 60 === 0 ? `${(duration.max / 60)}h` : `${duration.max}min`}
-        </td>
-      </tr>
-    ))
-    return durationRows
+    const duration = this.props.route.duration
+    const timeframeRows = durationTimeframes.map((timeframe) => {
+      const value = duration[timeframe]
+      return (
+        <tr key={`${this.props.route.id}-duration-${timeframe}`}>
+          <td>{messages.duration.timeframes[timeframe]}</td>
+          <td>
+            {(value.min >= 60 && value.min % 60 === 0) ? (`${(value.min / 60)}h`) : (`${value.min}min`)} – {value.min > 60 && value.min % 60 === 0 ? `${(value.max / 60)}h` : `${value.max}min`}
+          </td>
+        </tr>
+      )
+    })
+    return timeframeRows
   }
   mapDosage() {
     const rowClass = (intensity) => classnames({

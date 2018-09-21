@@ -23,12 +23,12 @@ export default defineMessages({
     defaultMessage: 'Duration',
     timeframe: 'Period',
     timeframes: {
-      Total: 'Total',
-      Onset: 'Onset',
-      ComeUp: 'Come up',
-      ComeDown: 'Come down',
-      Peak: 'Peak',
-      Hangover: 'After effects',
+      total: 'Total',
+      onset: 'Onset',
+      comeUp: 'Come up',
+      comeDown: 'Come down',
+      peak: 'Peak',
+      afterEffects: 'After effects',
     },
   },
 })

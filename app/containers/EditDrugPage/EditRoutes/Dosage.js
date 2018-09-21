@@ -21,11 +21,11 @@ const CREATE_ROUTE_DOSAGE = gql`
 const UPDATE_ROUTE_DOSAGE = gql`
   mutation updateDosage(
     $id: ID!
-    $treshold: Int
+    $treshold: Float
     $light: Json
     $common: Json
     $strong: Json
-    $heavy: Int
+    $heavy: Float
   ) {
     updateDosage(
       id: $id
@@ -104,18 +104,20 @@ export default class Dosage extends Component {
                     <input
                       className="form-control"
                       type="number"
+                      step="0.001"
                       name={`${level}-min`}
                       placeholder="min"
                       defaultValue={route.dosage && route.dosage[level] && (route.dosage[level].min || route.dosage[level])}
                     />
                     {level !== 'treshold' && level !== 'heavy' && (
-                    <input
-                      className={'ml-2 form-control'}
-                      name={`${level}-max`}
-                      placeholder="max"
-                      type="number"
-                      defaultValue={route.dosage && route.dosage[level] && route.dosage[level].max}
-                    />
+                      <input
+                        className={'ml-2 form-control'}
+                        name={`${level}-max`}
+                        step="0.001"
+                        placeholder="max"
+                        type="number"
+                        defaultValue={route.dosage && route.dosage[level] && route.dosage[level].max}
+                      />
                             )}
                   </div>
                   <small className="text-muted"></small>

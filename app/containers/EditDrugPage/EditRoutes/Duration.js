@@ -5,6 +5,7 @@ import { Mutation } from 'react-apollo'
 import { Drug as GET_DRUG } from '..'
 
 import messages from '../messages'
+import { durationTimeframes } from '../../../constants'
 
 const CREATE_ROUTE_DURATION = gql`
   mutation createDuration(
@@ -41,15 +42,6 @@ const UPDATE_ROUTE_DURATION = gql`
     }
   }
 `
-
-const durationTimeframes = [
-  'onset',
-  'comeUp',
-  'peak',
-  'comeDown',
-  'total',
-  'afterEffects',
-]
 
 export default class Duration extends Component {
   static propTypes = {

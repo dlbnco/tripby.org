@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "builds": [{ "src": "package.json", "use": "@now/next" }],
+  "regions": ["gru1", "cdg1", "sfo1"],
+  "alias": ["dev.tripby.org"]
+}

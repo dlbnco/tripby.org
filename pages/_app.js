@@ -4,8 +4,12 @@ import { Provider as StyletronProvider } from 'styletron-react';
 import withApolloClient from '../lib/with-apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import { ThemeProvider } from 'styled-components';
 
 import { styletron } from '../lib/styletron';
+import Layout from '../components/Layout';
+import { defaultTheme } from '../lib/theme';
+import IntlProvider from '../components/IntlProvider';
 
 class MyApp extends App {
   render() {
@@ -15,7 +19,13 @@ class MyApp extends App {
         <ApolloProvider client={apolloClient}>
           <ApolloHooksProvider client={apolloClient}>
             <StyletronProvider value={styletron}>
-              <Component {...pageProps} />
+              <ThemeProvider theme={defaultTheme}>
+                <IntlProvider>
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </IntlProvider>
+              </ThemeProvider>
             </StyletronProvider>
           </ApolloHooksProvider>
         </ApolloProvider>

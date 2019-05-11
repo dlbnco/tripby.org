@@ -1,23 +1,11 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo-hooks';
 import { Card, StyledBody } from 'baseui/card';
 import { Flex, Box } from 'rebass';
 import Container from '../components/Container';
+import GET_SUBSTANCES from '../queries/substances';
 
-const GET_SUBSTANCES = gql`
-  query getSubstances($limit: Int) {
-    substances(limit: $limit) {
-      name
-      images {
-        image
-      }
-      class {
-        psychoactive
-      }
-    }
-  }
-`;
+const offset = Math.floor(Math.random() * Math.floor(200));
 
 export default () => {
   const { data } = useQuery(GET_SUBSTANCES, { variables: { limit: 6 } });

@@ -4,15 +4,17 @@ import styled from 'styled-components';
 
 import Logo from '../Logo';
 
-const Wrapper = styled(Box).attrs(() => ({ p: 2, variant: 'primary' }))`
+const Wrapper = styled(Box).attrs(() => ({ variant: 'primary' }))`
   border-right: ${({ theme }) => theme.borderWidth.regular} solid
     ${({ theme }) => theme.borderColor};
 `;
 
-const Navigation = () => {
+const Navigation = props => {
   return (
-    <Wrapper>
-      <Logo size={48} />
+    <Wrapper {...props}>
+      <Box p={[2, 3]}>
+        <Logo size={48} />
+      </Box>
     </Wrapper>
   );
 };

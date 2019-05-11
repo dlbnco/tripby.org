@@ -25,7 +25,7 @@ class MyDocument extends Document {
       <html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css?family=Barlow:300,400,500,700"
+            href="https://fonts.googleapis.com/css?family=Barlow:300,400,500,700,800"
             rel="stylesheet"
           />
           {/* minireset.css */}

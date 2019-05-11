@@ -1,6 +1,7 @@
 const messages = {
   en: {
-    'Home.hero': 'Read the label',
+    'Hero.title': 'Read the label.',
+    'Home.viewAll': 'View all substances →',
   },
 };
 

@@ -24,6 +24,9 @@ class MyDocument extends Document {
     return (
       <html>
         <Head>
+          <style type="text/css">
+            {'@import \'https://fonts.googleapis.com/css?family=Barlow\';'}
+          </style>
           {/* minireset.css */}
           <style type="text/css">
             {

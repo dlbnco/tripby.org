@@ -7,18 +7,22 @@ import GlobalStyle from './GlobalStyle';
 
 const Wrapper = styled(Flex)`
   width: 100vw;
+  height: 100vh;
+  align-items: stretch;
+  overflow: hidden;
+`;
+
+const Content = styled(Box)`
+  overflow: auto;
+  height: 100%;
 `;
 
 const Layout = ({ children }) => {
   return (
-    <Wrapper m={[-2, -3]} flexWrap="wrap">
+    <Wrapper flexWrap="wrap">
       <GlobalStyle />
-      <Box p={[2, 3]} width={[1, 1 / 3, 1 / 4, 1 / 5, 1 / 6]}>
-        <Navigation />
-      </Box>
-      <Box p={[2, 3]} flex="1">
-        {children}
-      </Box>
+      <Navigation width={[1, 1 / 4, null, 1 / 5, 1 / 6]} />
+      <Content flex="1">{children}</Content>
     </Wrapper>
   );
 };

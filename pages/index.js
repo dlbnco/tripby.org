@@ -15,7 +15,7 @@ const offset = Math.floor(Math.random() * Math.floor(200));
 export default () => {
   const { data } = useQuery(GET_SUBSTANCES, {
     variables: {
-      limit: 9,
+      limit: 12,
       offset,
     },
   });
@@ -26,7 +26,7 @@ export default () => {
         <Flex m={-2} flexWrap="wrap" mb={3}>
           {data.substances &&
             data.substances.map(sub => (
-              <Box p={2} width={[1, null, 1 / 2, 1 / 3]} key={sub.name}>
+              <Box p={2} width={[1, null, 1 / 2, 1 / 3, 1 / 4]} key={sub.name}>
                 <SubstanceCard substance={sub} />
               </Box>
             ))}

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import upperFirst from 'lodash/upperFirst';
 import styled, { css } from 'styled-components';
-import { Flex } from 'rebass';
+import { Flex, Box } from 'rebass';
 import Text from '../../Text';
 import { FormattedMessage } from 'react-intl';
+import Dose from './Dose';
+import Duration from './Duration';
 
 const Header = styled(Flex).attrs(() => ({
   justifyContent: 'space-between',
@@ -36,13 +38,9 @@ const Arrow = styled(Text)`
   transform: rotate(${({ isCollapsed }) => (isCollapsed ? 180 : 0)}deg);
 `;
 
-const Roa = ({ roa }) => {
-  const [isCollapsed, toggleCollapse] = useState(true);
-  const { dose } = roa;
-  const { units } = dose;
-  const doseLevels = Object.keys(dose).filter(
-    item => item !== 'units' && item !== '__typename'
-  );
+const RoaSection = ({ roa }) => {
+  const [isCollapsed, toggleCollapse] = useState(false);
+  const { dose, duration } = roa;
   return (
     <Flex flexDirection="column">
       <Header
@@ -53,33 +51,16 @@ const Roa = ({ roa }) => {
         <Arrow isCollapsed={isCollapsed}>⌄</Arrow>
       </Header>
       {isCollapsed && (
-        <Flex flexDirection="column" py={2}>
+        <Flex flexDirection="column" m={-2} py={2}>
           {dose && (
-            <Flex flexDirection="column" m={-1}>
-              <Text fontWeight="500" p={1}>
-                <FormattedMessage id="Substance.dosage" />
-              </Text>
-              {doseLevels.map(doseLevel => {
-                const _doseLevel = dose[doseLevel];
-                if (_doseLevel) {
-                  return (
-                    <Flex
-                      p={1}
-                      justifyContent="space-between"
-                      key={`${roa.name}-${doseLevel}`}
-                    >
-                      <Text>{upperFirst(doseLevel)}</Text>
-                      <Text>
-                        {typeof _doseLevel === 'number'
-                          ? _doseLevel
-                          : `${_doseLevel.min}–${_doseLevel.max}`}{' '}
-                        {units}
-                      </Text>
-                    </Flex>
-                  );
-                }
-              })}
-            </Flex>
+            <Box p={2}>
+              <Dose roa={roa} />
+            </Box>
+          )}
+          {duration && (
+            <Box p={2}>
+              <Duration roa={roa} />
+            </Box>
           )}
         </Flex>
       )}
@@ -87,6 +68,6 @@ const Roa = ({ roa }) => {
   );
 };
 
-Roa.propTypes = {};
+RoaSection.propTypes = {};
 
-export default Roa;
+export default RoaSection;

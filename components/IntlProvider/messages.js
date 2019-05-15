@@ -6,6 +6,7 @@ const messages = {
     'Substance.chemicalClass': 'Chemical class',
     'Substance.roas': 'Routes of administration',
     'Substance.dosage': 'Dosage',
+    'Substance.duration': 'Duration',
   },
 };
 

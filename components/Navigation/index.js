@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from 'rebass';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 import Logo from '../Logo';
 
@@ -13,7 +14,11 @@ const Navigation = props => {
   return (
     <Wrapper {...props}>
       <Box p={[2, 3]}>
-        <Logo size={48} />
+        <Link href="/">
+          <a>
+            <Logo size={48} />
+          </a>
+        </Link>
       </Box>
     </Wrapper>
   );

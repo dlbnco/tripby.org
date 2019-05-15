@@ -1,14 +1,21 @@
 import React, { useState, useCallback } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { Box, Flex } from 'rebass';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import GET_SUBSTANCES from '../../queries/substances';
 import Heading from '../../components/Heading';
 import Input from '../../components/Input';
 import SubstanceCard from '../../components/Substance/Card';
 import Container from '../../components/Container';
+import SubstancePage from '../../components/Substance/Page';
 
 const AllSubstances = () => {
+  const { query } = useRouter();
+  if (query && query.name) {
+    return <SubstancePage name={query.name} />;
+  }
   const [filter, handleFilter] = useState('');
   const { data } = useQuery(GET_SUBSTANCES, { variables: { limit: 300 } });
   const filterSubstances = useCallback(
@@ -27,12 +34,12 @@ const AllSubstances = () => {
         </Heading>
         <Box mb={3}>
           <Input
-            placeholder="Filter by name"
+            placeholder="Filter by name 🔍"
             value={filter}
             onChange={e => handleFilter(e.target.value)}
           />
         </Box>
-        <Flex flexWrap="wrap" m={-2}>
+        <Flex flexWrap="wrap" m={-2} py={3}>
           {data &&
             data.substances &&
             filterSubstances(data.substances).map(substance => (
@@ -41,7 +48,11 @@ const AllSubstances = () => {
                 p={2}
                 key={substance.name}
               >
-                <SubstanceCard substance={substance} />
+                <Link href={`/substances?name=${substance.name}`}>
+                  <a>
+                    <SubstanceCard substance={substance} />
+                  </a>
+                </Link>
               </Box>
             ))}
         </Flex>

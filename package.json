@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "apollo-boost": "^0.1.16",
-    "baseui": "^6.17.2",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
@@ -16,6 +15,7 @@
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.11",
     "next": "^8.1.0",
     "next-images": "^1.1.1",
     "prop-types": "^15.6.2",
@@ -27,9 +27,7 @@
     "rebass": "^3.1.0",
     "styled-components": "^4.2.0",
     "styled-system": "^4.2.2",
-    "styled-theming": "^2.2.0",
-    "styletron-engine-atomic": "^1.1.2",
-    "styletron-react": "^5.0.1"
+    "styled-theming": "^2.2.0"
   },
   "author": "",
   "license": "ISC"

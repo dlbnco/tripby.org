@@ -11,15 +11,21 @@ import SubstanceRoas from '../ROAs';
 const SubstancePageHeader = ({ substance }) => {
   return (
     <>
-      <Heading
-        style={{ textOverflow: '-' }}
-        as="h1"
-        fontSize={5}
-        mb={3}
-        fontWeight="500"
-      >
-        {substance.name}
-      </Heading>
+      <Box mb={3}>
+        <Heading
+          style={{ textOverflow: '-' }}
+          as="h1"
+          fontSize={5}
+          fontWeight="500"
+        >
+          {substance.name}
+        </Heading>
+        <Text fontSize={0} variant="secondary">
+          <a href={substance.url} target="_blank" rel="noopener noreferrer">
+            Wiki ↗
+          </a>
+        </Text>
+      </Box>
       <Box mb={3}>
         <Text mb={1} fontSize={0} as="h2" variant="secondary">
           <FormattedMessage id="Substance.psychoactiveClass" />
@@ -37,7 +43,7 @@ const SubstancePageHeader = ({ substance }) => {
         </Text>
       </Box>
       <Box mb={3}>
-        <Text fontSize={0} mb={3} variant="secondary">
+        <Text fontSize={0} mb={2} variant="secondary">
           <FormattedMessage id="Substance.roas" />
         </Text>
         <SubstanceRoas substance={substance} />

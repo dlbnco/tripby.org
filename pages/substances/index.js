@@ -48,11 +48,7 @@ const AllSubstances = () => {
                 p={2}
                 key={substance.name}
               >
-                <Link href={`/substances?name=${substance.name}`}>
-                  <a>
-                    <SubstanceCard substance={substance} />
-                  </a>
-                </Link>
+                <SubstanceCard substance={substance} />
               </Box>
             ))}
         </Flex>

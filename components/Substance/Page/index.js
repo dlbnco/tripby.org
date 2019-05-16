@@ -18,8 +18,8 @@ const SubstancePage = ({ name }) => {
   if (data && data.substances && data.substances.length) {
     const substance = data.substances[0];
     return (
-      <Container fluid py={[2, 3, 4]}>
-        <Flex flexWrap="wrap" m={[-2, -3, -4]}>
+      <Container py={[2, 3]}>
+        <Flex style={{ maxWidth: '100%' }} flexWrap="wrap" m={[-2, -3, -4]}>
           <Box width={[1, null, 1 / 2, 1 / 3, 1 / 4]} p={[2, 3, 4]}>
             <SubstancePageHeader substance={substance} />
           </Box>

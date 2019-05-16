@@ -11,7 +11,7 @@ const SubstanceCard = ({ substance }) => {
   return (
     <Link href={`substances?name=${substance.name}`}>
       <a>
-        <Card>
+        <Card style={{ overflow: 'auto' }}>
           <Heading mb={2} fontSize={2} fontWeight="500">
             {substance.name}
           </Heading>

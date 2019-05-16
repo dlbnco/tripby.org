@@ -18,7 +18,7 @@ const Header = styled(Flex).attrs(() => ({
   transition: color 0.2s, border-color 0.2s;
   ${({ isCollapsed, theme: { colors, borderWidth, borderColor } }) =>
     css`
-      border-bottom: ${borderWidth.medium} solid
+      border-bottom: ${borderWidth.regular} solid
         ${isCollapsed ? colors.purpleHeart : borderColor};
       &:hover {
         color: ${colors.purpleHeart};

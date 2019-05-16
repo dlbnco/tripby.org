@@ -23,12 +23,11 @@ const GET_SUBSTANCE = gql`
         dose {
           units
           threshold
-          heavy
-          common {
+          light {
             min
             max
           }
-          light {
+          common {
             min
             max
           }
@@ -36,6 +35,7 @@ const GET_SUBSTANCE = gql`
             min
             max
           }
+          heavy
         }
         duration {
           duration {

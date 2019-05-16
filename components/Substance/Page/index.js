@@ -19,11 +19,11 @@ const SubstancePage = ({ name }) => {
     const substance = data.substances[0];
     return (
       <Container py={[2, 3]}>
-        <Flex style={{ maxWidth: '100%' }} flexWrap="wrap" m={[-2, -3, -4]}>
-          <Box width={[1, null, 1 / 2, 1 / 3, 1 / 4]} p={[2, 3, 4]}>
+        <Flex flexWrap="wrap" m={[-2, null, -3]}>
+          <Box width={[1, null, 2 / 5, 1 / 3, 1 / 4]} p={[2, null, 3]}>
             <SubstancePageHeader substance={substance} />
           </Box>
-          <Box flex="1" p={[2, 3, 4]}>
+          <Box flex="1" p={[2, null, 3]}>
             <Card>{substance.summary}</Card>
           </Box>
         </Flex>

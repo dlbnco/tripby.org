@@ -4,7 +4,6 @@ import upperFirst from 'lodash/upperFirst';
 import styled, { css } from 'styled-components';
 import { Flex, Box } from 'rebass';
 import Text from '../../Text';
-import { FormattedMessage } from 'react-intl';
 import Dose from './Dose';
 import Duration from './Duration';
 
@@ -68,6 +67,8 @@ const RoaSection = ({ roa }) => {
   );
 };
 
-RoaSection.propTypes = {};
+RoaSection.propTypes = {
+  roa: PropTypes.object.isRequired,
+};
 
 export default RoaSection;

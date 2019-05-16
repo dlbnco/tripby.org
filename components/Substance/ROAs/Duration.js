@@ -41,6 +41,8 @@ const Duration = ({ roa }) => {
   );
 };
 
-Duration.propTypes = {};
+Duration.propTypes = {
+  roa: PropTypes.object.isRequired,
+};
 
 export default Duration;

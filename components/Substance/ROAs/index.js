@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import upperFirst from 'lodash/upperFirst';
 import { Flex, Box } from 'rebass';
-import Card from '../../Card';
 import RoaSection from './Section';
 
 const SubstanceRoas = ({ substance, ...props }) => {
@@ -17,6 +15,8 @@ const SubstanceRoas = ({ substance, ...props }) => {
   );
 };
 
-SubstanceRoas.propTypes = {};
+SubstanceRoas.propTypes = {
+  substance: PropTypes.object.isRequired,
+};
 
 export default SubstanceRoas;

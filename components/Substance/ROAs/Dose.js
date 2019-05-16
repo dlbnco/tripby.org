@@ -42,6 +42,8 @@ const Dose = ({ roa }) => {
   );
 };
 
-Dose.propTypes = {};
+Dose.propTypes = {
+  roa: PropTypes.object.isRequired,
+};
 
 export default Dose;

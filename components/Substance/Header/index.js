@@ -46,6 +46,8 @@ const SubstancePageHeader = ({ substance }) => {
   );
 };
 
-SubstancePageHeader.propTypes = {};
+SubstancePageHeader.propTypes = {
+  substance: PropTypes.object.isRequired,
+};
 
 export default SubstancePageHeader;

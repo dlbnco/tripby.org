@@ -5,13 +5,8 @@ import { Flex, Box } from 'rebass';
 
 import Container from '../../Container';
 import GET_SUBSTANCE from './query';
-import Heading from '../../Heading';
-import Text from '../../Text';
-import { colors } from '../../../lib/constants';
-import { FormattedMessage } from 'react-intl';
 import SubstancePageHeader from '../Header';
 import Card from '../../Card';
-import SubstanceRoas from '../ROAs';
 
 const SubstancePage = ({ name }) => {
   const { data } = useQuery(GET_SUBSTANCE, { variables: { query: name } });
@@ -33,6 +28,8 @@ const SubstancePage = ({ name }) => {
   return null;
 };
 
-SubstancePage.propTypes = {};
+SubstancePage.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 export default SubstancePage;

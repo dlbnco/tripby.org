@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from 'rebass';
+import { Flex, Box } from 'rebass';
+import upperFirst from 'lodash/upperFirst';
 
 import Heading from '../../Heading';
 import Text from '../../Text';
-import { colors } from '../../../lib/constants';
 import { FormattedMessage } from 'react-intl';
 import SubstanceRoas from '../ROAs';
+import SubstanceTolerance from '../Tolerance';
+import SubstanceClass from '../Class';
+import Card from '../../Card';
 
 const SubstancePageHeader = ({ substance }) => {
   return (
@@ -15,8 +18,9 @@ const SubstancePageHeader = ({ substance }) => {
         <Heading
           style={{ textOverflow: '-' }}
           as="h1"
-          fontSize={5}
-          fontWeight="500"
+          fontSize={[6, 7]}
+          fontWeight="bold"
+          mb={1}
         >
           {substance.name}
         </Heading>
@@ -26,28 +30,41 @@ const SubstancePageHeader = ({ substance }) => {
           </a>
         </Text>
       </Box>
-      <Box mb={3}>
-        <Text mb={1} fontSize={0} as="h2" variant="secondary">
-          <FormattedMessage id="Substance.psychoactiveClass" />
-        </Text>
-        <Text color={colors.persianGreen} fontWeight="500">
-          {substance.class.psychoactive.join('/')}
-        </Text>
-      </Box>
-      <Box mb={3}>
-        <Text mb={1} fontSize={0} as="h2" variant="secondary">
-          <FormattedMessage id="Substance.chemicalClass" />
-        </Text>
-        <Text color={colors.persianGreen} fontWeight="500">
-          {substance.class.chemical.join('/').replace('_', ' ')}
-        </Text>
-      </Box>
-      <Box mb={3}>
-        <Text fontSize={0} mb={2} variant="secondary">
-          <FormattedMessage id="Substance.roas" />
-        </Text>
-        <SubstanceRoas substance={substance} />
-      </Box>
+      <Flex m={-2} flexWrap="wrap">
+        <Box width={1} p={2}>
+          <SubstanceClass substance={substance} />
+        </Box>
+        <Box width={1} p={2}>
+          <SubstanceRoas substance={substance} />
+        </Box>
+        {substance.tolerance && (
+          <Box width={1} p={2}>
+            <SubstanceTolerance substance={substance} />
+          </Box>
+        )}
+        <Box width={1} p={2}>
+          <Card shadow={false}>
+            <Flex flexDirection="column" m={-1}>
+              {substance.toxicity && (
+                <Box p={1}>
+                  <Text fontSize={0} mb={2} variant="secondary">
+                    <FormattedMessage id="Substance.toxicity" />
+                  </Text>
+                  {upperFirst(substance.toxicity)}
+                </Box>
+              )}
+              {substance.addictionPotential && (
+                <Box p={1}>
+                  <Text fontSize={0} mb={2} variant="secondary">
+                    <FormattedMessage id="Substance.addictionPotential" />
+                  </Text>
+                  {upperFirst(substance.addictionPotential)}
+                </Box>
+              )}
+            </Flex>
+          </Card>
+        </Box>
+      </Flex>
     </>
   );
 };

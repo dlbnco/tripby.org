@@ -12,7 +12,6 @@ const Header = styled(Flex).attrs(() => ({
   pb: 2,
   variant: 'primary',
   role: 'button',
-  fontSize: 2,
 }))`
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;

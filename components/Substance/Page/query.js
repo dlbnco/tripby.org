@@ -14,9 +14,9 @@ const GET_SUBSTANCE = gql`
         psychoactive
       }
       tolerance {
-        full
-        half
         zero
+        half
+        full
       }
       roas {
         name

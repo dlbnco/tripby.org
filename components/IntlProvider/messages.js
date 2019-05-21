@@ -10,6 +10,13 @@ const messages = {
     'Substance.duration': 'Duration',
     'Substance.summary': 'Summary',
     'Substance.effects': 'Effects',
+    'Substance.addictionPotential': 'Addiction potential',
+    'Substance.toxicity': 'Toxicity',
+    'Substance.tolerance': 'Tolerance',
+    'Substance.tolerance.intro': 'Between uses, it\'s recommended to wait:',
+    'Substance.tolerance.zero': 'Ideally {zero}',
+    'Substance.tolerance.half': 'At least {half}',
+    'Substance.tolerance.full': 'Full tolerance',
   },
 };
 

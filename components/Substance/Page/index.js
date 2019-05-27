@@ -27,12 +27,12 @@ const SubstancePage = ({ name }) => {
   if (data && data.substances && data.substances.length) {
     const substance = data.substances[0];
     return (
-      <Container py={[2, 3]}>
-        <Flex flexWrap="wrap" m={[-2, null, -3]}>
-          <StickyHeader width={[1, null, 2 / 5, 1 / 3, 1 / 4]} p={[2, null, 3]}>
+      <Container py={[2, 3, 4]}>
+        <Flex flexWrap="wrap" m={[-2, -3, -4]}>
+          <StickyHeader width={[1, null, 2 / 5, 1 / 3]} p={[2, 3, 4]}>
             <SubstancePageHeader substance={substance} />
           </StickyHeader>
-          <Box flex="1" p={[2, null, 3]}>
+          <Box flex="1" p={[2, 3, 4]}>
             <SubstanceContent substance={substance} />
           </Box>
         </Flex>

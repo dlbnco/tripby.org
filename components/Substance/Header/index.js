@@ -30,40 +30,34 @@ const SubstancePageHeader = ({ substance }) => {
           </a>
         </Text>
       </Box>
-      <Flex m={-2} flexWrap="wrap">
-        <Box width={1} p={2}>
+      <Flex m={-3} flexWrap="wrap">
+        <Box width={1} p={3}>
           <SubstanceClass substance={substance} />
         </Box>
-        <Box width={1} p={2}>
+        <Box width={1} p={3}>
           <SubstanceRoas substance={substance} />
         </Box>
         {substance.tolerance && (
-          <Box width={1} p={2}>
+          <Box width={1} p={3}>
             <SubstanceTolerance substance={substance} />
           </Box>
         )}
-        <Box width={1} p={2}>
-          <Card shadow={false}>
-            <Flex flexDirection="column" m={-1}>
-              {substance.toxicity && (
-                <Box p={1}>
-                  <Text fontSize={0} mb={2} variant="secondary">
-                    <FormattedMessage id="Substance.toxicity" />
-                  </Text>
-                  {upperFirst(substance.toxicity)}
-                </Box>
-              )}
-              {substance.addictionPotential && (
-                <Box p={1}>
-                  <Text fontSize={0} mb={2} variant="secondary">
-                    <FormattedMessage id="Substance.addictionPotential" />
-                  </Text>
-                  {upperFirst(substance.addictionPotential)}
-                </Box>
-              )}
-            </Flex>
-          </Card>
-        </Box>
+        {substance.toxicity && (
+          <Box width={1} p={3}>
+            <Text mb={2} variant="secondary">
+              <FormattedMessage id="Substance.toxicity" />
+            </Text>
+            <Text fontSize={2}>{upperFirst(substance.toxicity)}</Text>
+          </Box>
+        )}
+        {substance.addictionPotential && (
+          <Box width={1} p={3}>
+            <Text mb={2} variant="secondary">
+              <FormattedMessage id="Substance.addictionPotential" />
+            </Text>
+            <Text fontSize={2}>{upperFirst(substance.addictionPotential)}</Text>
+          </Box>
+        )}
       </Flex>
     </>
   );

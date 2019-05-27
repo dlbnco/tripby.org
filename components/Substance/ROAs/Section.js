@@ -8,24 +8,21 @@ import Dose from './Dose';
 import Duration from './Duration';
 
 const Header = styled(Flex).attrs(() => ({
-  justifyContent: 'space-between',
+  alignItems: 'center',
   pb: 2,
   variant: 'primary',
   role: 'button',
 }))`
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
+  color: ${({ theme }) => theme.colors.purpleHeart};
   ${({ isCollapsed, theme: { colors, borderWidth, borderColor } }) =>
     css`
       border-bottom: ${borderWidth.regular} solid
         ${isCollapsed ? colors.purpleHeart : borderColor};
-      &:hover {
-        color: ${colors.purpleHeart};
-      }
       ${({ isCollapsed }) =>
         isCollapsed &&
         css`
-          color: ${colors.purpleHeart};
           font-weight: 500;
         `}
     `};
@@ -33,7 +30,7 @@ const Header = styled(Flex).attrs(() => ({
 
 const Arrow = styled(Text)`
   transition: 0.2s;
-  transform: rotate(${({ isCollapsed }) => (isCollapsed ? 180 : 0)}deg);
+  transform: rotate(${({ isCollapsed }) => (isCollapsed ? 360 : 0)}deg);
 `;
 
 const RoaSection = ({ roa }) => {
@@ -45,8 +42,10 @@ const RoaSection = ({ roa }) => {
         isCollapsed={isCollapsed}
         onClick={() => toggleCollapse(!isCollapsed)}
       >
+        <Arrow isCollapsed={isCollapsed} mr={2}>
+          {isCollapsed ? '–' : '+'}
+        </Arrow>
         <span>{upperFirst(roa.name)}</span>
-        <Arrow isCollapsed={isCollapsed}>⌄</Arrow>
       </Header>
       {isCollapsed && (
         <Flex flexDirection="column" m={-2} py={2}>

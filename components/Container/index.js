@@ -40,7 +40,7 @@ Container.propTypes = {
 
 Container.defaultProps = {
   fluid: false,
-  px: [2, 3],
+  px: [2, 3, 4],
   maxWidth: undefined,
 };
 

@@ -64,7 +64,7 @@ const SubstanceContent = ({ substance }) => {
       },
     });
   return (
-    <Card p={0} style={{ overflow: 'hidden' }}>
+    <Card shadow={false} p={0} style={{ overflow: 'hidden' }}>
       <Tabs defaultIndex={selectedTabIndex} onSelect={onSelectTab}>
         <StyledTabList mx={-2} p={3}>
           {contentfulTabs.map(tab => {

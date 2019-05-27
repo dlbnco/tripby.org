@@ -8,8 +8,8 @@ import Text from '../../Text';
 
 const SubstanceRoas = ({ substance, ...props }) => {
   return (
-    <Card shadow={false}>
-      <Text fontSize={0} mb={2} variant="secondary">
+    <>
+      <Text mb={2} variant="secondary">
         <FormattedMessage id="Substance.roas" />
       </Text>
       <Flex flexDirection="column" {...props} m={-2}>
@@ -19,7 +19,7 @@ const SubstanceRoas = ({ substance, ...props }) => {
           </Box>
         ))}
       </Flex>
-    </Card>
+    </>
   );
 };
 

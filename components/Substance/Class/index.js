@@ -8,10 +8,10 @@ import Card from '../../Card';
 
 const SubstanceClass = ({ substance }) => {
   return (
-    <Card shadow={false}>
+    <>
       <Flex flexDirection="column" m={-1}>
         <Box p={1}>
-          <Text mb={1} fontSize={0} as="h2" variant="secondary">
+          <Text mb={1} as="h2" variant="secondary">
             <FormattedMessage id="Substance.psychoactiveClass" />
           </Text>
           <Text fontSize={2} color={colors.persianGreen} fontWeight="500">
@@ -19,7 +19,7 @@ const SubstanceClass = ({ substance }) => {
           </Text>
         </Box>
         <Box p={1}>
-          <Text mb={1} fontSize={0} as="h2" variant="secondary">
+          <Text mb={1} as="h2" variant="secondary">
             <FormattedMessage id="Substance.chemicalClass" />
           </Text>
           <Text fontSize={2} color={colors.persianGreen} fontWeight="500">
@@ -27,7 +27,7 @@ const SubstanceClass = ({ substance }) => {
           </Text>
         </Box>
       </Flex>
-    </Card>
+    </>
   );
 };
 

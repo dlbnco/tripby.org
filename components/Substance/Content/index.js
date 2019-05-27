@@ -53,14 +53,14 @@ const SubstanceContent = ({ substance }) => {
   const contentfulTabs = tabs.filter(tab => substance[tab.id]);
   const { query, push, pathname } = useRouter();
   const selectedTabIndex = query.tab
-    ? tabs.findIndex(tab => tab.id === query.tab)
+    ? contentfulTabs.findIndex(tab => tab.id === query.tab)
     : 0;
   const onSelectTab = index =>
     push({
       pathname,
       query: {
         ...query,
-        tab: tabs[index].id,
+        tab: contentfulTabs[index].id,
       },
     });
   return (

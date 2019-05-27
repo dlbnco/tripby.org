@@ -24,6 +24,7 @@
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "react-intl": "^2.8.0",
+    "react-tabs": "^3.0.0",
     "rebass": "^3.1.0",
     "styled-components": "^4.2.0",
     "styled-system": "^4.2.2",

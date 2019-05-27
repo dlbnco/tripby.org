@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo-hooks';
 import { Flex, Box } from 'rebass';
+import { position } from 'styled-system';
+import styled from 'styled-components';
 
 import Container from '../../Container';
 import Heading from '../../Heading';
@@ -11,6 +13,14 @@ import Card from '../../Card';
 import { FormattedMessage } from 'react-intl';
 import SubstanceEffects from '../Effects';
 
+const StickyHeader = styled(Box).attrs(() => ({
+  position: ['relative', null, 'sticky'],
+}))`
+  ${position}
+  top: 0;
+  height: 100%;
+`;
+
 const SubstancePage = ({ name }) => {
   const { data } = useQuery(GET_SUBSTANCE, { variables: { query: name } });
   if (data && data.substances && data.substances.length) {
@@ -18,13 +28,9 @@ const SubstancePage = ({ name }) => {
     return (
       <Container py={[2, 3]}>
         <Flex flexWrap="wrap" m={[-2, null, -3]}>
-          <Box
-            width={[1, null, 2 / 5, 1 / 3, 1 / 4]}
-            p={[2, null, 3]}
-            style={{ position: 'sticky', top: 0, height: '100%' }}
-          >
+          <StickyHeader width={[1, null, 2 / 5, 1 / 3, 1 / 4]} p={[2, null, 3]}>
             <SubstancePageHeader substance={substance} />
-          </Box>
+          </StickyHeader>
           <Box flex="1" p={[2, null, 3]}>
             <Card>
               {substance.summary.length > 0 && (

@@ -3,6 +3,8 @@ const messages = {
     'App.wikiCredits': 'Data by PsychonautWiki.org ↗',
     'Hero.title': 'Read the label.',
     'Home.viewAll': 'View all substances →',
+    'Home.filter':
+      '🔍 Filter by name or drug class (e.g. lsd, mdma, psychedelic, phenethylamine)',
     'Substance.psychoactiveClass': 'Psychoactive class',
     'Substance.chemicalClass': 'Chemical class',
     'Substance.roas': 'Routes of administration',

@@ -9,7 +9,7 @@ import { colors } from '../../../lib/constants';
 
 const SubstanceCard = ({ substance }) => {
   return (
-    <Link href={`substances?name=${substance.name}`}>
+    <Link href={`substance?name=${substance.name}`}>
       <a>
         <Card style={{ overflow: 'auto' }}>
           <Heading mb={2} fontSize={2} fontWeight="500">
@@ -17,7 +17,7 @@ const SubstanceCard = ({ substance }) => {
           </Heading>
           {substance.class && substance.class.psychoactive && (
             <Text color={colors.persianGreen}>
-              {substance.class.psychoactive.join('/')}
+              {substance.class.psychoactive.join(' / ')}
             </Text>
           )}
         </Card>

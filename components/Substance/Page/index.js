@@ -6,12 +6,8 @@ import { position } from 'styled-system';
 import styled from 'styled-components';
 
 import Container from '../../Container';
-import Heading from '../../Heading';
 import GET_SUBSTANCE from './query';
 import SubstancePageHeader from '../Header';
-import Card from '../../Card';
-import { FormattedMessage } from 'react-intl';
-import SubstanceEffects from '../Effects';
 import SubstanceContent from '../Content';
 
 const StickyHeader = styled(Box).attrs(() => ({
@@ -27,7 +23,7 @@ const SubstancePage = ({ name }) => {
   if (data && data.substances && data.substances.length) {
     const substance = data.substances[0];
     return (
-      <Container py={[2, 3, 4]}>
+      <Container>
         <Flex flexWrap="wrap" m={[-2, -3, -4]}>
           <StickyHeader width={[1, null, 2 / 5, 1 / 3]} p={[2, 3, 4]}>
             <SubstancePageHeader substance={substance} />

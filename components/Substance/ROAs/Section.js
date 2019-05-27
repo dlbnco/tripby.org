@@ -28,7 +28,7 @@ const Header = styled(Flex).attrs(() => ({
     `};
 `;
 
-const Arrow = styled(Text)`
+const Arrow = styled(Text).attrs(() => ({ fontSize: 2, color: 'inherit' }))`
   transition: 0.2s;
   transform: rotate(${({ isCollapsed }) => (isCollapsed ? 360 : 0)}deg);
 `;

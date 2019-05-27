@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components';
-import { space } from 'styled-system';
+import { space, fontSize, width } from 'styled-system';
 
 const Input = styled.input`
   ${space}
+  ${fontSize}
+  ${width}
   ${({ theme: { borderColor, borderWidth, borderRadius } }) => css`
     border-radius: ${borderRadius};
     border-width: ${borderWidth.regular};
@@ -20,7 +22,7 @@ const Input = styled.input`
 `;
 
 Input.defaultProps = {
-  p: 2,
+  p: 3,
   variant: 'primary',
 };
 

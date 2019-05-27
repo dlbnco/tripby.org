@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Flex, Box } from 'rebass';
 import styled from 'styled-components';
 import { height } from 'styled-system';
-import Navigation from '../Navigation';
 import GlobalStyle from './GlobalStyle';
+import Header from '../Header';
 
 const Wrapper = styled(Flex).attrs(() => ({
   alignItems: ['flex-start', 'stretch'],
@@ -15,18 +15,17 @@ const Wrapper = styled(Flex).attrs(() => ({
   width: 100%;
 `;
 
-const Content = styled(Box)`
-  overflow-y: auto;
-  height: 100%;
-`;
+const Content = styled(Box)``;
 
 const Layout = ({ children }) => {
   return (
-    <Wrapper flexWrap="wrap">
+    <>
       <GlobalStyle />
-      <Navigation width={[1, 1 / 4, null, 1 / 5, 1 / 6]} />
-      <Content width={[1, 3 / 4, null, 4 / 5, 5 / 6]}>{children}</Content>
-    </Wrapper>
+      <Header />
+      <Content width={1} py={[2, 3, 4]}>
+        {children}
+      </Content>
+    </>
   );
 };
 

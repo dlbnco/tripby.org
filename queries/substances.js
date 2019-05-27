@@ -6,7 +6,9 @@ const GET_SUBSTANCES = gql`
       name
       class {
         psychoactive
+        chemical
       }
+      featured
     }
   }
 `;

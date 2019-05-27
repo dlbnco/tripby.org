@@ -8,7 +8,7 @@ import WikiLogo from '../Logo/Wiki';
 
 const Header = () => {
   return (
-    <Box py={[1, 2]} width={1}>
+    <Box py={[2, 3]} width={1}>
       <Container>
         <Flex justifyContent="space-between">
           <Link href="/">

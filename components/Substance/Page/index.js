@@ -12,6 +12,7 @@ import SubstancePageHeader from '../Header';
 import Card from '../../Card';
 import { FormattedMessage } from 'react-intl';
 import SubstanceEffects from '../Effects';
+import SubstanceContent from '../Content';
 
 const StickyHeader = styled(Box).attrs(() => ({
   position: ['relative', null, 'sticky'],
@@ -32,24 +33,7 @@ const SubstancePage = ({ name }) => {
             <SubstancePageHeader substance={substance} />
           </StickyHeader>
           <Box flex="1" p={[2, null, 3]}>
-            <Card>
-              {substance.summary.length > 0 && (
-                <>
-                  <Heading as="h2" fontSize={2}>
-                    <FormattedMessage id="Substance.summary" />
-                  </Heading>
-                  {substance.summary}
-                </>
-              )}
-              {substance.effects && (
-                <>
-                  <Heading as="h2" fontSize={2} mb={3}>
-                    <FormattedMessage id="Substance.effects" />
-                  </Heading>
-                  <SubstanceEffects effects={substance.effects} />
-                </>
-              )}
-            </Card>
+            <SubstanceContent substance={substance} />
           </Box>
         </Flex>
       </Container>

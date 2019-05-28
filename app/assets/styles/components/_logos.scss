@@ -1,8 +1,0 @@
-.logo {
-	height: 36px;
-	@include media-breakpoint-up(md) {
-    & {
-      height: 48px;
-    }
-  }
-}

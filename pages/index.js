@@ -31,7 +31,7 @@ const AllSubstances = () => {
   );
   const sortSubstances = useCallback(
     substances => {
-      return substances.sort((a, b) => {
+      return substances.sort(a => {
         if (a.featured) {
           return -1;
         }
@@ -52,7 +52,6 @@ const AllSubstances = () => {
                 value={filter}
                 onChange={e => handleFilter(e.target.value)}
                 width={1}
-                fontSize={2}
               />
             )}
           </FormattedMessage>

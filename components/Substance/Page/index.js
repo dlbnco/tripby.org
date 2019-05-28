@@ -13,6 +13,7 @@ import SubstancePageHeader from '../Header';
 import SubstanceContent from '../Content';
 import { FormattedMessage } from 'react-intl';
 import SubstanceMeta from './Meta';
+import { graphql } from 'react-apollo';
 
 const StickyHeader = styled(Box).attrs(() => ({
   position: ['relative', null, 'sticky'],
@@ -22,8 +23,7 @@ const StickyHeader = styled(Box).attrs(() => ({
   height: 100%;
 `;
 
-const SubstancePage = ({ name }) => {
-  const { data } = useQuery(GET_SUBSTANCE, { variables: { query: name } });
+const SubstancePage = ({ name, data }) => {
   if (data && data.substances && data.substances.length) {
     const substance = data.substances[0];
     return (
@@ -47,4 +47,10 @@ SubstancePage.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default SubstancePage;
+export default graphql(GET_SUBSTANCE, {
+  options: ({ name }) => ({
+    variables: {
+      query: name,
+    },
+  }),
+})(SubstancePage);

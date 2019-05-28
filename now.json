@@ -7,6 +7,10 @@
     {
       "src": "/sitemap.xml",
       "dest": "https://tripby-sitemap-generator.herokuapp.com/"
+    },
+    {
+      "src": "/psicoativos/<slug>",
+      "dest": "https://tripby.netlify.com/psicoativos/$slug"
     }
   ]
 }

@@ -1,5 +1,11 @@
 {
   "version": 2,
   "builds": [{ "src": "package.json", "use": "@now/next" }],
-  "regions": ["gru1", "cdg1", "sfo1"]
+  "regions": ["gru1", "cdg1", "sfo1"],
+  "routes": [
+    {
+      "src": "/sitemap.xml",
+      "dest": "https://tripby-sitemap-generator.herokuapp.com/"
+    }
+  ]
 }

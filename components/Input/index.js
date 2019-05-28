@@ -22,7 +22,7 @@ const Input = styled.input`
 `;
 
 Input.defaultProps = {
-  p: 3,
+  p: 2,
   variant: 'primary',
 };
 

@@ -7,10 +7,13 @@ import Input from '../components/Input';
 import SubstanceCard from '../components/Substance/Card';
 import Container from '../components/Container';
 import { FormattedMessage } from 'react-intl';
+import Spinner from '../components/Spinner';
 
 const AllSubstances = () => {
   const [filter, handleFilter] = useState('');
-  const { data } = useQuery(GET_SUBSTANCES, { variables: { limit: 300 } });
+  const { data, loading } = useQuery(GET_SUBSTANCES, {
+    variables: { limit: 300 },
+  });
   const filterSubstances = useCallback(
     substances => {
       const lowerCaseFilter = filter.toLowerCase();
@@ -43,7 +46,7 @@ const AllSubstances = () => {
   return (
     <>
       <Container>
-        <Box mb={3}>
+        <Box mb={[3, 4]}>
           <FormattedMessage id="Home.filter">
             {placeholder => (
               <Input
@@ -56,7 +59,8 @@ const AllSubstances = () => {
             )}
           </FormattedMessage>
         </Box>
-        <Flex flexWrap="wrap" m={-2} py={3}>
+        <Flex flexWrap="wrap" m={-2}>
+          {loading && <Spinner size={96} mx="auto" />}
           {data &&
             data.substances &&
             sortSubstances(filterSubstances(data.substances)).map(substance => (

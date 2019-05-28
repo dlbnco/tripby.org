@@ -14,6 +14,7 @@ import SubstanceContent from '../Content';
 import { FormattedMessage } from 'react-intl';
 import SubstanceMeta from './Meta';
 import { graphql } from 'react-apollo';
+import Spinner from '../../Spinner';
 
 const StickyHeader = styled(Box).attrs(() => ({
   position: ['relative', null, 'sticky'],
@@ -23,7 +24,10 @@ const StickyHeader = styled(Box).attrs(() => ({
   height: 100%;
 `;
 
-const SubstancePage = ({ name, data }) => {
+const SubstancePage = ({ data, loading }) => {
+  if (data.loading) {
+    return <Spinner mx="auto" />;
+  }
   if (data && data.substances && data.substances.length) {
     const substance = data.substances[0];
     return (

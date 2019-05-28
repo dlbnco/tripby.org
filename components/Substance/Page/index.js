@@ -24,7 +24,7 @@ const StickyHeader = styled(Box).attrs(() => ({
   height: 100%;
 `;
 
-const SubstancePage = ({ data, loading }) => {
+const SubstancePage = ({ data }) => {
   if (data.loading) {
     return <Spinner mx="auto" />;
   }

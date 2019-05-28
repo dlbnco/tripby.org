@@ -8,6 +8,7 @@ import SubstanceCard from '../components/Substance/Card';
 import Container from '../components/Container';
 import { FormattedMessage } from 'react-intl';
 import Spinner from '../components/Spinner';
+import Text from '../components/Text';
 
 const AllSubstances = () => {
   const [filter, handleFilter] = useState('');
@@ -43,6 +44,11 @@ const AllSubstances = () => {
     },
     [filter]
   );
+  const substanceList =
+    data && data.substances
+      ? sortSubstances(filterSubstances(data.substances))
+      : [];
+  const noResults = substanceList.length === 0;
   return (
     <>
       <Container>
@@ -61,17 +67,23 @@ const AllSubstances = () => {
         </Box>
         <Flex flexWrap="wrap" m={-2}>
           {loading && <Spinner size={96} mx="auto" />}
-          {data &&
-            data.substances &&
-            sortSubstances(filterSubstances(data.substances)).map(substance => (
-              <Box
-                width={[1, null, 1 / 2, 1 / 3, 1 / 4]}
-                p={2}
-                key={substance.name}
-              >
-                <SubstanceCard substance={substance} />
-              </Box>
-            ))}
+          {!loading && noResults && (
+            <Text variant="secondary" p={2} mx="auto" fontSize={3}>
+              <FormattedMessage
+                id="Home.noResults"
+                values={{ query: filter }}
+              />
+            </Text>
+          )}
+          {substanceList.map(substance => (
+            <Box
+              width={[1, null, 1 / 2, 1 / 3, 1 / 4]}
+              p={2}
+              key={substance.name}
+            >
+              <SubstanceCard substance={substance} />
+            </Box>
+          ))}
         </Flex>
       </Container>
     </>

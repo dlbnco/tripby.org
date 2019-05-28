@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
+import { withRouter } from 'next/router';
 import SubstancePage from '../../components/Substance/Page';
 
-const Substance = props => {
-  const { query } = useRouter();
+const Substance = ({ router }) => {
+  const { query } = router;
   if (query && query.name) {
     return <SubstancePage name={query.name} />;
   }
@@ -13,4 +13,4 @@ const Substance = props => {
 
 Substance.propTypes = {};
 
-export default Substance;
+export default withRouter(Substance);

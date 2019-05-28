@@ -30,7 +30,13 @@ const SubstanceMeta = ({ substance }) => {
       {({ title, description }) => (
         <Head>
           <title key="title">{title}</title>
-          <meta key="description" name="description" content={description} />
+          <meta name="og:title" key="og:title" content={title} />
+          <meta name="description" key="description" content={description} />
+          <meta
+            name="og:description"
+            key="og:description"
+            content={description}
+          />
         </Head>
       )}
     </HeadMessages>

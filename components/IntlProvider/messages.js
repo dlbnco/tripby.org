@@ -1,6 +1,9 @@
 const messages = {
   en: {
     'App.wikiCredits': 'Data by PsychonautWiki.org ↗',
+    'App.meta.title': 'tripby.org · read the label',
+    'App.meta.description':
+      'Harm reduction info about psychoactive drugs. Data provided by PsychonautWiki.org',
     'Hero.title': 'Read the label.',
     'Home.viewAll': 'View all substances →',
     'Home.filter':

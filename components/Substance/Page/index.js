@@ -26,27 +26,6 @@ const SubstancePage = ({ name }) => {
   const { data } = useQuery(GET_SUBSTANCE, { variables: { query: name } });
   if (data && data.substances && data.substances.length) {
     const substance = data.substances[0];
-    const HeadMessages = adopt({
-      title: (
-        <FormattedMessage
-          id="Substance.meta.title"
-          values={{ name: substance.name }}
-        />
-      ),
-      description: (
-        <FormattedMessage
-          id="Substance.meta.description"
-          values={{
-            name: substance.name,
-            class:
-              substance.class &&
-              substance.class.psychoactive &&
-              substance.class.psychoactive.length &&
-              substance.class.psychoactive[0],
-          }}
-        />
-      ),
-    });
     return (
       <Container>
         <SubstanceMeta substance={substance} />

@@ -1,22 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { Box, Flex } from 'rebass';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 import GET_SUBSTANCES from '../queries/substances';
-import Heading from '../components/Heading';
 import Input from '../components/Input';
 import SubstanceCard from '../components/Substance/Card';
 import Container from '../components/Container';
-import SubstancePage from '../components/Substance/Page';
 import { FormattedMessage } from 'react-intl';
 
 const AllSubstances = () => {
-  const { query } = useRouter();
-  if (query && query.name) {
-    return <SubstancePage name={query.name} />;
-  }
   const [filter, handleFilter] = useState('');
   const { data } = useQuery(GET_SUBSTANCES, { variables: { limit: 300 } });
   const filterSubstances = useCallback(

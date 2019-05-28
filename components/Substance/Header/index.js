@@ -31,12 +31,16 @@ const SubstancePageHeader = ({ substance }) => {
         </Text>
       </Box>
       <Flex m={-3} flexWrap="wrap">
-        <Box width={1} p={3}>
-          <SubstanceClass substance={substance} />
-        </Box>
-        <Box width={1} p={3}>
-          <SubstanceRoas substance={substance} />
-        </Box>
+        {substance.class && (
+          <Box width={1} p={3}>
+            <SubstanceClass substance={substance} />
+          </Box>
+        )}
+        {substance.roas.length > 0 && (
+          <Box width={1} p={3}>
+            <SubstanceRoas substance={substance} />
+          </Box>
+        )}
         {substance.tolerance && (
           <Box width={1} p={3}>
             <SubstanceTolerance substance={substance} />

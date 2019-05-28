@@ -19,6 +19,9 @@ const messages = {
     'Substance.tolerance.zero': 'Ideally {zero}',
     'Substance.tolerance.half': 'At least {half}',
     'Substance.tolerance.full': 'Full tolerance',
+    'Substance.meta.title':
+      '{name} · effects, duration, dosage, toxicity and tolerance · tripby.org',
+    'Substance.meta.description': '{name} is a {class} · tripby.org',
   },
 };
 

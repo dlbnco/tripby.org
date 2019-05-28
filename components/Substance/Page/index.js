@@ -12,6 +12,7 @@ import GET_SUBSTANCE from './query';
 import SubstancePageHeader from '../Header';
 import SubstanceContent from '../Content';
 import { FormattedMessage } from 'react-intl';
+import SubstanceMeta from './Meta';
 
 const StickyHeader = styled(Box).attrs(() => ({
   position: ['relative', null, 'sticky'],
@@ -48,14 +49,7 @@ const SubstancePage = ({ name }) => {
     });
     return (
       <Container>
-        <HeadMessages substance={substance}>
-          {({ title, description }) => (
-            <Head>
-              <title>{title}</title>
-              <meta name="description" content={description} />
-            </Head>
-          )}
-        </HeadMessages>
+        <SubstanceMeta substance={substance} />
         <Flex flexWrap="wrap" m={[-2, -3, -4]}>
           <StickyHeader width={[1, null, 2 / 5, 1 / 3]} p={[2, 3, 4]}>
             <SubstancePageHeader substance={substance} />

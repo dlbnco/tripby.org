@@ -9,8 +9,11 @@
       "dest": "https://tripby-sitemap-generator.herokuapp.com/"
     },
     {
-      "src": "/psicoativos/<slug>",
-      "dest": "https://tripby.netlify.com/psicoativos/$slug"
+      "src": "/psicoativos/(.*)",
+      "status": 301,
+      "headers": {
+        "Location": "https://br-tripby-legacy.netlify.com/psicoativos/$1"
+      }
     }
   ]
 }

@@ -10,7 +10,8 @@
     },
     {
       "src": "/psicoativos/<slug>",
-      "dest": "https://tripby.netlify.com/psicoativos/$slug"
+      "status": 301,
+      "headers": { "Location": "https://tripby.netlify.com/psicoativos/$slug" }
     }
   ]
 }

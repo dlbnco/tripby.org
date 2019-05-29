@@ -31,23 +31,33 @@ const SubstancePageHeader = ({ substance }) => {
         </Text>
       </Box>
       <Flex m={-3} flexWrap="wrap">
-        <Box width={1} p={3}>
-          <SubstanceClass substance={substance} />
-        </Box>
-        <Box width={1} p={3}>
-          <SubstanceRoas substance={substance} />
-        </Box>
+        {substance.class && (
+          <Box width={1} p={3}>
+            <SubstanceClass substance={substance} />
+          </Box>
+        )}
+        {substance.roas.length > 0 && (
+          <Box width={1} p={3}>
+            <SubstanceRoas substance={substance} />
+          </Box>
+        )}
         {substance.tolerance && (
           <Box width={1} p={3}>
             <SubstanceTolerance substance={substance} />
           </Box>
         )}
-        {substance.toxicity && (
+        {substance.toxicity && Array.isArray(substance.toxicity) && (
           <Box width={1} p={3}>
             <Text mb={2} variant="secondary">
               <FormattedMessage id="Substance.toxicity" />
             </Text>
-            <Text fontSize={2}>{upperFirst(substance.toxicity)}</Text>
+            <Flex flexDirection="column" m={-1}>
+              {substance.toxicity.map(item => (
+                <Text p={1} key={`toxicity-${item}`} fontSize={2}>
+                  {upperFirst(item)}
+                </Text>
+              ))}
+            </Flex>
           </Box>
         )}
         {substance.addictionPotential && (

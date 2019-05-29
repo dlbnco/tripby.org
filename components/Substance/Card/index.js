@@ -12,11 +12,11 @@ const SubstanceCard = ({ substance }) => {
     <Link href={`substance?name=${substance.name}`}>
       <a>
         <Card style={{ overflow: 'auto' }}>
-          <Heading mb={2} fontSize={2} fontWeight="500">
+          <Heading fontSize={2} fontWeight="500">
             {substance.name}
           </Heading>
-          {substance.class && substance.class.psychoactive && (
-            <Text color={colors.persianGreen}>
+          {substance.class && Array.isArray(substance.class.psychoactive) && (
+            <Text mt={2} color={colors.persianGreen}>
               {substance.class.psychoactive.join(' / ')}
             </Text>
           )}

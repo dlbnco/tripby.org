@@ -11,7 +11,9 @@
     {
       "src": "/psicoativos/(.*)",
       "status": 301,
-      "headers": { "Location": "https://tripby.netlify.com/psicoativos/$1" }
+      "headers": {
+        "Location": "https://br-tripby-legacy.netlify.com/psicoativos/$1"
+      }
     }
   ]
 }

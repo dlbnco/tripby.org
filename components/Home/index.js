@@ -48,7 +48,7 @@ const Home = () => {
     data && data.substances
       ? sortSubstances(filterSubstances(data.substances))
       : [];
-  const noResults = substanceList.length === 0;
+  const noResults = filter.length > 0 && substanceList.length === 0;
   return (
     <>
       <Container>

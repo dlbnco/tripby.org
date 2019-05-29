@@ -51,7 +51,13 @@ const SubstancePageHeader = ({ substance }) => {
             <Text mb={2} variant="secondary">
               <FormattedMessage id="Substance.toxicity" />
             </Text>
-            <Text fontSize={2}>{upperFirst(substance.toxicity)}</Text>
+            <Flex flexDirection="column" m={-1}>
+              {substance.toxicity.map(item => (
+                <Text p={1} key={`toxicity-${item}`} fontSize={2}>
+                  {upperFirst(item)}
+                </Text>
+              ))}
+            </Flex>
           </Box>
         )}
         {substance.addictionPotential && (

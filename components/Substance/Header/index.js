@@ -46,7 +46,7 @@ const SubstancePageHeader = ({ substance }) => {
             <SubstanceTolerance substance={substance} />
           </Box>
         )}
-        {substance.toxicity && (
+        {substance.toxicity && Array.isArray(substance.toxicity) && (
           <Box width={1} p={3}>
             <Text mb={2} variant="secondary">
               <FormattedMessage id="Substance.toxicity" />

@@ -9,10 +9,11 @@ import Container from '../Container';
 import { FormattedMessage } from 'react-intl';
 import Spinner from '../Spinner';
 import Text from '../Text';
+import ApolloError from '../ApolloError';
 
 const Home = () => {
   const [filter, handleFilter] = useState('');
-  const { data, loading } = useQuery(GET_SUBSTANCES, {
+  const { data, loading, error } = useQuery(GET_SUBSTANCES, {
     variables: { limit: 300 },
   });
   const filterSubstances = useCallback(
@@ -48,7 +49,7 @@ const Home = () => {
     data && data.substances
       ? sortSubstances(filterSubstances(data.substances))
       : [];
-  const noResults = substanceList.length === 0;
+  const noResults = filter.length > 0 && substanceList.length === 0;
   return (
     <>
       <Container>
@@ -66,6 +67,7 @@ const Home = () => {
           </FormattedMessage>
         </Box>
         <Flex flexWrap="wrap" m={-2}>
+          {error && <ApolloError error={error} />}
           {loading && <Spinner size={96} mx="auto" />}
           {!loading && noResults && (
             <Text variant="secondary" p={2} mx="auto" fontSize={3}>

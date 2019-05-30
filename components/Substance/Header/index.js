@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Box } from 'rebass';
 import upperFirst from 'lodash/upperFirst';
+import Link from 'next/link';
 
 import Heading from '../../Heading';
 import Text from '../../Text';
@@ -15,6 +16,13 @@ const SubstancePageHeader = ({ substance }) => {
   return (
     <>
       <Box mb={3}>
+        <Link href="/">
+          <a>
+            <Text mt={[0, null, -4]} fontSize={4} mb={2} variant="secondary">
+              ←
+            </Text>
+          </a>
+        </Link>
         <Heading
           style={{ textOverflow: '-' }}
           as="h1"

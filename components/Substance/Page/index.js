@@ -15,6 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import SubstanceMeta from './Meta';
 import { graphql } from 'react-apollo';
 import Spinner from '../../Spinner';
+import ApolloError from '../../ApolloError';
 
 const StickyHeader = styled(Box).attrs(() => ({
   position: ['relative', null, 'sticky'],
@@ -27,6 +28,13 @@ const StickyHeader = styled(Box).attrs(() => ({
 const SubstancePage = ({ data }) => {
   if (data.loading) {
     return <Spinner mx="auto" />;
+  }
+  if (data.error) {
+    return (
+      <Container>
+        <ApolloError error={data.error} />
+      </Container>
+    );
   }
   if (data && data.substances && data.substances.length) {
     const substance = data.substances[0];

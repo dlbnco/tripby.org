@@ -16,6 +16,7 @@ const messages = {
     'Substance.duration': 'Duration',
     'Substance.summary': 'Summary',
     'Substance.effects': 'Effects',
+    'Substance.related': 'Related substances',
     'Substance.addictionPotential': 'Addiction potential',
     'Substance.toxicity': 'Toxicity',
     'Substance.tolerance': 'Tolerance',

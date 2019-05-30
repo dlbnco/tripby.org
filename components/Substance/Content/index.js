@@ -10,6 +10,7 @@ import Card from '../../Card';
 import { FormattedMessage } from 'react-intl';
 import Heading from '../../Heading';
 import SubstanceEffects from '../Effects';
+import SubstanceRelated from '../Related';
 
 const tabs = [
   {
@@ -23,6 +24,12 @@ const tabs = [
     content: ({ substance }) => (
       <SubstanceEffects effects={substance.effects} />
     ),
+  },
+  {
+    id: 'related',
+    label: 'Substance.related',
+    content: ({ substance }) => <SubstanceRelated substance={substance} />,
+    alwaysShow: true,
   },
 ];
 
@@ -50,7 +57,9 @@ const StyledTab = styled(Tab).attrs(() => ({ fontSize: 2 }))`
 `;
 
 const SubstanceContent = ({ substance }) => {
-  const contentfulTabs = tabs.filter(tab => substance[tab.id]);
+  const contentfulTabs = tabs.filter(
+    tab => substance[tab.id] || tab.alwaysShow
+  );
   const { query, push, pathname } = useRouter();
   const selectedTabIndex = query.tab
     ? contentfulTabs.findIndex(tab => tab.id === query.tab)

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Flex, Box } from 'rebass';
 import Container from '../Container';
 import Text from '../Text';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
 const links = [
   {
@@ -33,20 +33,25 @@ Wrapper.defaultProps = {
 
 const Footer = () => (
   <Container>
-    <Wrapper>
-      <Flex m={-2}>
+    <Wrapper flexWrap="wrap" m={-1}>
+      <Flex m={-2} p={1}>
         {links.map(link => (
-          <Anchor p={2} href={link.url} key={link.id}>
-            <Text variant="secondary">{link.id}</Text>
-          </Anchor>
+          <Box p={2} key={link.id}>
+            <Anchor href={link.url}>
+              <Text variant="secondary">{link.id}</Text>
+            </Anchor>
+          </Box>
         ))}
       </Flex>
+      <Text fontSize={0} p={1} variant="secondary">
+        <FormattedHTMLMessage id="App.license" />
+      </Text>
       <a
         href="https://psychonautwiki.org"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Text fontSize={0} variant="secondary">
+        <Text p={1} fontSize={0} variant="secondary">
           <FormattedMessage id="App.wikiCredits" />
         </Text>
       </a>

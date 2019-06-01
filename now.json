@@ -4,6 +4,7 @@
   "regions": ["gru1", "cdg1", "sfo1"],
   "alias": "tripby.org",
   "routes": [
+    { "src": "/substance/(?<name>[^/]+)", "dest": "/substance?name=$name" },
     {
       "src": "/sitemap.xml",
       "dest": "https://tripby-sitemap-generator.herokuapp.com/"

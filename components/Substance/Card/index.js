@@ -5,11 +5,17 @@ import Link from 'next/link';
 import Card from '../../Card';
 import Heading from '../../Heading';
 import Text from '../../Text';
-import { colors } from '../../../lib/constants';
+import { colors, NODE_ENV } from '../../../lib/constants';
 
 const SubstanceCard = ({ substance }) => {
   return (
-    <Link href={`substance?name=${substance.name}`}>
+    <Link
+      href={
+        NODE_ENV === 'production'
+          ? `substance/${substance.name}`
+          : `substance?name=${substance.name}`
+      }
+    >
       <a>
         <Card style={{ overflow: 'auto' }}>
           <Heading fontSize={2} fontWeight="500">

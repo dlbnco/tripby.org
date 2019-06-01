@@ -16,6 +16,7 @@ const messages = {
     'Substance.duration': 'Duration',
     'Substance.summary': 'Summary',
     'Substance.effects': 'Effects',
+    'Substance.related': 'Related substances',
     'Substance.addictionPotential': 'Addiction potential',
     'Substance.toxicity': 'Toxicity',
     'Substance.tolerance': 'Tolerance',
@@ -23,6 +24,9 @@ const messages = {
     'Substance.tolerance.zero': 'Ideally {zero}',
     'Substance.tolerance.half': 'At least {half}',
     'Substance.tolerance.full': 'Full tolerance',
+    'Substance.allRelatedSubstances': 'All',
+    'Substance.relatedByChemicalClass': 'By chemical class',
+    'Substance.relatedByPsychoactiveClass': 'By psychoactive class',
     'Substance.meta.title':
       '{name} · effects, duration, dosage, toxicity and tolerance · tripby.org',
     'Substance.meta.description': '{name} ({class})',

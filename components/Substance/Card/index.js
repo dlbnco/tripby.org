@@ -15,11 +15,29 @@ const SubstanceCard = ({ substance }) => {
           <Heading fontSize={2} fontWeight="500">
             {substance.name}
           </Heading>
-          {substance.class && Array.isArray(substance.class.psychoactive) && (
-            <Text mt={2} color={colors.persianGreen}>
-              {substance.class.psychoactive.join(' / ')}
-            </Text>
-          )}
+          {(() => {
+            if (substance.class) {
+              if (
+                Array.isArray(substance.class.psychoactive) &&
+                substance.class.psychoactive.length > 0
+              ) {
+                return (
+                  <Text mt={2} color={colors.persianGreen}>
+                    {substance.class.psychoactive.join(' / ')}
+                  </Text>
+                );
+              } else if (
+                Array.isArray(substance.class.chemical) &&
+                substance.class.chemical.length > 0
+              ) {
+                return (
+                  <Text mt={2} color={colors.persianGreen}>
+                    {substance.class.chemical.join(' / ')}
+                  </Text>
+                );
+              }
+            }
+          })()}
         </Card>
       </a>
     </Link>

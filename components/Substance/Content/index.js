@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import Heading from '../../Heading';
 import SubstanceEffects from '../Effects';
 import SubstanceRelated from '../Related';
+import { StyledTabList, StyledTab } from '../../Tabs';
 
 const tabs = [
   {
@@ -33,28 +34,14 @@ const tabs = [
   },
 ];
 
-const StyledTabList = styled(TabList)`
-  ${space}
-  display: flex;
-  align-items: center;
+const BorderedTabList = styled(StyledTabList)`
   border-bottom: ${({ theme }) => theme.border};
 `;
 
-StyledTabList.defaultProps = {
+BorderedTabList.defaultProps = {
   variant: 'primary',
+  fontSize: 2,
 };
-
-const StyledTab = styled(Tab).attrs(() => ({ fontSize: 2 }))`
-  ${space}
-  ${fontSize}
-  cursor: pointer;
-  transition: 0.2s;
-  color: ${({ theme }) => theme.textColor({ theme, variant: 'secondary' })};
-  &.react-tabs__tab--selected,
-  &:hover {
-    color: ${({ theme }) => theme.colors.purpleHeart};
-  }
-`;
 
 const SubstanceContent = ({ substance }) => {
   const contentfulTabs = tabs.filter(
@@ -75,7 +62,7 @@ const SubstanceContent = ({ substance }) => {
   return (
     <Card shadow={false} p={0} style={{ overflow: 'hidden' }}>
       <Tabs defaultIndex={selectedTabIndex} onSelect={onSelectTab}>
-        <StyledTabList mx={-2} p={3}>
+        <BorderedTabList mx={-2} p={3}>
           {contentfulTabs.map(tab => {
             return (
               <StyledTab px={2} key={tab.id}>
@@ -83,7 +70,7 @@ const SubstanceContent = ({ substance }) => {
               </StyledTab>
             );
           })}
-        </StyledTabList>
+        </BorderedTabList>
         <Box p={3}>
           {contentfulTabs.map(tab => (
             <TabPanel key={`tab-${tab.id}-content`}>

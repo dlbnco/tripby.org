@@ -12,22 +12,31 @@ import { FormattedMessage } from 'react-intl';
 const SubstanceRelated = ({ substance }) => {
   const { data } = useQuery(GET_SUBSTANCES, { variables: { limit: 300 } });
   if (data && data.substances) {
-    const relatedSubstancesByChemicalClass = data.substances.filter(
-      _substance =>
-        _substance.class &&
-        _substance.class.chemical &&
-        _substance.class.chemical.some(chemicalClass =>
-          substance.class.chemical.includes(chemicalClass)
-        )
+    const otherSubstances = data.substances.filter(
+      sub => sub.name !== substance.name
     );
-    const relatedSubstancesByPsychoactiveClass = data.substances.filter(
-      _substance =>
-        _substance.class &&
-        _substance.class.psychoactive &&
-        _substance.class.psychoactive.some(psychoactiveClass =>
-          substance.class.psychoactive.includes(psychoactiveClass)
-        )
-    );
+    const relatedSubstancesByChemicalClass =
+      substance.class && substance.class.chemical
+        ? otherSubstances.filter(
+            _substance =>
+              _substance.class &&
+              _substance.class.chemical &&
+              _substance.class.chemical.some(chemicalClass =>
+                substance.class.chemical.includes(chemicalClass)
+              )
+          )
+        : [];
+    const relatedSubstancesByPsychoactiveClass =
+      substance.class && substance.class.psychoactive
+        ? otherSubstances.filter(
+            _substance =>
+              _substance.class &&
+              _substance.class.psychoactive &&
+              _substance.class.psychoactive.some(psychoactiveClass =>
+                substance.class.psychoactive.includes(psychoactiveClass)
+              )
+          )
+        : [];
     const relatedSubstances = [
       {
         id: 'Substance.allRelatedSubstances',
@@ -48,16 +57,19 @@ const SubstanceRelated = ({ substance }) => {
         value: relatedSubstancesByPsychoactiveClass,
       },
     ];
+    const contentfulRelatedSubstances = relatedSubstances.filter(
+      cat => cat.value.length > 0
+    );
     return (
       <Tabs>
         <StyledTabList m={-1} pb={3}>
-          {relatedSubstances.map(cat => (
+          {contentfulRelatedSubstances.map(cat => (
             <StyledTab p={1} key={`${cat.id}-tab`}>
               <FormattedMessage id={cat.id} />
             </StyledTab>
           ))}
         </StyledTabList>
-        {relatedSubstances.map(cat => (
+        {contentfulRelatedSubstances.map(cat => (
           <TabPanel key={`${cat.id}-content`}>
             <Flex flexWrap="wrap" m={-1}>
               {cat.value.map(relatedSubstance => (

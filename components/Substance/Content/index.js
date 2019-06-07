@@ -17,19 +17,24 @@ const tabs = [
   {
     id: 'summary',
     label: 'Substance.summary',
-    content: ({ substance }) => substance.summary,
+    content: ({ substance }) => substance.summary || null,
   },
   {
     id: 'effects',
     label: 'Substance.effects',
-    content: ({ substance }) => (
-      <SubstanceEffects effects={substance.effects} />
-    ),
+    content: ({ substance }) =>
+      substance.effects ? (
+        <SubstanceEffects effects={substance.effects} />
+      ) : null,
   },
   {
     id: 'related',
     label: 'Substance.related',
-    content: ({ substance }) => <SubstanceRelated substance={substance} />,
+    content: ({ substance }) =>
+      substance.class &&
+      (substance.class.psychoactive || substance.class.chemical) ? (
+        <SubstanceRelated substance={substance} />
+      ) : null,
     alwaysShow: true,
   },
 ];
@@ -45,7 +50,7 @@ BorderedTabList.defaultProps = {
 
 const SubstanceContent = ({ substance }) => {
   const contentfulTabs = tabs.filter(
-    tab => substance[tab.id] || tab.alwaysShow
+    tab => tab.content({ substance }) !== null
   );
   const { query, push, pathname } = useRouter();
   const selectedTabIndex = query.tab

@@ -13,16 +13,16 @@ const SubstanceInteractions = ({ substance }) => {
   } = substance;
   const interactions = [
     {
-      id: 'uncertain',
-      value: uncertainInteractions,
+      id: 'dangerous',
+      value: dangerousInteractions,
     },
     {
       id: 'unsafe',
       value: unsafeInteractions,
     },
     {
-      id: 'dangerous',
-      value: dangerousInteractions,
+      id: 'uncertain',
+      value: uncertainInteractions,
     },
   ];
   return (

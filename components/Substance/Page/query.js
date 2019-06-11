@@ -85,12 +85,24 @@ const GET_SUBSTANCE = gql`
       crossTolerances
       uncertainInteractions {
         name
+        class {
+          chemical
+          psychoactive
+        }
       }
       unsafeInteractions {
         name
+        class {
+          chemical
+          psychoactive
+        }
       }
       dangerousInteractions {
         name
+        class {
+          chemical
+          psychoactive
+        }
       }
     }
   }

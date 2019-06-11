@@ -32,6 +32,10 @@ const messages = {
     'Substance.meta.title':
       '{name} · effects, duration, dosage, toxicity and tolerance · tripby.org',
     'Substance.meta.description': '{name} ({class})',
+    'Substance.interactions': 'Interactions',
+    'Substance.interactions.uncertain': '❓ Uncertain',
+    'Substance.interactions.unsafe': '⚠️ Unsafe',
+    'Substance.interactions.dangerous': '☠️ Dangerous',
   },
 };
 

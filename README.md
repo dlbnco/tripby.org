@@ -1,29 +1,8 @@
-# Apollo Example
+<img src="https://github.com/dlbnco/tripby.org/blob/develop/static/android-chrome-512x512.png" width="64" />
 
-## Demo
+# tripby.org
 
-https://next-with-apollo.now.sh
-
-## How to use
-
-### Using `create-next-app`
-
-Execute [`create-next-app`](https://github.com/segmentio/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [npx](https://github.com/zkat/npx#readme) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-apollo with-apollo-app
-# or
-yarn create next-app --example with-apollo with-apollo-app
-```
-
-### Download manually
-
-Download the example:
-
-```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-apollo
-cd with-apollo
-```
+## developing
 
 Install it and run:
 
@@ -41,7 +20,7 @@ Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.
 now
 ```
 
-## The idea behind the example
+## Apollo integration
 
 [Apollo](https://www.apollographql.com/client/) is a GraphQL client that allows you to easily query the exact data you need from a GraphQL server. In addition to fetching and mutating data, Apollo analyzes your queries and their results to construct a client-side cache of your data, which is kept up to date as further queries and mutations are run, fetching more results from the server.
 

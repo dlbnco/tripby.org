@@ -12,6 +12,7 @@ import Heading from '../../Heading';
 import SubstanceEffects from '../Effects';
 import SubstanceRelated from '../Related';
 import { StyledTabList, StyledTab } from '../../Tabs';
+import SubstanceInteractions from '../Interactions';
 
 const tabs = [
   {
@@ -35,7 +36,16 @@ const tabs = [
       (substance.class.psychoactive || substance.class.chemical) ? (
         <SubstanceRelated substance={substance} />
       ) : null,
-    alwaysShow: true,
+  },
+  {
+    id: 'interactions',
+    label: 'Substance.interactions',
+    content: ({ substance }) =>
+      substance.dangerousInteractions ||
+      substance.uncertainInteractions ||
+      substance.unsafeInteractions ? (
+        <SubstanceInteractions substance={substance} />
+      ) : null,
   },
 ];
 

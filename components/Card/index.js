@@ -18,6 +18,7 @@ Card.defaultProps = {
   p: 3,
   variant: 'primary',
   shadow: true,
+  bg: 'white',
 };
 
 export default Card;

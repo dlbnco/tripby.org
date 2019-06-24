@@ -1,5 +1,8 @@
 const messages = {
   en: {
+    'App.donate': 'Donate',
+    'App.donate.bitcoinCash': 'Donate Bitcoin Cash',
+    'App.close': 'Close',
     'App.license':
       'This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License ↗</a>',
     'App.wikiCredits': 'data by PsychonautWiki.org ↗',

@@ -38,5 +38,9 @@
     "styled-theming": "^2.2.0"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
+    "babel-eslint": "^10.0.3"
+  }
 }

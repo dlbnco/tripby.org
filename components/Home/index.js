@@ -11,6 +11,12 @@ import Spinner from '../Spinner';
 import Text from '../Text';
 import ApolloError from '../ApolloError';
 
+const getClasses = (list, type) => {
+  return [...new Set(list.flatMap(substance => substance?.class?.[type]))]
+    .filter(Boolean)
+    .sort((a, b) => a > b);
+};
+
 const Home = () => {
   const [filter, handleFilter] = useState('');
   const { data, loading, error } = useQuery(GET_SUBSTANCES, {
@@ -47,9 +53,10 @@ const Home = () => {
   );
   const substanceList =
     data && data.substances
-      ? sortSubstances(filterSubstances(data.substances))
+      ? sortSubstances(filterSubstances(data?.substances))
       : [];
   const noResults = filter.length > 0 && substanceList.length === 0;
+  const psychoactiveClasses = getClasses(substanceList, 'psychoactive');
   return (
     <>
       <Container>
@@ -66,7 +73,7 @@ const Home = () => {
             )}
           </FormattedMessage>
         </Box>
-        <Flex flexWrap="wrap" m={-2}>
+        <Box m={-2}>
           {error && <ApolloError error={error} />}
           {loading && <Spinner size={96} mx="auto" />}
           {!loading && noResults && (
@@ -77,16 +84,29 @@ const Home = () => {
               />
             </Text>
           )}
-          {substanceList.map(substance => (
-            <Box
-              width={[1, null, 1 / 2, 1 / 3, 1 / 4]}
-              p={2}
-              key={substance.name}
-            >
-              <SubstanceCard substance={substance} />
+          {psychoactiveClasses.map(psychoactiveClass => (
+            <Box width={1} key={`classList-${psychoactiveClass}`}>
+              <Text p={2} fontSize={2} mb={1}>
+                {psychoactiveClass}
+              </Text>
+              <Flex flexWrap="wrap" width={1}>
+                {substanceList
+                  .filter(substance =>
+                    substance.class?.psychoactive?.includes(psychoactiveClass)
+                  )
+                  .map(substance => (
+                    <Box
+                      width={[1, null, 1 / 2, 1 / 3, 1 / 4]}
+                      p={2}
+                      key={substance.name}
+                    >
+                      <SubstanceCard substance={substance} />
+                    </Box>
+                  ))}
+              </Flex>
             </Box>
           ))}
-        </Flex>
+        </Box>
       </Container>
     </>
   );

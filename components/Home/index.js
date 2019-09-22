@@ -12,7 +12,7 @@ import Text from '../Text';
 import ApolloError from '../ApolloError';
 
 const getClasses = (list, type) => {
-  return [...new Set(list.flatMap(substance => substance?.class?.[type]))]
+  return [...new Set(list?.flatMap(substance => substance?.class?.[type]))]
     .filter(Boolean)
     .sort((a, b) => a > b);
 };
@@ -52,7 +52,7 @@ const Home = () => {
     [filter]
   );
   const substanceList =
-    data && data.substances
+    data && data.substances && Array.isArray(data.substances)
       ? sortSubstances(filterSubstances(data?.substances))
       : [];
   const noResults = filter.length > 0 && substanceList.length === 0;

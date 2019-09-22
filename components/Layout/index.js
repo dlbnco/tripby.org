@@ -6,6 +6,7 @@ import GlobalStyle from './GlobalStyle';
 import Header from '../Header';
 import AppMeta from './Meta';
 import Footer from '../Footer';
+import ExperienceTrackerWizard from '../ExperienceTracker/Wizard';
 
 const Wrapper = styled(Flex)`
   min-height: 100vh;
@@ -19,6 +20,7 @@ const Layout = ({ children }) => {
     <>
       <AppMeta />
       <GlobalStyle />
+      <ExperienceTrackerWizard />
       <Wrapper>
         <Header />
         <Content flex="1" width={1} py={[2, 3, 4]}>

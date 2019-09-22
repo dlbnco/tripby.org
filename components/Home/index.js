@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { Box, Flex } from 'rebass';
 import flatMap from 'lodash/flatMap';
 

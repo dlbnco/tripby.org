@@ -2,7 +2,7 @@ import App, { Container } from 'next/app';
 import React from 'react';
 import Router from 'next/router';
 import { ApolloProvider } from 'react-apollo';
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from 'styled-components';
 import withGA from 'next-ga';
 

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { Box, Flex } from 'rebass';
+import flatMap from 'lodash/flatMap';
 
 import GET_SUBSTANCES from '../../queries/substances';
 import Input from '../Input';
@@ -12,7 +13,7 @@ import Text from '../Text';
 import ApolloError from '../ApolloError';
 
 const getClasses = (list, type) => {
-  return [...new Set(list?.map(substance => substance?.class?.[type]).flat())]
+  return [...new Set(flatMap(list, substance => substance?.class?.[type]))]
     .filter(Boolean)
     .sort((a, b) => a > b);
 };

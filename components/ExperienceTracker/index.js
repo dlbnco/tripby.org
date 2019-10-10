@@ -10,6 +10,8 @@ import {
   addSeconds,
   subSeconds,
   differenceInSeconds,
+  isWithinInterval,
+  isValid,
 } from 'date-fns';
 import useRealTime from '../../hooks/useRealTime';
 
@@ -90,11 +92,23 @@ const ExperienceTrackerProvider = ({ children }) => {
     ),
     roa?.duration?.onset?.max
   );
+
   const phase =
     differenceInSeconds(startedAtDate, now) /
     differenceInSeconds(startedAtDate, endsAt);
 
+  const isActive = () => {
+    if (isValid(now) && isValid(startedAtDate) && isValid(endsAt)) {
+      return isWithinInterval(now, {
+        start: startedAtDate,
+        end: endsAt,
+      });
+    }
+    return false;
+  };
+
   const context = {
+    isActive: isActive(),
     start,
     stop,
     substance,

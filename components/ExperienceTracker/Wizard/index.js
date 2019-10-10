@@ -18,16 +18,7 @@ import Reset from './Reset';
 import { FormattedMessage } from 'react-intl';
 
 const ExperienceTrackerWizard = () => {
-  const {
-    substance,
-    roa,
-    start,
-    startedAt,
-    endsAt,
-    stop,
-    phase,
-  } = useExperienceTracker();
-  const isRunning = startedAt !== null;
+  const { substance, roa, start, isActive, phase } = useExperienceTracker();
   const { query } = useRouter();
   const { data } = useQuery(GET_SUBSTANCE, {
     variables: { query: query.name },
@@ -44,7 +35,7 @@ const ExperienceTrackerWizard = () => {
       >
         <FormattedMessage id="TimeMachine.title" />
       </Text>
-      {isRunning && (
+      {isActive && (
         <Flex flexDirection="column" alignItems="center" py={3}>
           <Text
             color="heliotrope"
@@ -99,7 +90,7 @@ const ExperienceTrackerWizard = () => {
           <Reset />
         </Flex>
       )}
-      {!isRunning && candidate && (
+      {!isActive && candidate && (
         <Box py={3}>
           <Box as="ul" mb={3} fontSize={3}>
             <li>

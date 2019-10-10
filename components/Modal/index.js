@@ -44,7 +44,7 @@ const Modal = ({
   const openModal = () => setOpen(true);
   const closeModal = () => {
     setOpen(false);
-    onClose();
+    if (typeof onClose === 'function') onClose();
   };
   const controlProps = {
     openModal,

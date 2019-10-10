@@ -1,22 +1,22 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useExperienceTracker } from '..';
 import { useRouter } from 'next/router';
 import { Flex, Box } from 'rebass';
-import Modal from '../../Modal';
-import Card from '../../Card';
 import Text from '../../Text';
 import { useQuery } from '@apollo/react-hooks';
 import GET_SUBSTANCE from '../../Substance/Page/query';
 import Button from '../../Button';
-import {
-  formatDistanceToNow,
-  formatRelative,
-  differenceInSeconds,
-} from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import MoonCircle from './Moon';
-import useRealTime from '../../../hooks/useRealTime';
+import Container from '../../Container';
+import { space } from 'styled-system';
+import Accordion from '../../Accordion';
+import Link from 'next/link';
+import ExperienceTrackerStatistics from './Statistics';
+import Reset from './Reset';
 
-const Content = () => {
+const ExperienceTrackerWizard = () => {
   const {
     substance,
     roa,
@@ -32,19 +32,40 @@ const Content = () => {
     variables: { query: query.name },
   });
   const candidate = data?.substances[0];
-  const now = useRealTime();
   return (
-    <div>
-      <Text variant="secondary" fontWeight="medium" fontSize={2} mb={3}>
-        🌚 Experience tracker
+    <Container maxWidth={720}>
+      <Text
+        variant="secondary"
+        textAlign="center"
+        fontWeight="medium"
+        fontSize={1}
+        mb={1}
+      >
+        Experience tracker
       </Text>
       {isRunning && (
-        <Box py={3}>
-          <Text color="purpleHeart" mb={3} fontSize={3} fontWeight="bold">
-            You are taking {substance?.name} ({roa?.name})
+        <Flex flexDirection="column" alignItems="center" py={3}>
+          <Text
+            color="heliotrope"
+            textAlign="center"
+            mb={3}
+            fontSize={3}
+            fontWeight="500"
+          >
+            You are taking{' '}
+            <Text
+              fontWeight="bold"
+              style={{ display: 'inline' }}
+              color="purpleHeart"
+            >
+              <Link href={`/substance?name=${substance.name}`}>
+                <a>{substance?.name}</a>
+              </Link>
+            </Text>{' '}
+            ({roa?.name})
           </Text>
-          <MoonCircle my={3} size={256} phase={Math.max(0.05, phase)} />
-          <Text mb={2} variant="secondary" textAlign="center">
+          <MoonCircle my={4} size={256} phase={Math.max(0.05, phase)} />
+          <Text mb={3} variant="secondary" textAlign="center">
             legend
           </Text>
           <Flex
@@ -68,21 +89,19 @@ const Content = () => {
               end
             </Text>
           </Flex>
-          <Text>
-            Started {formatDistanceToNow(startedAt, { addSuffix: true })}
-          </Text>
-          <Text title={endsAt.toISOString()}>
-            Ends {formatDistanceToNow(endsAt, { addSuffix: true })}
-          </Text>
-          <Button onClick={stop} mt={3}>
-            stop
-          </Button>
-        </Box>
+          <ExperienceTrackerStatistics
+            mb={4}
+            width={1}
+            style={{ maxWidth: 320 }}
+          />
+
+          <Reset />
+        </Flex>
       )}
       {!isRunning && candidate && (
         <Box py={3}>
           <Box as="ul" mb={3} fontSize={3}>
-            <li>1. Take your dose</li>
+            <li>1. Take your dose of {candidate.name}</li>
             <li>
               2. Select your chosen route of administration below (or the
               closest one)
@@ -99,24 +118,10 @@ const Content = () => {
           </Flex>
         </Box>
       )}
-      <Text variant="secondary">
+      <Text variant="secondary" textAlign="center">
         This is an experimental feature! Use for fun.
       </Text>
-    </div>
-  );
-};
-
-const ExperienceTrackerWizard = () => {
-  const { wizard } = useExperienceTracker();
-  return (
-    <Modal
-      maxWidth={640}
-      isOpen={wizard.isOpen}
-      onClose={() => wizard.toggle(false)}
-      content={<Content />}
-    >
-      {}
-    </Modal>
+    </Container>
   );
 };
 

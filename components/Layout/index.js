@@ -20,7 +20,6 @@ const Layout = ({ children }) => {
     <>
       <AppMeta />
       <GlobalStyle />
-      <ExperienceTrackerWizard />
       <Wrapper>
         <Header />
         <Content flex="1" width={1} py={[2, 3, 4]}>

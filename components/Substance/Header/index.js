@@ -39,9 +39,11 @@ const SubstancePageHeader = ({ substance }) => {
             Wiki ↗
           </a>
         </Text>
-        <Button variant="outline" onClick={() => wizard.toggle(true)}>
-          🌘 Track your experience
-        </Button>
+        <Link href={`/tracker?name=${substance.name}`}>
+          <a>
+            <Button variant="outline">🌘 Track your experience</Button>
+          </a>
+        </Link>
       </Box>
       <Flex m={-3} flexWrap="wrap">
         {substance.class && (

@@ -2,15 +2,16 @@ import React from 'react';
 import { Flex, Box } from 'rebass';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { withTheme } from 'styled-components';
 
 import Text from '../Text';
 import Logo from '../Logo';
 import Container from '../Container';
 import WikiLogo from '../Logo/Wiki';
 import { useExperienceTracker } from '../ExperienceTracker';
-import Moon from '../ExperienceTracker/Wizard/Moon';
+import Moon from 'react-moon';
 
-const Header = () => {
+const Header = ({ theme }) => {
   const { isActive, phase, substance } = useExperienceTracker();
   const { pathname } = useRouter();
   return (
@@ -26,7 +27,12 @@ const Header = () => {
             <Link href="/tracker">
               <a>
                 <Flex alignItems="center" mx={1}>
-                  <Moon phase={phase} size={16} />
+                  <Moon
+                    lightColor={theme.colors.purpleHeart}
+                    darkColor={theme.greys['400']}
+                    phase={phase}
+                    size={16}
+                  />
                   <Text ml={1} variant="secondary">
                     You are taking {substance.name} →
                   </Text>
@@ -47,4 +53,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withTheme(Header);

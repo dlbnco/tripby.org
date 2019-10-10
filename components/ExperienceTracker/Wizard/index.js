@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { withTheme } from 'styled-components';
 import { useExperienceTracker } from '..';
 import { useRouter } from 'next/router';
 import { Flex, Box } from 'rebass';
@@ -7,23 +7,26 @@ import Text from '../../Text';
 import { useQuery } from '@apollo/react-hooks';
 import GET_SUBSTANCE from '../../Substance/Page/query';
 import Button from '../../Button';
-import { formatDistanceToNow } from 'date-fns';
-import MoonCircle from './Moon';
 import Container from '../../Container';
-import { space } from 'styled-system';
-import Accordion from '../../Accordion';
 import Link from 'next/link';
 import ExperienceTrackerStatistics from './Statistics';
 import Reset from './Reset';
 import { FormattedMessage } from 'react-intl';
+import Moon from 'react-moon';
+import TimeMachineLegend from './Legend';
 
-const ExperienceTrackerWizard = () => {
+const ExperienceTrackerWizard = ({ theme }) => {
   const { substance, roa, start, isActive, phase } = useExperienceTracker();
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const { data } = useQuery(GET_SUBSTANCE, {
     variables: { query: query.name },
   });
   const candidate = query.name && data?.substances[0];
+  useEffect(() => {
+    if (!isActive && !candidate) {
+      push('/');
+    }
+  }, [isActive, candidate]);
   return (
     <Container maxWidth={720}>
       <Text
@@ -56,31 +59,15 @@ const ExperienceTrackerWizard = () => {
             </Text>{' '}
             ({roa?.name})
           </Text>
-          <MoonCircle my={4} size={256} phase={Math.max(0.05, phase)} />
-          <Text mb={3} variant="secondary" textAlign="center">
-            <FormattedMessage id="TimeMachine.legend" />
-          </Text>
-          <Flex
-            alignItems="center"
-            m={-2}
-            mb={4}
-            justifyContent="space-between"
-          >
-            <Text variant="secondary" fontSize={0} m={2}>
-              <FormattedMessage id="TimeMachine.legend.start" />
-            </Text>
-            {[0.1, 0.3, 0.5, 0.7, 0.9].map(phaseExample => (
-              <MoonCircle
-                key={`legend-${phaseExample}`}
-                m={2}
-                size={32}
-                phase={phaseExample}
-              />
-            ))}
-            <Text variant="secondary" fontSize={0} m={2}>
-              <FormattedMessage id="TimeMachine.legend.end" />
-            </Text>
-          </Flex>
+          <Box my={4}>
+            <Moon
+              size={256}
+              lightColor={theme.colors.purpleHeart}
+              darkColor={theme.greys['400']}
+              phase={Math.max(0.033, phase)}
+            />
+          </Box>
+          <TimeMachineLegend mb={4} />
           <ExperienceTrackerStatistics
             mb={4}
             width={1}
@@ -121,4 +108,4 @@ const ExperienceTrackerWizard = () => {
   );
 };
 
-export default ExperienceTrackerWizard;
+export default withTheme(ExperienceTrackerWizard);

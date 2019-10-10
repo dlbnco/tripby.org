@@ -3,6 +3,7 @@ import { Flex, Box } from 'rebass';
 import Text from '../../Text';
 import { useExperienceTracker } from '..';
 import Button from '../../Button';
+import { FormattedMessage } from 'react-intl';
 
 const Reset = () => {
   const { stop } = useExperienceTracker();
@@ -12,19 +13,21 @@ const Reset = () => {
       {isAskingToConfirm ? (
         <Box>
           <Text fontWeight="bold" color="purpleHeart" textAlign="center" mb={2}>
-            Are you sure?
+            <FormattedMessage id="TimeMachine.reset.confirmation" />
           </Text>
           <Flex m={-2}>
             <Button m={2} onClick={stop}>
-              Yes, reset
+              <FormattedMessage id="TimeMachine.reset.confirmation.yes" />
             </Button>
             <Button m={2} onClick={() => toggleConfirmation(false)}>
-              No, nevermind
+              <FormattedMessage id="TimeMachine.reset.confirmation.no" />
             </Button>
           </Flex>
         </Box>
       ) : (
-        <Button onClick={() => toggleConfirmation(true)}>🌞 Reset</Button>
+        <Button onClick={() => toggleConfirmation(true)}>
+          <FormattedMessage id="TimeMachine.reset" />
+        </Button>
       )}
     </div>
   );

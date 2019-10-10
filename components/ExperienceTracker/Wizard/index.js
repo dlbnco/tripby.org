@@ -15,6 +15,7 @@ import Accordion from '../../Accordion';
 import Link from 'next/link';
 import ExperienceTrackerStatistics from './Statistics';
 import Reset from './Reset';
+import { FormattedMessage } from 'react-intl';
 
 const ExperienceTrackerWizard = () => {
   const {
@@ -31,7 +32,7 @@ const ExperienceTrackerWizard = () => {
   const { data } = useQuery(GET_SUBSTANCE, {
     variables: { query: query.name },
   });
-  const candidate = data?.substances[0];
+  const candidate = query.name && data?.substances[0];
   return (
     <Container maxWidth={720}>
       <Text
@@ -41,7 +42,7 @@ const ExperienceTrackerWizard = () => {
         fontSize={1}
         mb={1}
       >
-        Experience tracker
+        <FormattedMessage id="TimeMachine.title" />
       </Text>
       {isRunning && (
         <Flex flexDirection="column" alignItems="center" py={3}>
@@ -52,7 +53,7 @@ const ExperienceTrackerWizard = () => {
             fontSize={3}
             fontWeight="500"
           >
-            You are taking{' '}
+            <FormattedMessage id="TimeMachine.status" />{' '}
             <Text
               fontWeight="bold"
               style={{ display: 'inline' }}
@@ -66,7 +67,7 @@ const ExperienceTrackerWizard = () => {
           </Text>
           <MoonCircle my={4} size={256} phase={Math.max(0.05, phase)} />
           <Text mb={3} variant="secondary" textAlign="center">
-            legend
+            <FormattedMessage id="TimeMachine.legend" />
           </Text>
           <Flex
             alignItems="center"
@@ -75,7 +76,7 @@ const ExperienceTrackerWizard = () => {
             justifyContent="space-between"
           >
             <Text variant="secondary" fontSize={0} m={2}>
-              start
+              <FormattedMessage id="TimeMachine.legend.start" />
             </Text>
             {[0.1, 0.3, 0.5, 0.7, 0.9].map(phaseExample => (
               <MoonCircle
@@ -86,7 +87,7 @@ const ExperienceTrackerWizard = () => {
               />
             ))}
             <Text variant="secondary" fontSize={0} m={2}>
-              end
+              <FormattedMessage id="TimeMachine.legend.end" />
             </Text>
           </Flex>
           <ExperienceTrackerStatistics
@@ -101,10 +102,14 @@ const ExperienceTrackerWizard = () => {
       {!isRunning && candidate && (
         <Box py={3}>
           <Box as="ul" mb={3} fontSize={3}>
-            <li>1. Take your dose of {candidate.name}</li>
             <li>
-              2. Select your chosen route of administration below (or the
-              closest one)
+              <FormattedMessage
+                id="TimeMachine.guide.one"
+                values={{ candidate: candidate.name }}
+              />
+            </li>
+            <li>
+              <FormattedMessage id="TimeMachine.guide.two" />
             </li>
           </Box>
           <Flex as="ul" m={-1}>
@@ -119,7 +124,7 @@ const ExperienceTrackerWizard = () => {
         </Box>
       )}
       <Text variant="secondary" textAlign="center">
-        This is an experimental feature! Use for fun.
+        <FormattedMessage id="TimeMachine.disclaimer" />
       </Text>
     </Container>
   );

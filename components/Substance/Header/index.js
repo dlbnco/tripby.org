@@ -11,10 +11,10 @@ import { FormattedMessage } from 'react-intl';
 import SubstanceRoas from '../ROAs';
 import SubstanceTolerance from '../Tolerance';
 import SubstanceClass from '../Class';
-import { useExperienceTracker } from '../../ExperienceTracker';
+import validateSubstance from '../../ExperienceTracker/utils/validateSubstance';
 
 const SubstancePageHeader = ({ substance }) => {
-  const { wizard } = useExperienceTracker();
+  const isValidForTimeMachine = validateSubstance(substance);
   return (
     <>
       <Box mb={3}>
@@ -39,11 +39,13 @@ const SubstancePageHeader = ({ substance }) => {
             Wiki ↗
           </a>
         </Text>
-        <Link href={`/tracker?name=${substance.name}`}>
-          <a>
-            <Button variant="outline">🌘 Track your experience</Button>
-          </a>
-        </Link>
+        {isValidForTimeMachine && (
+          <Link href={`/tracker?name=${substance.name}`}>
+            <a>
+              <Button variant="outline">🌘 Track your experience</Button>
+            </a>
+          </Link>
+        )}
       </Box>
       <Flex m={-3} flexWrap="wrap">
         {substance.class && (

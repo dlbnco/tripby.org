@@ -14,19 +14,21 @@ import Reset from './Reset';
 import { FormattedMessage } from 'react-intl';
 import Moon from 'react-moon';
 import TimeMachineLegend from './Legend';
+import validateSubstance from '../utils/validateSubstance';
 
 const ExperienceTrackerWizard = ({ theme }) => {
   const { substance, roa, start, isActive, phase } = useExperienceTracker();
   const { query, push } = useRouter();
-  const { data } = useQuery(GET_SUBSTANCE, {
+  const { data, loading } = useQuery(GET_SUBSTANCE, {
     variables: { query: query.name },
   });
   const candidate = query.name && data?.substances[0];
   useEffect(() => {
-    if (!isActive && !candidate) {
+    if (!loading && !isActive && !candidate) {
       push('/');
     }
   }, [isActive, candidate]);
+  const validRoas = candidate && validateSubstance(candidate);
   return (
     <Container maxWidth={720}>
       <Text
@@ -90,15 +92,24 @@ const ExperienceTrackerWizard = ({ theme }) => {
               <FormattedMessage id="TimeMachine.guide.two" />
             </li>
           </Box>
-          <Flex as="ul" m={-1}>
-            {candidate.roas.map(roa => (
-              <li key={roa.name}>
-                <Button m={1} onClick={() => start(candidate, roa.name)}>
-                  {roa.name}
-                </Button>
-              </li>
-            ))}
-          </Flex>
+          {validRoas ? (
+            <Flex as="ul" m={-1}>
+              {validRoas?.map(roa => (
+                <li key={roa}>
+                  <Button m={1} onClick={() => start(candidate, roa.name)}>
+                    {roa}
+                  </Button>
+                </li>
+              ))}
+            </Flex>
+          ) : (
+            <Text>
+              <FormattedMessage
+                id="TimeMachine.notAvailableRoas"
+                values={{ candidate: candidate.name }}
+              />
+            </Text>
+          )}
         </Box>
       )}
       <Text variant="secondary" textAlign="center">

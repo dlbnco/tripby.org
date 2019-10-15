@@ -44,6 +44,8 @@ const messages = {
     'TimeMachine.guide.one': '1. Take your dose of {candidate}',
     'TimeMachine.guide.two':
       '2. Select your chosen route of administration below (or the closest one)',
+    'TimeMachine.notAvailableRoas':
+      'This feature is not available for {candidate} yet',
     'TimeMachine.status': 'You are taking',
     'TimeMachine.legend': 'legend',
     'TimeMachine.legend.start': 'start',

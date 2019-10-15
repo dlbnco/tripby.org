@@ -5,7 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "release": "node scripts/release.js"
+    "release": "node scripts/release.js",
+    "test": "jest"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
@@ -44,6 +45,8 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
-    "babel-eslint": "^10.0.3"
+    "babel-eslint": "^10.0.3",
+    "eslint-plugin-jest": "^22.19.0",
+    "jest": "^24.9.0"
   }
 }

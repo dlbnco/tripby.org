@@ -1,7 +1,6 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import ExperienceTrackerContext from './context';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { useRouter } from 'next/router';
 import {
   addHours,
   subHours,
@@ -47,7 +46,6 @@ const getDateFnFromTimeUnit = (unit = 'hour', operation = 'add') => {
 };
 
 const ExperienceTrackerProvider = ({ children }) => {
-  const { query, pathname, push } = useRouter();
   const now = useRealTime();
   const [substance, setSubstance] = useLocalStorage(
     'experienceTracker.substance'
@@ -67,21 +65,6 @@ const ExperienceTrackerProvider = ({ children }) => {
     setStartTime(null);
   };
 
-  const toggleWizard = useCallback(
-    state => {
-      let newQuery = query;
-      if (state === true) {
-        newQuery.trackerWizard = true;
-      } else {
-        delete newQuery.trackerWizard;
-      }
-      push({
-        pathname,
-        query: newQuery,
-      });
-    },
-    [query.name, query.trackerWizard]
-  );
   const roa = substance?.roas?.find(roa => roa.name === roaName);
   const startedAtDate = new Date(startedAt);
 
@@ -116,10 +99,6 @@ const ExperienceTrackerProvider = ({ children }) => {
     endsAt,
     phase,
     roa,
-    wizard: {
-      isOpen: query.trackerWizard,
-      toggle: toggleWizard,
-    },
   };
   return (
     <ExperienceTrackerContext.Provider value={context}>

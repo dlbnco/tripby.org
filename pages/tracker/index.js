@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ExperienceTrackerWizard from '../../components/ExperienceTracker/Wizard';
+import TimeMachineWizard from '../../components/TimeMachine/Wizard';
 
-const ExperienceTrackerPage = props => {
+const TimeMachinePage = props => {
   return (
     <div>
-      <ExperienceTrackerWizard />
+      <TimeMachineWizard />
     </div>
   );
 };
 
-ExperienceTrackerPage.propTypes = {};
+TimeMachinePage.propTypes = {};
 
-export default ExperienceTrackerPage;
+export default TimeMachinePage;

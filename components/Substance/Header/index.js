@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import SubstanceRoas from '../ROAs';
 import SubstanceTolerance from '../Tolerance';
 import SubstanceClass from '../Class';
-import validateSubstance from '../../ExperienceTracker/utils/validateSubstance';
+import validateSubstance from '../../TimeMachine/utils/validateSubstance';
 
 const SubstancePageHeader = ({ substance }) => {
   const isValidForTimeMachine = validateSubstance(substance);

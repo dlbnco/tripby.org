@@ -6,7 +6,7 @@ import GlobalStyle from './GlobalStyle';
 import Header from '../Header';
 import AppMeta from './Meta';
 import Footer from '../Footer';
-import ExperienceTrackerWizard from '../ExperienceTracker/Wizard';
+import TimeMachineWizard from '../TimeMachine/Wizard';
 
 const Wrapper = styled(Flex)`
   min-height: 100vh;

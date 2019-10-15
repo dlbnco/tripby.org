@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { withTheme } from 'styled-components';
-import { useExperienceTracker } from '..';
+import { useTimeMachine } from '..';
 import { useRouter } from 'next/router';
 import { Flex, Box } from 'rebass';
 import Text from '../../Text';
@@ -9,15 +9,15 @@ import GET_SUBSTANCE from '../../Substance/Page/query';
 import Button from '../../Button';
 import Container from '../../Container';
 import Link from 'next/link';
-import ExperienceTrackerStatistics from './Statistics';
+import TimeMachineStatistics from './Statistics';
 import Reset from './Reset';
 import { FormattedMessage } from 'react-intl';
 import Moon from 'react-moon';
 import TimeMachineLegend from './Legend';
 import validateSubstance from '../utils/validateSubstance';
 
-const ExperienceTrackerWizard = ({ theme }) => {
-  const { substance, roa, start, isActive, phase } = useExperienceTracker();
+const TimeMachineWizard = ({ theme }) => {
+  const { substance, roa, start, isActive, phase } = useTimeMachine();
   const { query, push } = useRouter();
   const { data, loading } = useQuery(GET_SUBSTANCE, {
     variables: { query: query.name },
@@ -71,7 +71,7 @@ const ExperienceTrackerWizard = ({ theme }) => {
             />
           </Box>
           <TimeMachineLegend mb={4} />
-          <ExperienceTrackerStatistics
+          <TimeMachineStatistics
             mb={4}
             width={1}
             style={{ maxWidth: 320 }}
@@ -120,4 +120,4 @@ const ExperienceTrackerWizard = ({ theme }) => {
   );
 };
 
-export default withTheme(ExperienceTrackerWizard);
+export default withTheme(TimeMachineWizard);

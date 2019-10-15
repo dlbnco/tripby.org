@@ -11,7 +11,7 @@ import Layout from '../components/Layout';
 import { defaultTheme } from '../lib/theme';
 import IntlProvider from '../components/IntlProvider';
 import { GA_TRACKING_ID } from '../lib/constants';
-import ExperienceTrackerProvider from '../components/ExperienceTracker';
+import TimeMachineProvider from '../components/TimeMachine';
 
 class MyApp extends App {
   render() {
@@ -22,11 +22,11 @@ class MyApp extends App {
           <ApolloHooksProvider client={apolloClient}>
             <ThemeProvider theme={defaultTheme}>
               <IntlProvider>
-                <ExperienceTrackerProvider>
+                <TimeMachineProvider>
                   <Layout>
                     <Component {...pageProps} />
                   </Layout>
-                </ExperienceTrackerProvider>
+                </TimeMachineProvider>
               </IntlProvider>
             </ThemeProvider>
           </ApolloHooksProvider>

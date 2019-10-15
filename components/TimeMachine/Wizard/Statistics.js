@@ -1,12 +1,12 @@
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import { useExperienceTracker } from '..';
+import { useTimeMachine } from '..';
 import Accordion from '../../Accordion';
 import Text from '../../Text';
 import { FormattedMessage } from 'react-intl';
 
-const ExperienceTrackerStatistics = props => {
-  const { startedAt, endsAt } = useExperienceTracker();
+const TimeMachineStatistics = props => {
+  const { startedAt, endsAt } = useTimeMachine();
   return (
     <FormattedMessage id="TimeMachine.statistics">
       {statistics => (
@@ -37,4 +37,4 @@ const ExperienceTrackerStatistics = props => {
   );
 };
 
-export default ExperienceTrackerStatistics;
+export default TimeMachineStatistics;

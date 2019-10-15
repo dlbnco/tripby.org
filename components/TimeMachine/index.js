@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ExperienceTrackerContext from './context';
+import TimeMachineContext from './context';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import {
   addHours,
@@ -45,15 +45,11 @@ const getDateFnFromTimeUnit = (unit = 'hour', operation = 'add') => {
   }
 };
 
-const ExperienceTrackerProvider = ({ children }) => {
+const TimeMachineProvider = ({ children }) => {
   const now = useRealTime();
-  const [substance, setSubstance] = useLocalStorage(
-    'experienceTracker.substance'
-  );
-  const [roaName, setRoaName] = useLocalStorage('experienceTracker.roaName');
-  const [startedAt, setStartTime] = useLocalStorage(
-    'experienceTracker.startedAt'
-  );
+  const [substance, setSubstance] = useLocalStorage('timeMachine.substance');
+  const [roaName, setRoaName] = useLocalStorage('timeMachine.roaName');
+  const [startedAt, setStartTime] = useLocalStorage('timeMachine.startedAt');
   const start = (substance, roa) => {
     setSubstance(substance);
     setRoaName(roa);
@@ -101,14 +97,14 @@ const ExperienceTrackerProvider = ({ children }) => {
     roa,
   };
   return (
-    <ExperienceTrackerContext.Provider value={context}>
+    <TimeMachineContext.Provider value={context}>
       {children}
-    </ExperienceTrackerContext.Provider>
+    </TimeMachineContext.Provider>
   );
 };
 
-export const useExperienceTracker = () => useContext(ExperienceTrackerContext);
+export const useTimeMachine = () => useContext(TimeMachineContext);
 
-ExperienceTrackerProvider.propTypes = {};
+TimeMachineProvider.propTypes = {};
 
-export default ExperienceTrackerProvider;
+export default TimeMachineProvider;

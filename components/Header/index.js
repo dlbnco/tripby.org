@@ -8,11 +8,11 @@ import Text from '../Text';
 import Logo from '../Logo';
 import Container from '../Container';
 import WikiLogo from '../Logo/Wiki';
-import { useExperienceTracker } from '../ExperienceTracker';
+import { useTimeMachine } from '../TimeMachine';
 import Moon from 'react-moon';
 
 const Header = ({ theme }) => {
-  const { isActive, phase, substance } = useExperienceTracker();
+  const { isActive, phase, substance } = useTimeMachine();
   const { pathname } = useRouter();
   return (
     <Box pt={[2, 3]} width={1}>

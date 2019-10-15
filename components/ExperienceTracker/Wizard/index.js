@@ -96,7 +96,7 @@ const ExperienceTrackerWizard = ({ theme }) => {
             <Flex as="ul" m={-1}>
               {validRoas?.map(roa => (
                 <li key={roa}>
-                  <Button m={1} onClick={() => start(candidate, roa.name)}>
+                  <Button m={1} onClick={() => start(candidate, roa)}>
                     {roa}
                   </Button>
                 </li>

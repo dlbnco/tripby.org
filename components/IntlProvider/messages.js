@@ -40,7 +40,8 @@ const messages = {
     'Substance.interactions.unsafe': '⚠️ Unsafe',
     'Substance.interactions.dangerous': '☠️ Dangerous',
     'TimeMachine.title': 'Time Machine',
-    'TimeMachine.disclaimer': 'This is an experimental feature! Use for fun.',
+    'TimeMachine.disclaimer':
+      'This is an experimental feature, use for fun! Your time machine data is stored in your own device.',
     'TimeMachine.guide.one': '1. Take your dose of {candidate}',
     'TimeMachine.guide.two':
       '2. Select your chosen route of administration below (or the closest one)',

@@ -27,6 +27,7 @@ const TimeMachineLegend = ({ theme, ...props }) => {
             darkColor={theme.greys['400']}
             size={24}
             phase={phaseExample}
+            border="0"
           />
         </Box>
       ))}

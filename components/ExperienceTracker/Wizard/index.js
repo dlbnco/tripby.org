@@ -67,6 +67,7 @@ const ExperienceTrackerWizard = ({ theme }) => {
               lightColor={theme.colors.purpleHeart}
               darkColor={theme.greys['400']}
               phase={Math.max(0.033, phase)}
+              border="0"
             />
           </Box>
           <TimeMachineLegend mb={4} />

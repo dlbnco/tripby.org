@@ -32,6 +32,7 @@ const Header = ({ theme }) => {
                     darkColor={theme.greys['400']}
                     phase={phase}
                     size={16}
+                    border="0"
                   />
                   <Text ml={1} variant="secondary">
                     You are taking {substance.name} →

@@ -40,13 +40,15 @@ const Header = ({ theme }) => {
               </a>
             </Link>
           )}
-          <a
-            href="https://psychonautwiki.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <WikiLogo size={32} />
-          </a>
+          <span>
+            <a
+              href="https://psychonautwiki.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WikiLogo size={32} />
+            </a>
+          </span>
         </Flex>
       </Container>
     </Box>

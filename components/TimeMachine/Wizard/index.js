@@ -8,7 +8,7 @@ import validateSubstance from '../utils/validateSubstance';
 import TimeMachineWizardLayout from './Layout';
 
 const TimeMachineWizard = () => {
-  const { substance, roa, start, isActive, phase } = useTimeMachine();
+  const { isActive } = useTimeMachine();
   const { query, push } = useRouter();
   const { data, loading } = useQuery(GET_SUBSTANCE, {
     variables: { query: query.name },
@@ -21,15 +21,7 @@ const TimeMachineWizard = () => {
   }, [isActive, candidate]);
   const validRoas = candidate && validateSubstance(candidate);
   return (
-    <TimeMachineWizardLayout
-      substance={substance}
-      roa={roa}
-      start={start}
-      isActive={isActive}
-      phase={phase}
-      candidate={candidate}
-      validRoas={validRoas}
-    />
+    <TimeMachineWizardLayout candidate={candidate} validRoas={validRoas} />
   );
 };
 

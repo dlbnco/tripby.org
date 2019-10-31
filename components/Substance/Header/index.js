@@ -5,14 +5,16 @@ import upperFirst from 'lodash/upperFirst';
 import Link from 'next/link';
 
 import Heading from '../../Heading';
+import Button from '../../Button';
 import Text from '../../Text';
 import { FormattedMessage } from 'react-intl';
 import SubstanceRoas from '../ROAs';
 import SubstanceTolerance from '../Tolerance';
 import SubstanceClass from '../Class';
-import Card from '../../Card';
+import validateSubstance from '../../TimeMachine/utils/validateSubstance';
 
 const SubstancePageHeader = ({ substance }) => {
+  const isValidForTimeMachine = validateSubstance(substance);
   return (
     <>
       <Box mb={3}>
@@ -32,11 +34,18 @@ const SubstancePageHeader = ({ substance }) => {
         >
           {substance.name}
         </Heading>
-        <Text fontSize={0} variant="secondary">
+        <Text fontSize={0} mb={2} variant="secondary">
           <a href={substance.url} target="_blank" rel="noopener noreferrer">
             Wiki ↗
           </a>
         </Text>
+        {isValidForTimeMachine && (
+          <Link href={`/tracker?name=${substance.name}`}>
+            <a>
+              <Button variant="outline">🌘 Track your experience</Button>
+            </a>
+          </Link>
+        )}
       </Box>
       <Flex m={-3} flexWrap="wrap">
         {substance.class && (

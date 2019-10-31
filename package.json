@@ -5,10 +5,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "release": "node scripts/release.js"
+    "release": "node scripts/release.js",
+    "test": "jest"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.1",
     "apollo-boost": "^0.1.16",
+    "date-fns": "^2.2.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "^3.0.1",
@@ -29,6 +32,7 @@
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "react-intl": "^2.8.0",
+    "react-moon": "^1.1.0",
     "react-outside-click-handler": "^1.2.3",
     "react-tabs": "^3.0.0",
     "rebass": "^3.1.0",
@@ -41,6 +45,10 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
-    "babel-eslint": "^10.0.3"
+    "@testing-library/jest-dom": "^4.1.2",
+    "@testing-library/react": "^9.3.0",
+    "babel-eslint": "^10.0.3",
+    "eslint-plugin-jest": "^22.19.0",
+    "jest": "^24.9.0"
   }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -13,54 +13,70 @@ const FixedWrapper = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   position: fixed;
   z-index: 1;
+  overflow-y: auto;
   &:before {
     content: '';
     top: 0;
     left: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
     background: rgba(0, 0, 0, 0.48);
   }
 `;
 
 FixedWrapper.defaultProps = {
-  p: 4,
+  p: [1, 3, 4],
 };
 
-const Modal = ({ children, content, maxWidth }) => {
-  const [isOpen, setOpen] = useState(false);
+const Modal = ({
+  children,
+  content,
+  maxWidth,
+  onClose,
+  isOpen: isOpenProp,
+}) => {
+  const [isOpen, setOpen] = useState(isOpenProp || false);
   const openModal = () => setOpen(true);
-  const closeModal = () => setOpen(false);
+  const closeModal = () => {
+    setOpen(false);
+    if (typeof onClose === 'function') onClose();
+  };
   const controlProps = {
     openModal,
     closeModal,
     isOpen,
   };
-  return (
-    <Fragment>
-      {typeof children === 'function' ? children(controlProps) : children}
-      {isOpen &&
-        ReactDOM.createPortal(
-          <FixedWrapper>
-            <Container maxWidth={maxWidth}>
-              <OutsideClickHandler onOutsideClick={closeModal}>
-                <Card p={[3, 4]}>
-                  {typeof content === 'function'
-                    ? content(controlProps)
-                    : content}
-                </Card>
-              </OutsideClickHandler>
-            </Container>
-          </FixedWrapper>,
-          document.getElementById('__next')
-        )}
-    </Fragment>
-  );
+  useEffect(() => {
+    setOpen(isOpenProp);
+  }, [isOpenProp]);
+  if (typeof document !== 'undefined') {
+    return (
+      <Fragment>
+        {typeof children === 'function' ? children(controlProps) : children}
+        {isOpen &&
+          ReactDOM.createPortal(
+            <FixedWrapper>
+              <Container maxWidth={maxWidth}>
+                <OutsideClickHandler onOutsideClick={closeModal}>
+                  <Card p={[3, 4]}>
+                    {typeof content === 'function'
+                      ? content(controlProps)
+                      : content}
+                  </Card>
+                </OutsideClickHandler>
+              </Container>
+            </FixedWrapper>,
+            document?.getElementById('__next')
+          )}
+      </Fragment>
+    );
+  }
+  return null;
 };
 
 Modal.propTypes = {

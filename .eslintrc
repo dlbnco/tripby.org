@@ -3,7 +3,8 @@
     "browser": true,
     "es6": true,
     "commonjs": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
@@ -14,9 +15,10 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "jest"],
   "rules": {
     "quotes": [1, "single"],
-    "react/display-name": 0
+    "react/display-name": 0,
+    "react/prop-types": 0
   }
 }

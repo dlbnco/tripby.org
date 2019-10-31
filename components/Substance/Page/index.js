@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { Flex, Box } from 'rebass';
 import { position } from 'styled-system';
 import styled from 'styled-components';

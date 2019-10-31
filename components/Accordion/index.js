@@ -30,10 +30,10 @@ const Arrow = styled(Text).attrs(() => ({ fontSize: 2, color: 'inherit' }))`
   transform: rotate(${({ isCollapsed }) => (isCollapsed ? 360 : 0)}deg);
 `;
 
-const Accordion = ({ label, children }) => {
+const Accordion = ({ label, children, ...props }) => {
   const [isCollapsed, toggleCollapse] = useState(false);
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" {...props}>
       <Header
         isCollapsed={isCollapsed}
         onClick={() => toggleCollapse(!isCollapsed)}

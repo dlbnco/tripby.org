@@ -25,7 +25,7 @@ const messages = {
     'Substance.addictionPotential': 'Addiction potential',
     'Substance.toxicity': 'Toxicity',
     'Substance.tolerance': 'Tolerance',
-    'Substance.tolerance.intro': 'Between uses, it\'s recommended to wait:',
+    'Substance.tolerance.intro': `Between uses, it's recommended to wait:`, //eslint-disable-line
     'Substance.tolerance.zero': 'Ideally {zero}',
     'Substance.tolerance.half': 'At least {half}',
     'Substance.tolerance.full': 'Full tolerance',
@@ -39,6 +39,25 @@ const messages = {
     'Substance.interactions.uncertain': '❓ Uncertain',
     'Substance.interactions.unsafe': '⚠️ Unsafe',
     'Substance.interactions.dangerous': '☠️ Dangerous',
+    'TimeMachine.title': 'Time Machine',
+    'TimeMachine.disclaimer':
+      'This is an experimental feature, use for fun! Your time machine data is stored in your own device.',
+    'TimeMachine.guide.one': '1. Take your dose of {candidate}',
+    'TimeMachine.guide.two':
+      '2. Select your chosen route of administration below (or the closest one)',
+    'TimeMachine.notAvailableRoas':
+      'This feature is not available for {candidate} yet',
+    'TimeMachine.status': 'You are taking',
+    'TimeMachine.legend': 'legend',
+    'TimeMachine.legend.start': 'start',
+    'TimeMachine.legend.end': 'end',
+    'TimeMachine.statistics': 'View exact times',
+    'TimeMachine.statistics.started': 'Started {start}',
+    'TimeMachine.statistics.ends': 'Ends {end}',
+    'TimeMachine.reset': 'Reset',
+    'TimeMachine.reset.confirmation': 'Are you sure?',
+    'TimeMachine.reset.confirmation.yes': 'Yes, reset',
+    'TimeMachine.reset.confirmation.no': 'No, nevermind',
   },
 };
 

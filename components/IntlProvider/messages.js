@@ -10,10 +10,13 @@ const messages = {
     'App.meta.description':
       'Harm reduction info about psychoactive drugs. Data provided by PsychonautWiki.org',
     'Hero.title': 'Read the label.',
+    'Hero.description':
+      'Understand your substances, their effects, dosage and duration',
     'Home.viewAll': 'View all substances →',
     'Home.filter':
-      '🔍 Filter by name or drug class (e.g. lsd, mdma, psychedelic, phenethylamine)',
+      '🔍 Search by name or drug class (e.g. lsd, mdma, psychedelic, phenethylamine)',
     'Home.noResults': '🧐 sorry, no results for {query}',
+    'Home.classes.title': 'Psychoactive classes',
     'Substance.psychoactiveClass': 'Psychoactive class',
     'Substance.chemicalClass': 'Chemical class',
     'Substance.roas': 'Routes of administration',

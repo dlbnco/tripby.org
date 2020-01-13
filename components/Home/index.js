@@ -2,15 +2,18 @@ import React, { useState, useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Box, Flex } from 'rebass';
 import flatMap from 'lodash/flatMap';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import GET_SUBSTANCES from '../../queries/substances';
-import Input from '../Input';
 import SubstanceCard from '../Substance/Card';
 import Container from '../Container';
 import { FormattedMessage } from 'react-intl';
 import Spinner from '../Spinner';
 import Text from '../Text';
 import ApolloError from '../ApolloError';
+import Hero from '../Hero';
+import Card from '../Card';
 
 const getClasses = (list, type) => {
   return [...new Set(flatMap(list, substance => substance?.class?.[type]))]
@@ -19,6 +22,8 @@ const getClasses = (list, type) => {
 };
 
 const Home = () => {
+  const { query } = useRouter();
+  const selectedClass = query?.class;
   const [filter, handleFilter] = useState('');
   const { data, loading, error } = useQuery(GET_SUBSTANCES, {
     variables: { limit: 300 },
@@ -58,23 +63,15 @@ const Home = () => {
       : [];
   const noResults = filter.length > 0 && substanceList.length === 0;
   const psychoactiveClasses = getClasses(substanceList, 'psychoactive');
+  const isFiltering = filter.length > 0;
   return (
     <>
+      <Hero shrink={isFiltering} onChange={handleFilter} />
       <Container>
-        <Box mb={[3, 4]}>
-          <FormattedMessage id="Home.filter">
-            {placeholder => (
-              <Input
-                autoFocus
-                placeholder={placeholder}
-                value={filter}
-                onChange={e => handleFilter(e.target.value)}
-                width={1}
-              />
-            )}
-          </FormattedMessage>
-        </Box>
-        <Box m={-2}>
+        <Box
+          py={isFiltering ? 4 : [4, 5, 6]}
+          style={{ transition: '.1s ease-in' }}
+        >
           {error && <ApolloError error={error} />}
           {loading && <Spinner size={96} mx="auto" />}
           {!loading && noResults && (
@@ -85,28 +82,81 @@ const Home = () => {
               />
             </Text>
           )}
-          {psychoactiveClasses.map(psychoactiveClass => (
-            <Box width={1} key={`classList-${psychoactiveClass}`}>
-              <Text p={2} fontSize={2} mb={1}>
-                {psychoactiveClass}
-              </Text>
-              <Flex flexWrap="wrap" width={1}>
-                {substanceList
-                  .filter(substance =>
-                    substance.class?.psychoactive?.includes(psychoactiveClass)
-                  )
-                  .map(substance => (
-                    <Box
-                      width={[1, null, 1 / 2, 1 / 3, 1 / 4]}
-                      p={2}
-                      key={substance.name}
-                    >
-                      <SubstanceCard substance={substance} />
-                    </Box>
-                  ))}
-              </Flex>
-            </Box>
-          ))}
+          {!loading && !isFiltering && (
+            <Text
+              textAlign="center"
+              mb={[3, 4, 5]}
+              fontSize={3}
+              variant="secondary"
+            >
+              <FormattedMessage id="Home.classes.title" />{' '}
+              {selectedClass && (
+                <span>
+                  →{' '}
+                  <Link href="/" scroll={false}>
+                    <a>{selectedClass} ×</a>
+                  </Link>
+                </span>
+              )}
+            </Text>
+          )}
+          <Flex flexWrap="wrap" m={isFiltering ? undefined : -2}>
+            {psychoactiveClasses
+              .filter(psychoactiveClass =>
+                selectedClass ? psychoactiveClass === selectedClass : true
+              )
+              .map(psychoactiveClass =>
+                isFiltering || selectedClass ? (
+                  <Box width={1} key={`classList-${psychoactiveClass}`}>
+                    {!selectedClass && (
+                      <Text p={2} fontSize={2} mb={1}>
+                        {psychoactiveClass}
+                      </Text>
+                    )}
+                    <Flex flexWrap="wrap" width={1}>
+                      {substanceList
+                        .filter(substance =>
+                          substance.class?.psychoactive?.includes(
+                            psychoactiveClass
+                          )
+                        )
+                        .filter(substance =>
+                          selectedClass
+                            ? substance.class?.psychoactive?.includes(
+                                selectedClass
+                              )
+                            : true
+                        )
+                        .map(substance => (
+                          <Box
+                            width={[1, null, 1 / 2, 1 / 3, 1 / 4]}
+                            p={2}
+                            key={substance.name}
+                          >
+                            <SubstanceCard substance={substance} />
+                          </Box>
+                        ))}
+                    </Flex>
+                  </Box>
+                ) : (
+                  <Box
+                    width={[1, 1 / 2, 1 / 3]}
+                    p={2}
+                    key={`classList-${psychoactiveClass}`}
+                  >
+                    <Link scroll={false} href={`?class=${psychoactiveClass}`}>
+                      <a>
+                        <Card>
+                          <Text color="purpleHeart" p={2} fontSize={2} mb={1}>
+                            {psychoactiveClass} →
+                          </Text>
+                        </Card>
+                      </a>
+                    </Link>
+                  </Box>
+                )
+              )}
+          </Flex>
         </Box>
       </Container>
     </>

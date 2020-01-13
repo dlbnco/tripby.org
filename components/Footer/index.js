@@ -48,9 +48,6 @@ const Footer = () => (
             </Box>
           ))}
         </Flex>
-        <Text fontSize={0} p={1} variant="secondary">
-          <FormattedHTMLMessage id="App.license" />
-        </Text>
         <a
           href="https://psychonautwiki.org"
           target="_blank"
@@ -61,6 +58,9 @@ const Footer = () => (
           </Text>
         </a>
       </Flex>
+      <Text fontSize={0} p={1} variant="secondary">
+        <FormattedHTMLMessage id="App.license" />
+      </Text>
     </Wrapper>
   </Container>
 );

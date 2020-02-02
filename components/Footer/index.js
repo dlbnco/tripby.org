@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Flex, Box } from 'rebass';
 import Container from '../Container';
 import Text from '../Text';
+import WikiLogo from '../Logo/Wiki';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Button from '../Button';
 import Donate from '../Donate';
@@ -33,13 +34,10 @@ Wrapper.defaultProps = {
 };
 
 const Footer = () => (
-  <Container>
+  <Container py={[2, 3]}>
     <Wrapper flexWrap="wrap" m={-1}>
-      <Flex flexDirection="column" py={3} alignItems="center">
-        <Donate />
-      </Flex>
-      <Flex justifyContent="space-between">
-        <Flex m={-2} p={1}>
+      <Flex p={1} justifyContent="space-between">
+        <Flex m={-2}>
           {links.map(link => (
             <Box p={2} key={link.id}>
               <Anchor href={link.url}>
@@ -48,20 +46,24 @@ const Footer = () => (
             </Box>
           ))}
         </Flex>
-        <a
-          href="https://psychonautwiki.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Text p={1} fontSize={0} variant="secondary">
-            <FormattedMessage id="App.wikiCredits" />
-          </Text>
-        </a>
+        <Flex alignItems="center">
+          <WikiLogo size={24} />
+          <a
+            href="https://psychonautwiki.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Text p={1} fontSize={0} variant="secondary">
+              <FormattedMessage id="App.wikiCredits" />
+            </Text>
+          </a>
+        </Flex>
       </Flex>
       <Text fontSize={0} p={1} variant="secondary">
         <FormattedHTMLMessage id="App.license" />
       </Text>
     </Wrapper>
+    <Donate />
   </Container>
 );
 

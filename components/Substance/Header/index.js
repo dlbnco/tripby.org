@@ -23,9 +23,10 @@ const SubstancePageHeader = ({ substance }) => {
         <a onClick={back}>
           <Text
             mt={[0, null, -4]}
-            css={`
-              cursor: pointer;
-            `}
+            style={{
+              cursor: 'pointer',
+              display: 'inline-block',
+            }}
             fontSize={4}
             mb={2}
             variant="secondary"

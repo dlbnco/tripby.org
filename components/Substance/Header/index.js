@@ -21,7 +21,15 @@ const SubstancePageHeader = ({ substance }) => {
     <>
       <Box mb={3}>
         <a onClick={back}>
-          <Text mt={[0, null, -4]} fontSize={4} mb={2} variant="secondary">
+          <Text
+            mt={[0, null, -4]}
+            css={`
+              cursor: pointer;
+            `}
+            fontSize={4}
+            mb={2}
+            variant="secondary"
+          >
             ←
           </Text>
         </a>

@@ -5,16 +5,27 @@
   "alias": "tripby.org",
   "routes": [
     { "src": "/substance/(?<name>[^/]+)", "dest": "/substance?name=$name" },
+    { "src": "/psicoativos/cafeina", "dest": "/substance?name=Caffeine" },
+    { "src": "/psicoativos/cocaina", "dest": "/substance?name=Cocaine" },
+    {
+      "src": "/psicoativos/cogumelos-psicodelicos",
+      "dest": "/substance?name=Psilocybin"
+    },
+    { "src": "/psicoativos/dxm", "dest": "/substance?name=Dextromethorphan" },
+    { "src": "/psicoativos/heroina", "dest": "/substance?name=Heroin" },
+    { "src": "/psicoativos/ibogaina", "dest": "/substance?name=Ibogaine" },
+    { "src": "/psicoativos/ketamina", "dest": "/substance?name=Ketamine" },
+    { "src": "/psicoativos/maconha", "dest": "/substance?name=Cannabis" },
+    {
+      "src": "/psicoativos/mescalina",
+      "dest": "/substance?name=Methamphetamine"
+    },
+    { "src": "/psicoativos/salvia", "dest": "/substance?name=Salvinorin A" },
+    { "src": "/psicoativos/alcool", "dest": "/substance?name=Alcohol" },
+    { "src": "/psicoativos/(?<name>[^/]+)", "dest": "/substance?name=$name" },
     {
       "src": "/sitemap.xml",
       "dest": "https://tripby-sitemap-generator.herokuapp.com/"
-    },
-    {
-      "src": "/psicoativos/(.*)",
-      "status": 301,
-      "headers": {
-        "Location": "https://br-tripby-legacy.netlify.com/psicoativos/$1"
-      }
     }
   ]
 }

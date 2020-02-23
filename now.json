@@ -5,23 +5,72 @@
   "alias": "tripby.org",
   "routes": [
     { "src": "/substance/(?<name>[^/]+)", "dest": "/substance?name=$name" },
-    { "src": "/psicoativos/cafeina", "dest": "/substance?name=Caffeine" },
-    { "src": "/psicoativos/cocaina", "dest": "/substance?name=Cocaine" },
+    {
+      "src": "/psicoativos/cafeina",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Caffeine" }
+    },
+    {
+      "src": "/psicoativos/cocaina",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Cocaine" }
+    },
     {
       "src": "/psicoativos/cogumelos-psicodelicos",
-      "dest": "/substance?name=Psilocybin"
+      "status": 301,
+      "headers": {
+        "Location": "/substance?name=Psilocybin"
+      }
     },
-    { "src": "/psicoativos/dxm", "dest": "/substance?name=Dextromethorphan" },
-    { "src": "/psicoativos/heroina", "dest": "/substance?name=Heroin" },
-    { "src": "/psicoativos/ibogaina", "dest": "/substance?name=Ibogaine" },
-    { "src": "/psicoativos/ketamina", "dest": "/substance?name=Ketamine" },
-    { "src": "/psicoativos/maconha", "dest": "/substance?name=Cannabis" },
+    {
+      "src": "/psicoativos/dxm",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Dextromethorphan" }
+    },
+    {
+      "src": "/psicoativos/heroina",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Heroin" }
+    },
+    {
+      "src": "/psicoativos/ibogaina",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Ibogaine" }
+    },
+    {
+      "src": "/psicoativos/ketamina",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Ketamine" }
+    },
+    {
+      "src": "/psicoativos/maconha",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Cannabis" }
+    },
     {
       "src": "/psicoativos/mescalina",
-      "dest": "/substance?name=Methamphetamine"
+      "status": 301,
+      "headers": {
+        "Location": "/substance?name=Mescaline"
+      }
     },
-    { "src": "/psicoativos/salvia", "dest": "/substance?name=Salvinorin A" },
-    { "src": "/psicoativos/alcool", "dest": "/substance?name=Alcohol" },
+    {
+      "src": "/psicoativos/metanfetamina",
+      "status": 301,
+      "headers": {
+        "Location": "/substance?name=Methamphetamine"
+      }
+    },
+    {
+      "src": "/psicoativos/salvia",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Salvinorin A" }
+    },
+    {
+      "src": "/psicoativos/alcool",
+      "status": 301,
+      "headers": { "Location": "/substance?name=Alcohol" }
+    },
     { "src": "/psicoativos/(?<name>[^/]+)", "dest": "/substance?name=$name" },
     {
       "src": "/sitemap.xml",

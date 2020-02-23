@@ -8,70 +8,74 @@
     {
       "src": "/psicoativos/cafeina",
       "status": 301,
-      "headers": { "Location": "/substance?name=Caffeine" }
+      "headers": { "Location": "/substance/Caffeine" }
     },
     {
       "src": "/psicoativos/cocaina",
       "status": 301,
-      "headers": { "Location": "/substance?name=Cocaine" }
+      "headers": { "Location": "/substance/Cocaine" }
     },
     {
       "src": "/psicoativos/cogumelos-psicodelicos",
       "status": 301,
       "headers": {
-        "Location": "/substance?name=Psilocybin"
+        "Location": "/substance/Psilocybin"
       }
     },
     {
       "src": "/psicoativos/dxm",
       "status": 301,
-      "headers": { "Location": "/substance?name=Dextromethorphan" }
+      "headers": { "Location": "/substance/Dextromethorphan" }
     },
     {
       "src": "/psicoativos/heroina",
       "status": 301,
-      "headers": { "Location": "/substance?name=Heroin" }
+      "headers": { "Location": "/substance/Heroin" }
     },
     {
       "src": "/psicoativos/ibogaina",
       "status": 301,
-      "headers": { "Location": "/substance?name=Ibogaine" }
+      "headers": { "Location": "/substance/Ibogaine" }
     },
     {
       "src": "/psicoativos/ketamina",
       "status": 301,
-      "headers": { "Location": "/substance?name=Ketamine" }
+      "headers": { "Location": "/substance/Ketamine" }
     },
     {
       "src": "/psicoativos/maconha",
       "status": 301,
-      "headers": { "Location": "/substance?name=Cannabis" }
+      "headers": { "Location": "/substance/Cannabis" }
     },
     {
       "src": "/psicoativos/mescalina",
       "status": 301,
       "headers": {
-        "Location": "/substance?name=Mescaline"
+        "Location": "/substance/Mescaline"
       }
     },
     {
       "src": "/psicoativos/metanfetamina",
       "status": 301,
       "headers": {
-        "Location": "/substance?name=Methamphetamine"
+        "Location": "/substance/Methamphetamine"
       }
     },
     {
       "src": "/psicoativos/salvia",
       "status": 301,
-      "headers": { "Location": "/substance?name=Salvinorin A" }
+      "headers": { "Location": "/substance/Salvinorin A" }
     },
     {
       "src": "/psicoativos/alcool",
       "status": 301,
-      "headers": { "Location": "/substance?name=Alcohol" }
+      "headers": { "Location": "/substance/Alcohol" }
     },
-    { "src": "/psicoativos/(?<name>[^/]+)", "dest": "/substance?name=$name" },
+    {
+      "src": "/psicoativos/(?<name>[^/]+)",
+      "status": 301,
+      "headers": { "Location": "/substance?name=$name" }
+    },
     {
       "src": "/sitemap.xml",
       "dest": "https://tripby-sitemap-generator.herokuapp.com/"

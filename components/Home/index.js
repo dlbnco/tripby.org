@@ -82,7 +82,7 @@ const Home = () => {
               />
             </Text>
           )}
-          {!loading && !isFiltering && (
+          {!loading && !isFiltering && !error && (
             <Text
               textAlign="center"
               mb={[3, 4, 5]}

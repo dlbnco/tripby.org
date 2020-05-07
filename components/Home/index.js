@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Box } from 'rebass';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -27,9 +27,10 @@ const Home = () => {
   const substances = data?.substances;
   const noResults = filter.length > 0 && substances?.length === 0;
   const isFiltering = filter.length > 0;
-  const _getFilteredSubstances = throttle(
+  const _getFilteredSubstances = debounce(
     () => getFilteredSubstances(data, filter, selectedClass),
-    500
+    500,
+    { leading: true }
   );
   return (
     <>

@@ -37,7 +37,7 @@ const Home = () => {
       <Hero shrink={isFiltering} onChange={handleFilter} />
       <Container>
         <Box
-          py={isFiltering ? 4 : [4, 5, 6]}
+          py={isFiltering ? 4 : [3, 4, 5]}
           style={{ transition: '.1s ease-in' }}
         >
           {error && <ApolloError error={error} />}

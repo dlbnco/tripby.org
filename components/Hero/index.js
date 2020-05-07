@@ -12,7 +12,7 @@ const Wrapper = styled(Box)`
 `;
 
 Wrapper.defaultProps = {
-  py: [4, 5, 6],
+  py: [3, 4, 5],
 };
 
 const Title = styled(Text).attrs(() => ({ as: 'h1' }))`
@@ -36,13 +36,13 @@ const Hero = ({ filter, onChange, shrink, ...props }) => {
           </>
         )}
         <FormattedMessage id="Home.filter">
-          {placeholder => (
+          {(placeholder) => (
             <Input
               fontSize={2}
               autoFocus
               placeholder={placeholder}
               value={filter}
-              onChange={e => onChange(e.target.value)}
+              onChange={(e) => onChange(e.target.value)}
               width={1}
             />
           )}

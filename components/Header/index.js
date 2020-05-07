@@ -7,7 +7,6 @@ import { withTheme } from 'styled-components';
 import Text from '../Text';
 import Logo from '../Logo';
 import Container from '../Container';
-import WikiLogo from '../Logo/Wiki';
 import { useTimeMachine } from '../TimeMachine';
 import Moon from 'react-moon';
 

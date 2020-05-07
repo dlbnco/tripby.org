@@ -41,17 +41,6 @@ const Header = ({ theme }) => {
               </a>
             </Link>
           )}
-          <span>
-            <Text color="purpleHeart">
-              <a
-                href="https://tripby.bigcartel.com  "
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                SHOP ↗
-              </a>
-            </Text>
-          </span>
         </Flex>
       </Container>
     </Box>

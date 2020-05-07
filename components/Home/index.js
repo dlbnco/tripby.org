@@ -1,69 +1,36 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Box, Flex } from 'rebass';
-import flatMap from 'lodash/flatMap';
+import { Box } from 'rebass';
+import throttle from 'lodash/throttle';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import GET_SUBSTANCES from '../../queries/substances';
-import SubstanceCard from '../Substance/Card';
 import Container from '../Container';
 import { FormattedMessage } from 'react-intl';
 import Spinner from '../Spinner';
 import Text from '../Text';
 import ApolloError from '../ApolloError';
 import Hero from '../Hero';
-import Card from '../Card';
-
-const getClasses = (list, type) => {
-  return [...new Set(flatMap(list, substance => substance?.class?.[type]))]
-    .filter(Boolean)
-    .sort((a, b) => a > b);
-};
+import HomeSubstanceList from './SubstanceList';
+import HomeClassSelector from './ClassSelector';
+import getFilteredSubstances from './utils/getFilteredSubstances';
 
 const Home = () => {
-  const { query } = useRouter();
+  const { query, replace } = useRouter();
   const selectedClass = query?.class;
   const [filter, handleFilter] = useState('');
   const { data, loading, error } = useQuery(GET_SUBSTANCES, {
     variables: { limit: 300 },
   });
-  const filterSubstances = useCallback(
-    substances => {
-      const lowerCaseFilter = filter.toLowerCase();
-      return substances.filter(
-        sub =>
-          sub.name.toLowerCase().includes(lowerCaseFilter) ||
-          (sub.class &&
-            Object.values(sub.class).some(
-              _class =>
-                Array.isArray(_class) &&
-                _class.some(__class =>
-                  __class.toLowerCase().includes(lowerCaseFilter)
-                )
-            ))
-      );
-    },
-    [filter]
-  );
-  const sortSubstances = useCallback(
-    substances => {
-      return substances.sort(a => {
-        if (a.featured) {
-          return -1;
-        }
-        return 0;
-      });
-    },
-    [filter]
-  );
-  const substanceList =
-    data && data.substances && Array.isArray(data.substances)
-      ? sortSubstances(filterSubstances(data?.substances))
-      : [];
-  const noResults = filter.length > 0 && substanceList.length === 0;
-  const psychoactiveClasses = getClasses(substanceList, 'psychoactive');
+
+  const substances = data?.substances;
+  const noResults = filter.length > 0 && substances?.length === 0;
   const isFiltering = filter.length > 0;
+  const _getFilteredSubstances = throttle(
+    () => getFilteredSubstances(data, filter, selectedClass),
+    500
+  );
   return (
     <>
       <Hero shrink={isFiltering} onChange={handleFilter} />
@@ -83,80 +50,27 @@ const Home = () => {
             </Text>
           )}
           {!loading && !isFiltering && !error && (
+            <HomeClassSelector
+              selectedClass={selectedClass}
+              data={data}
+              onSelect={() => replace('/')}
+            />
+          )}
+          {selectedClass && !filter && (
             <Text
+              fontSize={[1, 2]}
+              mb={[3, 4]}
+              color="purpleHeart"
               textAlign="center"
-              mb={[3, 4, 5]}
-              fontSize={3}
-              variant="secondary"
             >
-              <FormattedMessage id="Home.classes.title" />{' '}
-              {selectedClass && (
-                <span>
-                  →{' '}
-                  <Link href="/" scroll={false}>
-                    <a>{selectedClass} ×</a>
-                  </Link>
-                </span>
-              )}
+              <Link href="/" scroll={false}>
+                <a>{selectedClass} ×</a>
+              </Link>
             </Text>
           )}
-          <Flex flexWrap="wrap" m={isFiltering ? undefined : -2}>
-            {psychoactiveClasses
-              .filter(psychoactiveClass =>
-                selectedClass ? psychoactiveClass === selectedClass : true
-              )
-              .map(psychoactiveClass =>
-                isFiltering || selectedClass ? (
-                  <Box width={1} key={`classList-${psychoactiveClass}`}>
-                    {!selectedClass && (
-                      <Text p={2} fontSize={2} mb={1}>
-                        {psychoactiveClass}
-                      </Text>
-                    )}
-                    <Flex flexWrap="wrap" width={1}>
-                      {substanceList
-                        .filter(substance =>
-                          substance.class?.psychoactive?.includes(
-                            psychoactiveClass
-                          )
-                        )
-                        .filter(substance =>
-                          selectedClass
-                            ? substance.class?.psychoactive?.includes(
-                                selectedClass
-                              )
-                            : true
-                        )
-                        .map(substance => (
-                          <Box
-                            width={[1, null, 1 / 2, 1 / 3, 1 / 4]}
-                            p={2}
-                            key={substance.name}
-                          >
-                            <SubstanceCard substance={substance} />
-                          </Box>
-                        ))}
-                    </Flex>
-                  </Box>
-                ) : (
-                  <Box
-                    width={[1, 1 / 2, 1 / 3]}
-                    p={2}
-                    key={`classList-${psychoactiveClass}`}
-                  >
-                    <Link scroll={false} href={`?class=${psychoactiveClass}`}>
-                      <a>
-                        <Card>
-                          <Text color="purpleHeart" p={2} fontSize={2} mb={1}>
-                            {psychoactiveClass} →
-                          </Text>
-                        </Card>
-                      </a>
-                    </Link>
-                  </Box>
-                )
-              )}
-          </Flex>
+          {(selectedClass || filter) && (
+            <HomeSubstanceList substances={_getFilteredSubstances()} />
+          )}
         </Box>
       </Container>
     </>

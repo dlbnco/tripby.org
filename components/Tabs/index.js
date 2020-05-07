@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { TabList, Tab } from 'react-tabs';
-import { space, fontSize } from 'styled-system';
+import { space, fontSize, alignItems, justifyContent } from 'styled-system';
 
 export const StyledTabList = styled(TabList)`
   ${space}
   ${fontSize}
+  ${justifyContent}
+  ${alignItems}
   display: flex;
   align-items: center;
 `;

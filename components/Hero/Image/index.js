@@ -14,7 +14,7 @@ function getRandomInt(min, max) {
 
 const HeroImage = (props) => {
   const currentImg = useMemo(() => images[getRandomInt(0, images.length)], []);
-  return <Image src={currentImg.src} srcSet={currentImg.srcSet} {...props} />;
+  return <Image src={currentImg.src} {...props} />;
 };
 
 export default HeroImage;

@@ -24,14 +24,14 @@ const Home = () => {
     variables: { limit: 300 },
   });
 
-  const substances = data?.substances;
-  const noResults = filter.length > 0 && substances?.length === 0;
   const isFiltering = filter.length > 0;
   const _getFilteredSubstances = debounce(
     () => getFilteredSubstances(data, filter, selectedClass),
     500,
     { leading: true }
   );
+  const filteredSubstances = _getFilteredSubstances();
+  const noResults = filter.length > 0 && filteredSubstances?.length === 0;
   return (
     <>
       <Hero shrink={isFiltering} onChange={handleFilter} />
@@ -70,7 +70,7 @@ const Home = () => {
             </Text>
           )}
           {(selectedClass || filter) && (
-            <HomeSubstanceList substances={_getFilteredSubstances()} />
+            <HomeSubstanceList substances={filteredSubstances} />
           )}
         </Box>
       </Container>

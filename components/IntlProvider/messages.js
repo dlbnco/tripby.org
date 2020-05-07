@@ -16,7 +16,8 @@ const messages = {
     'Home.filter':
       '🔍 Search by name or drug class (e.g. lsd, mdma, psychedelic, phenethylamine)',
     'Home.noResults': '🧐 sorry, no results for {query}',
-    'Home.classes.title': 'Psychoactive classes',
+    'Home.classes.psychoactive.title': 'Psychoactive classes',
+    'Home.classes.chemical.title': 'Chemical classes',
     'Substance.psychoactiveClass': 'Psychoactive class',
     'Substance.chemicalClass': 'Chemical class',
     'Substance.roas': 'Routes of administration',

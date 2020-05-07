@@ -7,7 +7,7 @@ import Heading from '../../Heading';
 import Text from '../../Text';
 import { colors, NODE_ENV } from '../../../lib/constants';
 
-const SubstanceCard = ({ substance }) => {
+const SubstanceCard = React.memo(({ substance }) => {
   return (
     <Link
       href={
@@ -48,7 +48,7 @@ const SubstanceCard = ({ substance }) => {
       </a>
     </Link>
   );
-};
+});
 
 SubstanceCard.propTypes = {
   substance: PropTypes.object.isRequired,

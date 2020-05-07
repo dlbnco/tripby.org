@@ -73,7 +73,8 @@ const Hero = ({ filter, onChange, shrink, ...props }) => {
           <HeroImage
             p={[0, null, 4]}
             width={[0, null, 'auto']}
-            maxHeight={240}
+            maxHeight={shrink ? 0 : 240}
+            style={{ transition: '0.25s' }}
           />
         </Flex>
       </Container>

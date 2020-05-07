@@ -80,8 +80,8 @@ const Modal = ({
 };
 
 Modal.propTypes = {
-  content: PropTypes.node,
-  children: PropTypes.node,
+  content: PropTypes.oneOfType(PropTypes.node, PropTypes.func),
+  children: PropTypes.oneOfType(PropTypes.node, PropTypes.func),
   maxWidth: PropTypes.number,
 };
 

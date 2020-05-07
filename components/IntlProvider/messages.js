@@ -5,7 +5,8 @@ const messages = {
     'App.close': 'Close',
     'App.license':
       'This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License ↗</a>',
-    'App.wikiCredits': 'data by PsychonautWiki.org ↗',
+    'App.wikiCredits': 'drug data by PsychonautWiki.org ↗',
+    'App.illustrationCredits': 'illustrations by absurd.design ↗',
     'App.meta.title': 'tripby.org · read the label',
     'App.meta.description':
       'Harm reduction info about psychoactive drugs. Data provided by PsychonautWiki.org',

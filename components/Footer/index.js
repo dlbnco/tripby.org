@@ -24,8 +24,9 @@ const Anchor = styled.a`
   ${space}
 `;
 
-const Wrapper = styled(Box)`
+const Wrapper = styled(Flex)`
   border-top: ${({ theme }) => theme.border};
+  justify-content: space-between;
 `;
 
 Wrapper.defaultProps = {
@@ -36,9 +37,9 @@ Wrapper.defaultProps = {
 const Footer = () => (
   <Container py={[2, 3]}>
     <Wrapper flexWrap="wrap" m={-1}>
-      <Flex p={1} justifyContent="space-between">
-        <Flex m={-2}>
-          {links.map(link => (
+      <Box p={1}>
+        <Flex m={-2} mb={1}>
+          {links.map((link) => (
             <Box p={2} key={link.id}>
               <Anchor href={link.url}>
                 <Text variant="secondary">{link.id}</Text>
@@ -46,7 +47,12 @@ const Footer = () => (
             </Box>
           ))}
         </Flex>
-        <Flex alignItems="center">
+        <Text fontSize={0} variant="secondary">
+          <FormattedHTMLMessage id="App.license" />
+        </Text>
+      </Box>
+      <Flex alignItems="flex-end" flexDirection="column" p={1}>
+        <Flex alignItems="center" mb={1}>
           <WikiLogo size={24} />
           <a
             href="https://psychonautwiki.org"
@@ -58,10 +64,16 @@ const Footer = () => (
             </Text>
           </a>
         </Flex>
+        <a
+          href="https://absurd.design"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Text p={1} fontSize={0} variant="secondary">
+            <FormattedMessage id="App.illustrationCredits" />
+          </Text>
+        </a>
       </Flex>
-      <Text fontSize={0} p={1} variant="secondary">
-        <FormattedHTMLMessage id="App.license" />
-      </Text>
     </Wrapper>
     <Donate />
   </Container>

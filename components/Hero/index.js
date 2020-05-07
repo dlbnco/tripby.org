@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from 'rebass';
+import { Box, Flex } from 'rebass';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import transition from 'styled-transition-group';
@@ -7,6 +7,7 @@ import transition from 'styled-transition-group';
 import Text from '../Text';
 import Input from '../Input';
 import Container from '../Container';
+import HeroImage from './Image';
 
 const Wrapper = styled(Box)`
   background: ${({ theme }) => theme.greys['100']};
@@ -38,32 +39,43 @@ const Title = styled(Text).attrs(() => ({ as: 'h1' }))`
 
 const Description = styled(Text)``;
 
+const Inner = styled(Box)`
+  flex: 1;
+`;
+
 const Hero = ({ filter, onChange, shrink, ...props }) => {
   return (
     <Wrapper py={shrink ? 4 : undefined} width={1} {...props}>
       <Container>
-        {/* {!shrink && ( */}
-        <Heading unmountOnExit timeout={100} in={!shrink}>
-          <Title fontSize={[5, 6]} fontWeight="800" mb={1}>
-            <FormattedMessage id="Hero.title" />
-          </Title>
-          <Description color="persianGreen" variant="secondary" mb={[3, 4]}>
-            <FormattedMessage id="Hero.description" />
-          </Description>
-        </Heading>
-        {/* )} */}
-        <FormattedMessage id="Home.filter">
-          {(placeholder) => (
-            <Input
-              fontSize={2}
-              autoFocus
-              placeholder={placeholder}
-              value={filter}
-              onChange={(e) => onChange(e.target.value)}
-              width={1}
-            />
-          )}
-        </FormattedMessage>
+        <Flex alignItems="center" m={-4}>
+          <Inner p={4} flex={1} flexWrap="wrap">
+            <Heading unmountOnExit timeout={100} in={!shrink}>
+              <Title fontSize={[5, 6]} fontWeight="800" mb={1}>
+                <FormattedMessage id="Hero.title" />
+              </Title>
+              <Description color="persianGreen" variant="secondary" mb={[3, 4]}>
+                <FormattedMessage id="Hero.description" />
+              </Description>
+            </Heading>
+            <FormattedMessage id="Home.filter">
+              {(placeholder) => (
+                <Input
+                  fontSize={2}
+                  autoFocus
+                  placeholder={placeholder}
+                  value={filter}
+                  onChange={(e) => onChange(e.target.value)}
+                  width={1}
+                />
+              )}
+            </FormattedMessage>
+          </Inner>
+          <HeroImage
+            p={[0, null, 4]}
+            width={[0, null, 'auto']}
+            maxHeight={240}
+          />
+        </Flex>
       </Container>
     </Wrapper>
   );

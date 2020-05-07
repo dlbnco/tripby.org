@@ -19,7 +19,11 @@ const HomeClassSelector = ({ selectedClass, data, onSelect, ...props }) => {
     <Tabs onSelect={onSelect}>
       <StyledTabList m={-2} justifyContent="center" mb={[3, 4]} {...props}>
         {['psychoactive', 'chemical'].map((classType) => (
-          <StyledTab p={2} fontSize={3} key={`classType-tab-${classType}`}>
+          <StyledTab
+            p={2}
+            fontSize={[1, null, 3]}
+            key={`classType-tab-${classType}`}
+          >
             <FormattedMessage id={`Home.classes.${classType}.title`} />{' '}
           </StyledTab>
         ))}

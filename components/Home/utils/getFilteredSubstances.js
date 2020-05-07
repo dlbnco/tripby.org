@@ -1,6 +1,6 @@
 const getFilteredSubstances = (data, filter, selectedClass) => {
   const arr = data?.substances || [];
-  const lowerCaseFilter = filter.toLowerCase();
+  const lowerCaseFilter = filter.toLowerCase().trim();
   if (filter) {
     return arr.filter(
       (sub) =>

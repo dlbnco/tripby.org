@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Box } from 'rebass';
 import debounce from 'lodash/debounce';
@@ -25,12 +25,13 @@ const Home = () => {
   });
 
   const isFiltering = filter.length > 0;
-  const _getFilteredSubstances = debounce(
-    () => getFilteredSubstances(data, filter, selectedClass),
-    500,
-    { leading: true }
+  const _getFilteredSubstances = debounce(getFilteredSubstances, 500, {
+    leading: true,
+  });
+  const filteredSubstances = useMemo(
+    () => _getFilteredSubstances(data, filter, selectedClass),
+    [data, filter, selectedClass]
   );
-  const filteredSubstances = _getFilteredSubstances();
   const noResults = filter.length > 0 && filteredSubstances?.length === 0;
   return (
     <>
@@ -69,7 +70,7 @@ const Home = () => {
               </Link>
             </Text>
           )}
-          {(selectedClass || filter) && (
+          {(selectedClass || filter?.length > 2) && (
             <HomeSubstanceList substances={filteredSubstances} />
           )}
         </Box>

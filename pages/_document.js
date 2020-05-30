@@ -1,11 +1,12 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import { withApollo } from '../lib/with-apollo-client';
 
 class MyDocument extends Document {
   static getInitialProps(props) {
     const sheet = new ServerStyleSheet();
-    const page = props.renderPage(App => props =>
+    const page = props.renderPage((App) => (props) =>
       sheet.collectStyles(<App {...props} />)
     );
     const styleTags = sheet.getStyleElement();
@@ -39,4 +40,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+export default withApollo({ ssr: true })(MyDocument);

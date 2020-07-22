@@ -1,4 +1,3 @@
-import App, { Container } from 'next/app';
 import React from 'react';
 import Router from 'next/router';
 import { ApolloProvider } from 'react-apollo';
@@ -13,27 +12,20 @@ import IntlProvider from '../components/IntlProvider';
 import { GA_TRACKING_ID } from '../lib/constants';
 import TimeMachineProvider from '../components/TimeMachine';
 
-class MyApp extends App {
-  render() {
-    const { Component, pageProps, apolloClient } = this.props;
-    return (
-      <Container>
-        <ApolloProvider client={apolloClient}>
-          <ApolloHooksProvider client={apolloClient}>
-            <ThemeProvider theme={defaultTheme}>
-              <IntlProvider>
-                <TimeMachineProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </TimeMachineProvider>
-              </IntlProvider>
-            </ThemeProvider>
-          </ApolloHooksProvider>
-        </ApolloProvider>
-      </Container>
-    );
-  }
-}
+const App = ({ Component, pageProps, apolloClient }) => (
+  <ApolloProvider client={apolloClient}>
+    <ApolloHooksProvider client={apolloClient}>
+      <ThemeProvider theme={defaultTheme}>
+        <IntlProvider>
+          <TimeMachineProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </TimeMachineProvider>
+        </IntlProvider>
+      </ThemeProvider>
+    </ApolloHooksProvider>
+  </ApolloProvider>
+);
 
-export default withGA(GA_TRACKING_ID, Router)(withApolloClient(MyApp));
+export default withGA(GA_TRACKING_ID, Router)(withApolloClient(App));

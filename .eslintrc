@@ -19,6 +19,7 @@
   "rules": {
     "quotes": [1, "single"],
     "react/display-name": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0
   }
 }

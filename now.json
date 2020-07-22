@@ -1,7 +1,7 @@
 {
   "version": 2,
   "builds": [{ "src": "package.json", "use": "@now/next" }],
-  "regions": ["gru1", "cdg1", "sfo1"],
+  "regions": ["sfo1"],
   "alias": "tripby.org",
   "routes": [
     { "src": "/substance/(?<name>[^/]+)", "dest": "/substance?name=$name" },

@@ -16,6 +16,7 @@ import SubstanceMeta from './Meta';
 import { graphql } from 'react-apollo';
 import Spinner from '../../Spinner';
 import ApolloError from '../../ApolloError';
+import { useRouter } from 'next/router';
 
 const StickyHeader = styled(Box).attrs(() => ({
   position: ['relative', null, 'sticky'],
@@ -25,11 +26,19 @@ const StickyHeader = styled(Box).attrs(() => ({
   height: 100%;
 `;
 
-const SubstancePage = ({ data }) => {
-  if (data.loading) {
+const SubstancePage = () => {
+  const {
+    query: { name },
+  } = useRouter();
+  const { data, loading, error } = useQuery(GET_SUBSTANCE, {
+    variables: {
+      query: name,
+    },
+  });
+  if (loading) {
     return <Spinner mx="auto" />;
   }
-  if (data.error) {
+  if (error) {
     return (
       <Container>
         <ApolloError error={data.error} />
@@ -59,10 +68,21 @@ SubstancePage.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default graphql(GET_SUBSTANCE, {
-  options: ({ name }) => ({
-    variables: {
-      query: name,
+SubstancePage.getStaticProps = (props) => {
+  // const apolloClient = initializeApollo()
+  console.log(props);
+
+  // await apolloClient.query({
+  //   query: ALL_POSTS_QUERY,
+  //   variables: allPostsQueryVars,
+  // })
+
+  return {
+    props: {
+      // initialApolloState: apolloClient.cache.extract(),
     },
-  }),
-})(SubstancePage);
+    unstable_revalidate: 1,
+  };
+};
+
+export default SubstancePage;

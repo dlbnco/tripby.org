@@ -7,7 +7,6 @@ import { withTheme } from 'styled-components';
 import Text from '../Text';
 import Logo from '../Logo';
 import Container from '../Container';
-import WikiLogo from '../Logo/Wiki';
 import { useTimeMachine } from '../TimeMachine';
 import Moon from 'react-moon';
 
@@ -15,7 +14,7 @@ const Header = ({ theme }) => {
   const { isActive, phase, substance } = useTimeMachine();
   const { pathname } = useRouter();
   return (
-    <Box pt={[2, 3]} width={1}>
+    <Box py={[2, 3]} width={1}>
       <Container>
         <Flex justifyContent="space-between" alignItems="center">
           <Link href="/">
@@ -41,15 +40,6 @@ const Header = ({ theme }) => {
               </a>
             </Link>
           )}
-          <span>
-            <a
-              href="https://psychonautwiki.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <WikiLogo size={32} />
-            </a>
-          </span>
         </Flex>
       </Container>
     </Box>

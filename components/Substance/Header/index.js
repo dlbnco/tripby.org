@@ -12,19 +12,28 @@ import SubstanceRoas from '../ROAs';
 import SubstanceTolerance from '../Tolerance';
 import SubstanceClass from '../Class';
 import validateSubstance from '../../TimeMachine/utils/validateSubstance';
+import { useRouter } from 'next/router';
 
 const SubstancePageHeader = ({ substance }) => {
+  const { back } = useRouter();
   const isValidForTimeMachine = validateSubstance(substance);
   return (
     <>
       <Box mb={3}>
-        <Link href="/">
-          <a>
-            <Text mt={[0, null, -4]} fontSize={4} mb={2} variant="secondary">
-              ←
-            </Text>
-          </a>
-        </Link>
+        <a onClick={back}>
+          <Text
+            mt={[0, null, -4]}
+            style={{
+              cursor: 'pointer',
+              display: 'inline-block',
+            }}
+            fontSize={4}
+            mb={2}
+            variant="secondary"
+          >
+            ←
+          </Text>
+        </a>
         <Heading
           style={{ textOverflow: '-' }}
           as="h1"

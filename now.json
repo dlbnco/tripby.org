@@ -1,20 +1,84 @@
 {
   "version": 2,
   "builds": [{ "src": "package.json", "use": "@now/next" }],
-  "regions": ["gru1", "cdg1", "sfo1"],
+  "regions": ["sfo1"],
   "alias": "tripby.org",
   "routes": [
     { "src": "/substance/(?<name>[^/]+)", "dest": "/substance?name=$name" },
     {
-      "src": "/sitemap.xml",
-      "dest": "https://tripby-sitemap-generator.herokuapp.com/"
+      "src": "/psicoativos/cafeina",
+      "status": 301,
+      "headers": { "Location": "/substance/Caffeine" }
     },
     {
-      "src": "/psicoativos/(.*)",
+      "src": "/psicoativos/cocaina",
+      "status": 301,
+      "headers": { "Location": "/substance/Cocaine" }
+    },
+    {
+      "src": "/psicoativos/cogumelos-psicodelicos",
       "status": 301,
       "headers": {
-        "Location": "https://br-tripby-legacy.netlify.com/psicoativos/$1"
+        "Location": "/substance/Psilocybin"
       }
+    },
+    {
+      "src": "/psicoativos/dxm",
+      "status": 301,
+      "headers": { "Location": "/substance/Dextromethorphan" }
+    },
+    {
+      "src": "/psicoativos/heroina",
+      "status": 301,
+      "headers": { "Location": "/substance/Heroin" }
+    },
+    {
+      "src": "/psicoativos/ibogaina",
+      "status": 301,
+      "headers": { "Location": "/substance/Ibogaine" }
+    },
+    {
+      "src": "/psicoativos/ketamina",
+      "status": 301,
+      "headers": { "Location": "/substance/Ketamine" }
+    },
+    {
+      "src": "/psicoativos/maconha",
+      "status": 301,
+      "headers": { "Location": "/substance/Cannabis" }
+    },
+    {
+      "src": "/psicoativos/mescalina",
+      "status": 301,
+      "headers": {
+        "Location": "/substance/Mescaline"
+      }
+    },
+    {
+      "src": "/psicoativos/metanfetamina",
+      "status": 301,
+      "headers": {
+        "Location": "/substance/Methamphetamine"
+      }
+    },
+    {
+      "src": "/psicoativos/salvia",
+      "status": 301,
+      "headers": { "Location": "/substance/Salvinorin A" }
+    },
+    {
+      "src": "/psicoativos/alcool",
+      "status": 301,
+      "headers": { "Location": "/substance/Alcohol" }
+    },
+    {
+      "src": "/psicoativos/(?<name>[^/]+)",
+      "status": 301,
+      "headers": { "Location": "/substance?name=$name" }
+    },
+    {
+      "src": "/sitemap.xml",
+      "dest": "https://tripby-sitemap-generator.herokuapp.com/"
     }
   ]
 }

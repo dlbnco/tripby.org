@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
       <GlobalStyle />
       <Wrapper>
         <Header />
-        <Content flex="1" width={1} py={[2, 3, 4]}>
+        <Content flex="1" width={1}>
           {children}
         </Content>
         <Footer />

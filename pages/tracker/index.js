@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TimeMachineWizard from '../../components/TimeMachine/Wizard';
+import { withApollo } from '../../lib/apollo/init';
 
-const TimeMachinePage = props => {
+const TimeMachinePage = (props) => {
   return (
     <div>
       <TimeMachineWizard />
@@ -12,4 +13,4 @@ const TimeMachinePage = props => {
 
 TimeMachinePage.propTypes = {};
 
-export default TimeMachinePage;
+export default withApollo({ ssr: true })(TimeMachinePage);

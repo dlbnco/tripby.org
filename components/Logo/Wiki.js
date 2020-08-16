@@ -1,7 +1,7 @@
 import React from 'react';
 import SvgWrapper from '../SvgWrapper';
 
-const Logo = props => {
+const WikiLogo = props => {
   return (
     <SvgWrapper
       xmlns="http://www.w3.org/2000/svg"
@@ -13,4 +13,4 @@ const Logo = props => {
   );
 };
 
-export default Logo;
+export default WikiLogo;

@@ -41,7 +41,7 @@ const SubstancePage = () => {
   if (error) {
     return (
       <Container>
-        <ApolloError error={data.error} />
+        <ApolloError error={error} />
       </Container>
     );
   }

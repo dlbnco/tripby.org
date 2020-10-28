@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }) => (
             <script
               async
               defer
-              src="https://scripts.simpleanalyticscdn.com/latest.js"
+              src={process.env.NEXT_PUBLIC_ANALYTICS_SCRIPT}
             ></script>
           </Head>
           <Component {...pageProps} />

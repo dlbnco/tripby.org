@@ -7,9 +7,22 @@ import Text from '../Text';
 import WikiLogo from '../Logo/Wiki';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Button from '../Button';
+import Link from 'next/link';
 import Donate from '../Donate';
 
 const links = [
+  {
+    id: 'about',
+    path: '/about',
+  },
+  {
+    id: 'privacy policy',
+    path: '/privacy-policy',
+  },
+  {
+    id: 'terms & conditions',
+    path: '/terms-conditions',
+  },
   {
     id: 'twitter',
     url: 'https://twitter.com/tripby_',
@@ -24,6 +37,17 @@ const Anchor = styled.a`
   ${space}
 `;
 
+const HybridLink = ({ to, ...props }) => {
+  if (to.includes('http')) {
+    return <Anchor href={to} {...props} />;
+  }
+  return (
+    <Link href={to}>
+      <a {...props} />
+    </Link>
+  );
+};
+
 const Wrapper = styled(Flex)`
   border-top: ${({ theme }) => theme.border};
   justify-content: space-between;
@@ -36,14 +60,14 @@ Wrapper.defaultProps = {
 
 const Footer = () => (
   <Container py={[2, 3]}>
-    <Wrapper flexWrap="wrap" m={-1}>
-      <Box p={1}>
-        <Flex m={-2} mb={1}>
+    <Wrapper flexWrap="wrap" m={-2}>
+      <Box p={2}>
+        <Flex m={-2} flexDirection={['column', null, 'row']} mb={2}>
           {links.map((link) => (
             <Box p={2} key={link.id}>
-              <Anchor href={link.url}>
+              <HybridLink to={link.url ?? link.path}>
                 <Text variant="secondary">{link.id}</Text>
-              </Anchor>
+              </HybridLink>
             </Box>
           ))}
         </Flex>
@@ -51,8 +75,12 @@ const Footer = () => (
           <FormattedHTMLMessage id="App.license" />
         </Text>
       </Box>
-      <Flex alignItems="flex-end" flexDirection="column" p={1}>
-        <Flex alignItems="center" mb={1}>
+      <Flex
+        alignItems={['flex-start', null, 'flex-end']}
+        flexDirection="column"
+        p={2}
+      >
+        <Flex alignItems="center" mb={2}>
           <WikiLogo size={24} />
           <a
             href="https://psychonautwiki.org"

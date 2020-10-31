@@ -16,9 +16,13 @@ const Wrapper = styled(Box)`
     line-height: 1.5;
     font-size: 1.2rem;
     color: ${theme.textColor};
+    blockquote {
+      padding-left: 1rem;
+      border-left: ${theme.border};
+      font-weight: 500;
+    }
     a:link {
       color: ${theme.colors.purpleHeart};
-      text-decoration: underline;
       font-weight: 500;
     }
     p {
@@ -59,10 +63,10 @@ const Wrapper = styled(Box)`
       font-size: 3.25rem;
     }
     h2 {
-      font-size: 3rem;
+      font-size: 2.5rem;
     }
     h3 {
-      font-size: 2.75rem;
+      font-size: 2.25rem;
     }
     h4 {
       font-size: 2rem;

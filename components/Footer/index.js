@@ -60,9 +60,9 @@ Wrapper.defaultProps = {
 
 const Footer = () => (
   <Container py={[2, 3]}>
-    <Wrapper flexWrap="wrap" m={-1}>
-      <Box p={1}>
-        <Flex m={-2} mb={1}>
+    <Wrapper flexWrap="wrap" m={-2}>
+      <Box p={2}>
+        <Flex m={-2} flexDirection={['column', null, 'row']} mb={2}>
           {links.map((link) => (
             <Box p={2} key={link.id}>
               <HybridLink to={link.url ?? link.path}>
@@ -75,8 +75,12 @@ const Footer = () => (
           <FormattedHTMLMessage id="App.license" />
         </Text>
       </Box>
-      <Flex alignItems="flex-end" flexDirection="column" p={1}>
-        <Flex alignItems="center" mb={1}>
+      <Flex
+        alignItems={['flex-start', null, 'flex-end']}
+        flexDirection="column"
+        p={2}
+      >
+        <Flex alignItems="center" mb={2}>
           <WikiLogo size={24} />
           <a
             href="https://psychonautwiki.org"

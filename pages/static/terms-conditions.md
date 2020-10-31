@@ -10,7 +10,6 @@ By accessing or using the Product, you signal your agreement with and consent to
 3. We use third-party services and hosting partners to provide the necessary hardware, software, networking, storage, and related technology required to run the Product:
 
    - [Vercel](https://vercel.com/) — Hosting services provider.
-   - [Sentry](https://sentry.io/) — Error reporting software.
    - [Simple Analytics](https://simpleanalytics.com) — Analytics services provider.
 
 4. Tripby is maintained with love and joy and is provided for you completely free of cost. There are no gotchas. We do not make money in any way by offering the Product to you.

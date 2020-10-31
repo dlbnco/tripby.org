@@ -7,9 +7,22 @@ import Text from '../Text';
 import WikiLogo from '../Logo/Wiki';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Button from '../Button';
+import Link from 'next/link';
 import Donate from '../Donate';
 
 const links = [
+  {
+    id: 'about',
+    path: '/about',
+  },
+  {
+    id: 'privacy policy',
+    path: '/privacy-policy',
+  },
+  {
+    id: 'terms & conditions',
+    path: '/terms-conditions',
+  },
   {
     id: 'twitter',
     url: 'https://twitter.com/tripby_',
@@ -23,6 +36,17 @@ const links = [
 const Anchor = styled.a`
   ${space}
 `;
+
+const HybridLink = ({ to, ...props }) => {
+  if (to.includes('http')) {
+    return <Anchor href={to} {...props} />;
+  }
+  return (
+    <Link href={to}>
+      <a {...props} />
+    </Link>
+  );
+};
 
 const Wrapper = styled(Flex)`
   border-top: ${({ theme }) => theme.border};
@@ -41,9 +65,9 @@ const Footer = () => (
         <Flex m={-2} mb={1}>
           {links.map((link) => (
             <Box p={2} key={link.id}>
-              <Anchor href={link.url}>
+              <HybridLink to={link.url ?? link.path}>
                 <Text variant="secondary">{link.id}</Text>
-              </Anchor>
+              </HybridLink>
             </Box>
           ))}
         </Flex>

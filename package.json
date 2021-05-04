@@ -1,6 +1,6 @@
 {
   "name": "tripby.org",
-  "version": "2.9.3",
+  "version": "2.9.4",
   "scripts": {
     "dev": "next",
     "build": "next build",

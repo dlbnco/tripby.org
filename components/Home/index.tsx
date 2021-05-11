@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
 import { Box } from 'rebass';
 import debounce from 'lodash/debounce';
 import Link from 'next/link';

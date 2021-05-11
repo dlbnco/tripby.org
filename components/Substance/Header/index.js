@@ -49,7 +49,7 @@ const SubstancePageHeader = ({ substance }) => {
           </a>
         </Text>
         {isValidForTimeMachine && (
-          <Link href={`/tracker?name=${substance.name}`}>
+          <Link href={`/tracker/${substance.name}`}>
             <a>
               <Button variant="outline">🌘 Track your experience</Button>
             </a>
@@ -78,7 +78,7 @@ const SubstancePageHeader = ({ substance }) => {
               <FormattedMessage id="Substance.toxicity" />
             </Text>
             <Flex flexDirection="column" m={-1}>
-              {substance.toxicity.map(item => (
+              {substance.toxicity.map((item) => (
                 <Text p={1} key={`toxicity-${item}`} fontSize={2}>
                   {upperFirst(item)}
                 </Text>

@@ -5,32 +5,32 @@ import debounce from 'lodash/debounce';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import GET_SUBSTANCES from '../../queries/substances';
 import Container from '../Container';
 import { FormattedMessage } from 'react-intl';
-import Spinner from '../Spinner';
 import Text from '../Text';
 import ApolloError from '../ApolloError';
 import Hero from '../Hero';
 import HomeSubstanceList from './SubstanceList';
 import HomeClassSelector from './ClassSelector';
 import getFilteredSubstances from './utils/getFilteredSubstances';
+import { Substance } from '../../lib/psy.is';
 
-const Home = () => {
+interface HomeProps {
+  substances: Substance[];
+}
+
+const Home: React.FC<HomeProps> = ({ substances, error }) => {
   const { query, replace } = useRouter();
   const selectedClass = query?.class;
   const [filter, handleFilter] = useState('');
-  const { data, loading, error } = useQuery(GET_SUBSTANCES, {
-    variables: { limit: 300 },
-  });
 
   const isFiltering = filter.length > 0;
   const _getFilteredSubstances = debounce(getFilteredSubstances, 500, {
     leading: true,
   });
   const filteredSubstances = useMemo(
-    () => _getFilteredSubstances(data, filter, selectedClass),
-    [data, filter, selectedClass]
+    () => _getFilteredSubstances(substances, filter, selectedClass),
+    [filter, selectedClass]
   );
   const noResults = filter.length > 0 && filteredSubstances?.length === 0;
   return (
@@ -42,8 +42,7 @@ const Home = () => {
           style={{ transition: '.1s ease-in' }}
         >
           {error && <ApolloError error={error} />}
-          {loading && <Spinner size={96} mx="auto" />}
-          {!loading && noResults && (
+          {noResults && (
             <Text variant="secondary" p={2} mx="auto" fontSize={3}>
               <FormattedMessage
                 id="Home.noResults"
@@ -51,10 +50,10 @@ const Home = () => {
               />
             </Text>
           )}
-          {!loading && !isFiltering && !error && (
+          {!isFiltering && !error && (
             <HomeClassSelector
               selectedClass={selectedClass}
-              data={data}
+              data={{ substances }}
               onSelect={() => replace('/')}
             />
           )}

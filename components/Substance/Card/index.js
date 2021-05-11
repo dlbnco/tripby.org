@@ -1,21 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import Card from '../../Card';
 import Heading from '../../Heading';
 import Text from '../../Text';
-import { colors, NODE_ENV } from '../../../lib/constants';
+import { colors } from '../../../lib/constants';
 
 const SubstanceCard = React.memo(({ substance }) => {
   return (
-    <Link
-      href={
-        NODE_ENV === 'production'
-          ? `substance/${substance.name}`
-          : `substance?name=${substance.name}`
-      }
-    >
+    <Link href={`substance/${substance.name}`}>
       <a>
         <Card style={{ overflow: 'auto' }}>
           <Heading fontSize={2} fontWeight="500">
@@ -49,9 +42,5 @@ const SubstanceCard = React.memo(({ substance }) => {
     </Link>
   );
 });
-
-SubstanceCard.propTypes = {
-  substance: PropTypes.object.isRequired,
-};
 
 export default SubstanceCard;

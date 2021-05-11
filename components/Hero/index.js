@@ -43,7 +43,7 @@ const Inner = styled(Box)`
   flex: 1;
 `;
 
-const Hero = ({ filter, onChange, shrink, ...props }) => {
+const Hero = ({ onChange, shrink, ...props }) => {
   return (
     <Wrapper py={shrink ? 4 : undefined} width={1} {...props}>
       <Container>
@@ -63,7 +63,6 @@ const Hero = ({ filter, onChange, shrink, ...props }) => {
                   fontSize={2}
                   autoFocus
                   placeholder={placeholder}
-                  value={filter}
                   onChange={(e) => onChange(e.target.value)}
                   width={1}
                 />

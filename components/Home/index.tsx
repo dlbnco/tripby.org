@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import Container from '../Container';
 import { FormattedMessage } from 'react-intl';
 import Text from '../Text';
-import ApolloError from '../ApolloError';
 import Hero from '../Hero';
 import HomeSubstanceList from './SubstanceList';
 import HomeClassSelector from './ClassSelector';
@@ -18,7 +17,7 @@ interface HomeProps {
   substances: Substance[];
 }
 
-const Home: React.FC<HomeProps> = ({ substances, error }) => {
+const Home: React.FC<HomeProps> = ({ substances }) => {
   const { query, replace } = useRouter();
   const selectedClass = query?.class;
   const [filter, handleFilter] = useState('');
@@ -40,7 +39,6 @@ const Home: React.FC<HomeProps> = ({ substances, error }) => {
           py={isFiltering ? 4 : [3, 4, 5]}
           style={{ transition: '.1s ease-in' }}
         >
-          {error && <ApolloError error={error} />}
           {noResults && (
             <Text variant="secondary" p={2} mx="auto" fontSize={3}>
               <FormattedMessage
@@ -49,7 +47,7 @@ const Home: React.FC<HomeProps> = ({ substances, error }) => {
               />
             </Text>
           )}
-          {!isFiltering && !error && (
+          {!isFiltering && (
             <HomeClassSelector
               selectedClass={selectedClass}
               data={{ substances }}

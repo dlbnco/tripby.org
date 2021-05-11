@@ -2,15 +2,18 @@ import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import { withRouter } from 'next/router';
 import SubstancePage from '../../components/Substance/Page';
-import { withApollo } from '../../lib/apollo/init';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { WIKI_API_URL } from '../../lib/constants';
 import GET_SUBSTANCE from '../../components/Substance/Page/query';
 import { print } from 'graphql';
 import GET_SUBSTANCES from '../../queries/substances';
-import { Substance } from '../../lib/psy.is';
+import { FullSubstance, Substance } from '../../lib/psy.is';
 
-const SubstanceP: NextPage = ({ substance }) => {
+interface SubstancePProps {
+  substance: FullSubstance;
+}
+
+const SubstanceP: NextPage<SubstancePProps> = ({ substance }) => {
   return <SubstancePage substance={substance} />;
 };
 

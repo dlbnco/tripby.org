@@ -18,7 +18,7 @@ const StickyHeader = styled(Box).attrs(() => ({
 `;
 
 interface SubstancePageProps {
-  substance: FullSubstance[];
+  substance: FullSubstance;
 }
 
 const SubstancePage: React.FC<SubstancePageProps> = ({ substance }) => {

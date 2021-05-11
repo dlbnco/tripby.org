@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 
 import validateSubstance from '../utils/validateSubstance';
 import TimeMachineWizardLayout from './Layout';
-import { Substance } from '../../../lib/psy.is';
+import { FullSubstance } from '../../../lib/psy.is';
 
 interface TimeMachineWizardProps {
-  substance: Substance;
+  substance: FullSubstance;
 }
 
 const TimeMachineWizard: React.FC<TimeMachineWizardProps> = ({ substance }) => {

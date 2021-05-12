@@ -14,7 +14,7 @@ interface SubstanceCardProps {
 const SubstanceCard: React.FC<SubstanceCardProps> = React.memo(
   ({ substance }) => {
     return (
-      <Link href={`substance/${substance.name}`}>
+      <Link href={`/substance/${substance.name}`}>
         <a>
           <Card style={{ overflow: 'auto' }}>
             <Heading fontSize={2} fontWeight="500">

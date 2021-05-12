@@ -6,11 +6,8 @@ import Text from '../../Text';
 import { FormattedMessage } from 'react-intl';
 
 const SubstanceInteractions = ({ substance }) => {
-  const {
-    uncertainInteractions,
-    unsafeInteractions,
-    dangerousInteractions,
-  } = substance;
+  const { uncertainInteractions, unsafeInteractions, dangerousInteractions } =
+    substance;
   const interactions = [
     {
       id: 'dangerous',
@@ -27,26 +24,23 @@ const SubstanceInteractions = ({ substance }) => {
   ];
   return (
     <Flex flexDirection="column" m={-3}>
-      {interactions.map(type => {
-        if (type.value) {
+      {interactions.map((type) => {
+        if (type.value != null) {
           return (
-            <Box p={3}>
+            <Box p={3} key={type.id}>
               <Text fontSize={2} mb={3}>
                 <FormattedMessage id={`Substance.interactions.${type.id}`} />
               </Text>
               <Flex flexWrap="wrap" m={-1}>
-                {type.value.map(
-                  interaction =>
-                    interaction.__typename === 'Substance' && (
-                      <Box
-                        width={[1, 1 / 2, 1 / 3]}
-                        p={1}
-                        key={`interaction-${interaction.name}`}
-                      >
-                        <SubstanceCard substance={interaction} />
-                      </Box>
-                    )
-                )}
+                {type.value.map((interaction) => (
+                  <Box
+                    width={[1, 1 / 2, 1 / 3]}
+                    p={1}
+                    key={`interaction-${interaction.name}`}
+                  >
+                    <SubstanceCard substance={interaction} />
+                  </Box>
+                ))}
               </Flex>
             </Box>
           );

@@ -3,9 +3,16 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import MarkdownPage from '../components/Layout/MarkdownPage';
+import { GetStaticProps } from 'next';
 // import MarkdownPage from 'components/Layout/MarkdownPage';
 
-export default function Page({ content, frontmatter }) {
+export default function Page({
+  content,
+  frontmatter,
+}: {
+  content: string;
+  frontmatter: Record<string, unknown>;
+}) {
   return <MarkdownPage content={content} frontmatter={frontmatter} />;
 }
 
@@ -22,10 +29,8 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (ctx) => {
-  const {
-    params: { slug },
-  } = ctx;
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const slug = ctx.params?.slug;
   const markdownWithMetadata = fs
     .readFileSync(path.join('pages/static', slug + '.md'))
     .toString();
@@ -35,7 +40,6 @@ export const getStaticProps = async (ctx) => {
 
   return {
     props: {
-      ...ctx,
       content: `# ${frontmatter.title}\n\n${content}`,
       frontmatter,
     },

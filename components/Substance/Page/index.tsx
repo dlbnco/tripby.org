@@ -7,7 +7,7 @@ import Container from '../../Container';
 import SubstancePageHeader from '../Header';
 import SubstanceContent from '../Content';
 import SubstanceMeta from './Meta';
-import { FullSubstance } from '../../../lib/psy.is';
+import { FullSubstance } from '../../../psy.is/types';
 
 const StickyHeader = styled(Box).attrs(() => ({
   position: ['relative', null, 'sticky'],

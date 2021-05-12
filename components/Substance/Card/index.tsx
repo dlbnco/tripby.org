@@ -5,7 +5,7 @@ import Card from '../../Card';
 import Heading from '../../Heading';
 import Text from '../../Text';
 import { colors } from '../../../lib/constants';
-import { Substance } from '../../../lib/psy.is';
+import { Substance } from '../../../psy.is/types';
 
 interface SubstanceCardProps {
   substance: Substance;

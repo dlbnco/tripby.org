@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import validateSubstance from '../utils/validateSubstance';
 import TimeMachineWizardLayout from './Layout';
-import { FullSubstance } from '../../../lib/psy.is';
+import { FullSubstance } from '../../../psy.is/types';
 
 interface TimeMachineWizardProps {
   substance: FullSubstance;

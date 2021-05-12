@@ -8,8 +8,8 @@ import GET_SUBSTANCES from '../../../queries/substances';
 import SubstanceCard from '../Card';
 import { FormattedMessage } from 'react-intl';
 import { useQuery } from 'react-query';
-import { FullSubstance, Substance } from '../../../lib/psy.is';
-import { WIKI_API_URL } from '../../../lib/constants';
+import { FullSubstance, Substance } from '../../../psy.is/types';
+import { QUERY_LIMIT, WIKI_API_URL } from '../../../lib/constants';
 import { print } from 'graphql';
 
 interface SubstanceRelatedProps {
@@ -28,7 +28,7 @@ const SubstanceRelated: React.FC<SubstanceRelatedProps> = ({ substance }) => {
         body: JSON.stringify({
           query: print(GET_SUBSTANCES),
           variables: {
-            limit: 300,
+            limit: QUERY_LIMIT,
           },
         }),
       });

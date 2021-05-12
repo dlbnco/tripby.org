@@ -11,7 +11,7 @@ import Hero from '../Hero';
 import HomeSubstanceList from './SubstanceList';
 import HomeClassSelector from './ClassSelector';
 import getFilteredSubstances from './utils/getFilteredSubstances';
-import { Substance } from '../../lib/psy.is';
+import { Substance } from '../../psy.is/types';
 
 interface HomeProps {
   substances: Substance[];

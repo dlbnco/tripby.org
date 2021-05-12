@@ -2,10 +2,10 @@ import { GetStaticProps } from 'next';
 import fetch from 'isomorphic-unfetch';
 import React from 'react';
 import Home from '../components/Home';
-import { WIKI_API_URL } from '../lib/constants';
+import { QUERY_LIMIT, WIKI_API_URL } from '../lib/constants';
 import GET_SUBSTANCES from '../queries/substances';
 import { print } from 'graphql';
-import { Substance } from '../lib/psy.is';
+import { Substance } from '../psy.is/types';
 
 const HomePage = ({ substances }: { substances: Substance[] }) => (
   <Home substances={substances} />
@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
     body: JSON.stringify({
       query: print(GET_SUBSTANCES),
       variables: {
-        limit: 300,
+        limit: QUERY_LIMIT,
       },
     }),
   });

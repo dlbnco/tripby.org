@@ -1,4 +1,4 @@
-<img src="https://github.com/dlbnco/tripby.org/blob/develop/static/android-chrome-512x512.png" width="64" />
+<img src="/static/android-chrome-512x512.png" width="64" />
 
 # tripby.org
 
@@ -19,3 +19,5 @@ Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.
 ```bash
 now
 ```
+
+<img src="/static/powered-vercel.svg" />

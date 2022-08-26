@@ -1,7 +1,7 @@
 import React from 'react';
 import { space } from 'styled-system';
 import styled from 'styled-components';
-import { Flex, Box } from 'rebass';
+import { Flex, Box, Image, Link as RLink } from 'rebass';
 import Container from '../Container';
 import Text from '../Text';
 import WikiLogo from '../Logo/Wiki';
@@ -71,9 +71,10 @@ const Footer = () => (
             </Box>
           ))}
         </Flex>
-        <Text fontSize={0} variant="secondary">
+        <Text fontSize={0} variant="secondary" mb={2}>
           <FormattedHTMLMessage id="App.license" />
         </Text>
+        <Donate />
       </Box>
       <Flex
         alignItems={['flex-start', null, 'flex-end']}
@@ -92,18 +93,19 @@ const Footer = () => (
             </Text>
           </a>
         </Flex>
-        <a
+        <RLink
           href="https://absurd.design"
           target="_blank"
           rel="noopener noreferrer"
+          mb={2}
         >
           <Text p={1} fontSize={0} variant="secondary">
             <FormattedMessage id="App.illustrationCredits" />
           </Text>
-        </a>
+        </RLink>
+        <Image src="/static/powered-vercel.svg" />
       </Flex>
     </Wrapper>
-    <Donate />
   </Container>
 );
 

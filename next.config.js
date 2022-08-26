@@ -9,6 +9,7 @@ module.exports = withPlugins([
       responsive: {
         adapter: require('responsive-loader/sharp'),
       },
+      target: 'serverless',
     },
   ],
 ]);

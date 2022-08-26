@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "release": "node scripts/release.js",
-    "test": "jest"
+    "test": "jest",
+    "now-build": "next build"
   },
   "engines": {
     "node": "16.x"

@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "engines": {
-    "node": "12.x"
+    "node": "16.x"
   },
   "dependencies": {
     "babel-plugin-wildcard": "^6.0.0",

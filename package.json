@@ -10,7 +10,7 @@
     "now-build": "next build"
   },
   "engines": {
-    "node": "16.x"
+    "node": "22.x"
   },
   "dependencies": {
     "babel-plugin-wildcard": "^6.0.0",

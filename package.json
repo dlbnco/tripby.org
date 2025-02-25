@@ -1,6 +1,6 @@
 {
   "name": "tripby.org",
-  "version": "2.10.3",
+  "version": "2.10.4",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -10,7 +10,7 @@
     "now-build": "next build"
   },
   "engines": {
-    "node": "16.x"
+    "node": "22.x"
   },
   "dependencies": {
     "babel-plugin-wildcard": "^6.0.0",

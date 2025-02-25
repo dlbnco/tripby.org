@@ -81,6 +81,16 @@ const Footer = () => (
         flexDirection="column"
         p={2}
       >
+        <RLink
+          href="https://quartzo.studio"
+          target="_blank"
+          rel="noopener noreferrer"
+          mb={2}
+        >
+          <Text p={1} fontSize={0} variant="secondary">
+            <FormattedMessage id="App.maintainerCredits" />
+          </Text>
+        </RLink>
         <Flex alignItems="center" mb={2}>
           <WikiLogo size={24} />
           <a
@@ -103,7 +113,6 @@ const Footer = () => (
             <FormattedMessage id="App.illustrationCredits" />
           </Text>
         </RLink>
-        <Image src="/static/powered-vercel.svg" />
       </Flex>
     </Wrapper>
   </Container>
